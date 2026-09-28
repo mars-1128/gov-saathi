@@ -309,12 +309,12 @@ export const AIChatInterface: React.FC<AIChatInterfaceProps> = ({ initialMessage
   const suggestedQueries = SUGGESTED_QUERIES_BY_LANG[language] || SUGGESTED_QUERIES_BY_LANG.en;
 
   return (
-    <div className={`flex flex-col h-full bg-slate-50 dark:bg-slate-950 ${isSidePanel ? 'text-xs' : 'text-sm'}`}>
+    <div className={`flex flex-col h-full bg-[#F8F9FA] dark:bg-slate-950 ${isSidePanel ? 'text-xs' : 'text-sm'}`}>
       
       {/* Jurisdiction Bar */}
-      <div className="px-4 py-2 bg-blue-50/70 dark:bg-blue-950/40 border-b border-blue-100 dark:border-blue-900/40 flex items-center justify-between text-xs text-blue-900 dark:text-blue-300">
+      <div className="px-4 py-2 bg-blue-50/90 dark:bg-blue-950/40 border-b border-blue-100 dark:border-blue-900/40 flex items-center justify-between text-xs text-[#1B365D] dark:text-blue-300">
         <div className="flex items-center gap-1.5 font-medium">
-          <MapPin className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+          <MapPin className="w-3.5 h-3.5 text-[#1B365D] dark:text-blue-400" />
           <span>Active Jurisdiction: <strong>{userState}</strong></span>
         </div>
         <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-semibold border border-emerald-200 dark:border-emerald-800">
@@ -323,9 +323,9 @@ export const AIChatInterface: React.FC<AIChatInterfaceProps> = ({ initialMessage
       </div>
 
       {/* Multilingual Quick Selector Bar */}
-      <div className="px-4 py-2 bg-white/80 dark:bg-slate-900/80 border-b border-slate-200/80 dark:border-slate-800 flex items-center justify-between gap-2 overflow-x-auto text-xs">
-        <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-semibold flex-shrink-0">
-          <Globe className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+      <div className="px-4 py-2 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-2 overflow-x-auto text-xs">
+        <div className="flex items-center gap-1.5 text-[#1B365D] dark:text-slate-300 font-bold flex-shrink-0">
+          <Globe className="w-3.5 h-3.5 text-[#1B365D] dark:text-indigo-400" />
           <span className="hidden sm:inline">AI Language:</span>
         </div>
 
@@ -334,9 +334,9 @@ export const AIChatInterface: React.FC<AIChatInterfaceProps> = ({ initialMessage
             <button
               key={lang.code}
               onClick={() => setLanguage(lang.code)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
+              className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-all whitespace-nowrap ${
                 language === lang.code
-                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
+                  ? 'bg-[#1B365D] text-white shadow-sm'
                   : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
               }`}
             >
@@ -496,7 +496,7 @@ export const AIChatInterface: React.FC<AIChatInterfaceProps> = ({ initialMessage
                       href={msg.structured_data.service.official_website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white font-bold text-xs shadow-md transition-all"
+                      className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-[#1B365D] hover:bg-[#0A2540] text-white font-bold text-xs shadow-sm transition-all"
                     >
                       <span>Open Official Verified Portal</span>
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -597,7 +597,7 @@ export const AIChatInterface: React.FC<AIChatInterfaceProps> = ({ initialMessage
           <button
             type="submit"
             disabled={loading || !input.trim()}
-            className="p-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white shadow-md transition-colors"
+            className="p-2.5 rounded-lg bg-[#1B365D] hover:bg-[#0A2540] disabled:opacity-50 text-white shadow-sm transition-colors"
             title="Send message"
           >
             <Send className="w-4 h-4" />

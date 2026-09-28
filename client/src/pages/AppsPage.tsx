@@ -18,21 +18,21 @@ export const AppsPage: React.FC = () => {
       
       {/* Header */}
       <div>
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">
-          <Smartphone className="w-4 h-4" />
+        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1B365D] dark:text-blue-400">
+          <Smartphone className="w-4 h-4 text-purple-600" />
           <span>Mobile Governance</span>
         </div>
-        <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1">
+        <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#1B365D] dark:text-white mt-1">
           Official Government Mobile Apps
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
           Verified, genuine mobile applications developed by Central and State ministries. Carry legally valid documents, book gas cylinders, check PF passbooks, and lodge municipal civic grievances.
         </p>
       </div>
 
       {loading ? (
         <div className="p-16 text-center">
-          <RefreshCw className="w-8 h-8 text-blue-600 animate-spin mx-auto mb-3" />
+          <RefreshCw className="w-8 h-8 text-[#1B365D] animate-spin mx-auto mb-3" />
           <p className="text-xs text-slate-500">Loading verified apps...</p>
         </div>
       ) : (
@@ -40,27 +40,27 @@ export const AppsPage: React.FC = () => {
           {apps.map((app) => (
             <div
               key={app.name}
-              className="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 p-6 shadow-sm flex flex-col justify-between hover:border-purple-400/60 transition-colors"
+              className="gov-service-card p-6 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-900 flex items-center justify-center text-purple-700 dark:text-purple-300">
-                    <Smartphone className="w-6 h-6" />
+                  <div className="w-11 h-11 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-900 flex items-center justify-center text-[#1B365D] dark:text-blue-300">
+                    <Smartphone className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 flex items-center gap-1">
+                  <span className="gov-verified-badge inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full">
                     <ShieldCheck className="w-3 h-3 text-emerald-600" />
                     Verified Genuine
                   </span>
                 </div>
 
-                <h3 className="font-bold text-lg text-slate-900 dark:text-white">
+                <h3 className="font-bold text-lg text-[#1B365D] dark:text-white">
                   {app.name}
                 </h3>
                 <div className="text-xs font-medium text-slate-500 mt-0.5">
                   {app.department}
                 </div>
 
-                <p className="mt-3 text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                <p className="mt-3 text-xs text-[#333333] dark:text-slate-300 leading-relaxed font-normal">
                   {app.purpose}
                 </p>
 
@@ -75,7 +75,7 @@ export const AppsPage: React.FC = () => {
                   href={app.official_source}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs shadow-md transition-colors"
+                  className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-lg bg-[#1B365D] hover:bg-[#0A2540] text-white font-bold text-xs shadow-xs transition-colors"
                 >
                   <span>Open Official App Site</span>
                   <ExternalLink className="w-3.5 h-3.5" />

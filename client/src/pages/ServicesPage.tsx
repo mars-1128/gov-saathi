@@ -67,16 +67,16 @@ export const ServicesPage: React.FC = () => {
       
       {/* Header */}
       <div>
-        <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+        <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#1B365D] dark:text-white">
           Verified Government Services Directory
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
           Search and filter verified Central, State, and Municipal government portals across India.
         </p>
       </div>
 
       {/* Filter Toolbar */}
-      <div className="p-4 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+      <div className="p-4 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-[#E2E8F0] dark:border-slate-800 shadow-sm space-y-4">
         
         {/* Search input */}
         <form onSubmit={handleSearchSubmit} className="flex gap-2">
@@ -87,12 +87,12 @@ export const ServicesPage: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by keyword, certificate name, problem, or department..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-500"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-[#F8F9FA] dark:bg-slate-950 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none focus:border-[#1B365D]"
             />
           </div>
           <button
             type="submit"
-            className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors"
+            className="px-5 py-2.5 rounded-xl bg-[#1B365D] hover:bg-[#0A2540] text-white font-semibold text-xs transition-colors"
           >
             Search
           </button>

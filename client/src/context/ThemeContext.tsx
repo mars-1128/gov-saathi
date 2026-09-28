@@ -12,7 +12,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
-    return (localStorage.getItem('gov_saathi_theme') as Theme) || 'system';
+    return (localStorage.getItem('gov_saathi_theme') as Theme) || 'light';
   });
 
   const [isDark, setIsDark] = useState<boolean>(false);
