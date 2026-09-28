@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Sparkles, ArrowRight, Mic, MicOff } from 'lucide-react';
+import { Search, Mic, MicOff } from 'lucide-react';
 import { useLanguage, LanguageCode } from '../context/LanguageContext';
 
 interface SearchBarProps {
@@ -9,41 +9,36 @@ interface SearchBarProps {
   large?: boolean;
 }
 
-const CITIZEN_SAMPLE_PROMPTS_BY_LANG: Record<LanguageCode, string[]> = {
+const CITIZEN_SAMPLE_CHIPS: Record<LanguageCode, string[]> = {
   en: [
-    'How can I complain about a pothole?',
-    'Someone scammed me online through UPI',
-    'I need a passport',
-    'Where can I download my documents?',
-    'How do I complain about garbage?'
+    'update mobile number in aadhaar',
+    'Aadhaar address change',
+    'Fetch 12th marksheet DigiLocker',
+    'Instant PAN card'
   ],
   hi: [
-    'सड़क पर गड्ढे की शिकायत कैसे करें?',
-    'यूपीआई से ऑनलाइन फ्रॉड हो गया',
-    'नया पासपोर्ट कैसे बनवाएं?',
-    'डिजीलॉकर से दस्तावेज़ कैसे डाउनलोड करें?',
-    'कचरे की शिकायत कहां करें?'
+    'आधार में मोबाइल नंबर अपडेट करें',
+    'आधार पता परिवर्तन',
+    '12वीं की मार्कशीट डिजीलॉकर',
+    'तत्काल पैन कार्ड'
   ],
   te: [
-    'రోడ్డుపై గుంత గురించి ఫిర్యాదు ఎలా చేయాలి?',
-    'యూపీఐ ఆన్‌లైన్ మోసం జరిగింది',
-    'కొత్త పాస్‌పోర్ట్ ఎలా దరఖాస్తు చేయాలి?',
-    'డిజిలాకర్ నుండి పత్రాలు ఎలా డౌన్‌లోడ్ చేయాలి?',
-    'చెత్త సమస్యపై ఫిర్యాదు ఎలా చేయాలి?'
+    'ఆధార్‌లో మొబైల్ నంబర్ మార్చండి',
+    'ఆధార్ చిరునామా మార్పు',
+    '12వ తరగతి మార్కుల జాబితా',
+    'తక్షణ పాన్ కార్డ్'
   ],
   kn: [
-    'ರಸ್ತೆಯಲ್ಲಿ ಗುಂಡಿ ಬಿದ್ದಿರುವ ಬಗ್ಗೆ ದೂರು ನೀಡುವುದು ಹೇಗೆ?',
-    'ಯುಪಿಐ ಆನ್‌ಲೈನ್ ವಂಚನೆ ನಡೆದಿದೆ',
-    'ಹೊಸ ಪಾಸ್‌ಪೋರ್ಟ್‌ಗೆ ಹೇಗೆ ಅರ್ಜಿ ಸಲ್ಲಿಸುವುದು?',
-    'ಡಿಜಿಲಾಕರ್‌ನಿಂದ ದಾಖಲೆಗಳನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡುವುದು ಹೇಗೆ?',
-    'ಕಸದ ಸಮಸ್ಯೆಯ ಬಗ್ಗೆ ದೂರು ನೀಡುವುದು ಹೇಗೆ?'
+    'ಆಧಾರ್‌ನಲ್ಲಿ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ನವೀಕರಣ',
+    'ಆಧಾರ್ ವಿಳಾಸ ಬದಲಾವಣೆ',
+    '12ನೇ ತರಗತಿ ಅಂಕಪಟ್ಟಿ',
+    'ತ್ವರಿತ ಪ್ಯಾನ್ ಕಾರ್ಡ್'
   ],
   ta: [
-    'சாலையில் குழி உள்ளதை புகார் செய்வது எப்படி?',
-    'யுபிஐ மூலம் இணையதள பண மோசடி நடந்தது',
-    'புதிய பாஸ்போர்ட்டுக்கு எவ்வாறு விண்ணப்பிப்பது?',
-    'டிஜிலாக்கரிலிருந்து ஆவணங்களை பதிவிறக்கம் செய்வது எப்படி?',
-    'குப்பை பிரச்சனை பற்றி புகார் செய்வது எப்படி?'
+    'ஆதாரில் மொபைல் எண் மாற்ற',
+    'ஆதார் முகவரி மாற்றம்',
+    '12 ஆம் வகுப்பு மதிப்பெண் சான்றிதழ்',
+    'உடனடி பான் கார்டு'
   ]
 };
 
@@ -51,7 +46,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, initialValue = '
   const [query, setQuery] = useState(initialValue);
   const [isListening, setIsListening] = useState(false);
   const navigate = useNavigate();
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
   const recognitionRef = useRef<any>(null);
 
   useEffect(() => {
@@ -69,7 +64,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, initialValue = '
   const toggleVoice = () => {
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      alert('Voice search is not supported in this browser. Please use Chrome, Edge, or Safari.');
+      alert('Voice search is not supported in this browser. Please use Google Chrome, Edge, or Safari.');
       return;
     }
 
@@ -124,7 +119,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, initialValue = '
     if (onSearch) {
       onSearch(query.trim());
     } else {
-      navigate(`/services?search=${encodeURIComponent(query.trim())}`);
+      navigate(`/ai-saathi?q=${encodeURIComponent(query.trim())}`);
     }
   };
 
@@ -133,86 +128,80 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, initialValue = '
     if (onSearch) {
       onSearch(sample);
     } else {
-      navigate(`/services?search=${encodeURIComponent(sample)}`);
+      navigate(`/ai-saathi?q=${encodeURIComponent(sample)}`);
     }
   };
 
-  const samplePrompts = CITIZEN_SAMPLE_PROMPTS_BY_LANG[language] || CITIZEN_SAMPLE_PROMPTS_BY_LANG.en;
+  const sampleChips = CITIZEN_SAMPLE_CHIPS[language] || CITIZEN_SAMPLE_CHIPS.en;
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-3xl mx-auto">
       <form onSubmit={handleSearchSubmit} className="relative">
-        <div className={`relative flex items-center rounded-2xl border transition-all duration-300 ${
-          large
-            ? 'p-2 sm:p-2.5 bg-white/95 dark:bg-slate-900/95 border-slate-300/80 dark:border-slate-700 shadow-xl shadow-blue-900/5 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10'
-            : 'p-1.5 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-sm focus-within:border-blue-500'
+        <div className={`relative flex items-center rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg shadow-blue-900/5 transition-all focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 ${
+          large ? 'p-2 sm:p-2.5 pl-4' : 'p-1.5 pl-3'
         }`}>
           
-          <div className="pl-3 pr-2 text-blue-600 dark:text-blue-400">
-            <Search className={large ? "w-6 h-6" : "w-5 h-5"} />
+          {/* Search Icon */}
+          <div className="text-slate-400 dark:text-slate-500 mr-3 flex-shrink-0">
+            <Search className={large ? "w-5 h-5 text-slate-400" : "w-4 h-4 text-slate-400"} />
           </div>
 
+          {/* Text Input */}
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={
               isListening
-                ? 'Listening... speak your problem or question now'
-                : t('search_placeholder')
+                ? 'Listening... speak your request now'
+                : "e.g. 'update mobile number in aadhaar', 'fetch 12th marksheet'"
             }
-            className={`w-full bg-transparent border-none outline-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 ${
-              large ? 'text-base sm:text-lg font-medium' : 'text-sm'
-            }`}
+            className="w-full bg-transparent border-none outline-none text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm sm:text-[15px] font-normal"
           />
 
-          {/* Voice Input Trigger */}
+          {/* Voice Input Trigger (Multilingual speech) */}
           <button
             type="button"
             onClick={toggleVoice}
             title={isListening ? 'Stop listening' : 'Voice Search (Speak in any language)'}
-            className={`p-2 rounded-xl transition-all mr-1.5 ${
+            className={`p-2 rounded-xl transition-all mr-2 flex-shrink-0 ${
               isListening
                 ? 'bg-rose-600 text-white animate-pulse ring-4 ring-rose-500/30'
                 : 'text-slate-400 hover:text-blue-600 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
             {isListening ? (
-              <MicOff className="w-5 h-5 animate-bounce" />
+              <MicOff className="w-4 h-4 animate-bounce" />
             ) : (
-              <Mic className="w-5 h-5" />
+              <Mic className="w-4 h-4" />
             )}
           </button>
 
+          {/* Ask AI Saathi Blue Button (matches screenshot 2-line layout) */}
           <button
             type="submit"
-            className={`flex items-center gap-1.5 rounded-xl font-semibold transition-all ${
-              large
-                ? 'px-5 py-3 bg-gradient-to-r from-blue-700 to-indigo-600 hover:from-blue-800 hover:to-indigo-700 text-white shadow-md text-sm'
-                : 'px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs'
-            }`}
+            className="flex-shrink-0 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold leading-tight shadow-sm hover:shadow transition-all text-center flex flex-col items-center justify-center min-w-[80px]"
           >
-            <span>Search</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>Ask AI</span>
+            <span>Saathi</span>
           </button>
         </div>
       </form>
 
-      {/* Suggested Citizen Examples Chips */}
+      {/* Suggested Citizen Chips Below Search (matches screenshot) */}
       {large && (
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs">
-          <span className="text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-1 mr-1">
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-            Try asking:
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-slate-400 dark:text-slate-400">
+          <span className="font-normal text-slate-400">
+            Try searching:
           </span>
-          {samplePrompts.map((prompt) => (
+          {sampleChips.map((chip) => (
             <button
-              key={prompt}
+              key={chip}
               type="button"
-              onClick={() => handleChipClick(prompt)}
-              className="px-3 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50/50 dark:hover:bg-blue-950/40 text-slate-700 dark:text-slate-300 transition-all font-medium text-[11px] sm:text-xs shadow-sm hover:scale-[1.02]"
+              onClick={() => handleChipClick(chip)}
+              className="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 hover:underline transition-colors text-xs font-normal"
             >
-              "{prompt}"
+              "{chip}"
             </button>
           ))}
         </div>

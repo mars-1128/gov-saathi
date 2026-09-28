@@ -23,12 +23,17 @@ export const Footer: React.FC = () => {
           {/* Brand & Purpose */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-700 flex items-center justify-center text-white font-bold text-xs shadow">
-                <Shield className="w-4 h-4" />
+              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-xs shadow">
+                <Shield className="w-4 h-4 fill-white/20 stroke-[2.2]" />
               </div>
-              <span className="font-bold text-base text-slate-900 dark:text-white tracking-tight">
-                GOV SAATHI
-              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="font-extrabold text-base text-slate-900 dark:text-white tracking-tight">
+                  MyGovSaathi
+                </span>
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">
+                  AI
+                </span>
+              </div>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
               Empowering Indian citizens with transparent, verified, and AI-grounded guidance for every official government service across Central, State, and Municipal jurisdictions.
