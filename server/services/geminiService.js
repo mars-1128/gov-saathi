@@ -57,13 +57,30 @@ export function findRelevantServices(query, state = 'All India') {
     .map(item => item.service);
 }
 
+const LANGUAGE_MAP = {
+  en: 'English',
+  hi: 'Hindi (हिन्दी)',
+  te: 'Telugu (తెలుగు)',
+  kn: 'Kannada (ಕನ್ನಡ)',
+  ta: 'Tamil (தமிழ்)',
+  ml: 'Malayalam (മലയാളം)',
+  mr: 'Marathi (मराठी)',
+  bn: 'Bengali (বাংলা)',
+  gu: 'Gujarati (ગુજરાતી)',
+  pa: 'Punjabi (ਪੰਜਾਬੀ)',
+  od: 'Odia (ଓଡ଼ಿଆ)',
+  ur: 'Urdu (اردو)'
+};
+
 export async function askAISaathi({ message, history = [], state = 'All India', district = '', language = 'en' }) {
   const client = getGeminiClient();
   const relevantServices = findRelevantServices(message, state);
+  const langKey = (language || 'en').toLowerCase();
+  const targetLanguageName = LANGUAGE_MAP[langKey] || language || 'English';
 
   // If no Gemini client is available, fallback to high-quality deterministic response from verified database
   if (!client) {
-    return generateDeterministicFallback(message, relevantServices, language);
+    return generateDeterministicFallback(message, relevantServices, langKey);
   }
 
   const modelName = process.env.AI_MODEL || 'gemini-2.5-flash';
@@ -86,20 +103,31 @@ export async function askAISaathi({ message, history = [], state = 'All India', 
   }));
 
   const systemPrompt = `
-You are "AI Saathi", the official AI guide of GOV SAATHI - a citizen discovery and guidance platform for Indian government services.
-Your role is to explain official Indian government services, verify the right department, and give step-by-step instructions.
+You are "AI Saathi", the multilingual official citizen guide of GOV SAATHI - an AI-powered Indian citizen discovery and guidance platform.
+Your mission is to guide citizens to the correct official government authority, explain exact procedures, and provide verified .gov.in/.nic.in portal links in simple, respectful language.
 
-CRITICAL RULES (NON-NEGOTIABLE):
-1. GOV SAATHI DOES NOT SUBMIT COMPLAINTS OR APPLICATIONS. You are an informational guide helping citizens open the official portal themselves.
+MULTILINGUAL CAPABILITIES & RULES (MANDATORY):
+1. PRIMARY RESPONSE LANGUAGE:
+   - By default, provide your complete response in: ${targetLanguageName} (${langKey}).
+2. USER OVERRIDE & DYNAMIC SWITCHING:
+   - If the user explicitly asks for ANY other language (for example: "explain in Kannada", "give information in Tamil", "tell me in Telugu", "हिंदी में बताओ", "ಕನ್ನಡದಲ್ಲಿ ನೀಡಿ", "தமிழில் சொல்லுங்கள்", "in French", "in Bengali", etc.), or writes their question in another language/script, IMMEDIATELY HONOR THAT REQUEST and respond fully in that requested language.
+3. LANGUAGE ACCURACY & CITIZEN CLARITY:
+   - Provide fluent, natural, grammatically correct translations for all instructions, documents, explanations, and advice.
+   - For technical terms like Aadhaar, OTP, DigiLocker, FIR, UPI, or Pan Card, provide the native script or accepted transliteration so citizens easily understand.
+   - PRESERVE OFFICIAL IDENTIFIERS: Keep verified official portal URLs (e.g., https://digilocker.gov.in, https://cybercrime.gov.in) and official helpline numbers (e.g., 1930, 1950, 1915, 14449) intact in standard Latin / numerals so citizens can click and dial directly.
+
+CRITICAL CIVIC-TECH PLATFORM BOUNDARIES (NON-NEGOTIABLE):
+1. GOV SAATHI DOES NOT SUBMIT COMPLAINTS OR APPLICATIONS DIRECTLY. You are an informational guide helping citizens open the official portal themselves.
 2. NEVER INVENT fake URLs, phone numbers, fees, or departments.
 3. Use the VERIFIED DATABASE CONTEXT provided below as ground truth.
-4. If the database context does not cover the request, explicitly state: "This specific service is not yet verified in our database. Please check your state or central portal."
+4. If the database context does not cover the request, explicitly state in the target language: "This specific service is not yet verified in our database. Please check your state or central portal."
 5. Jurisdiction awareness:
-   - For potholes, garbage, streetlights, drainage -> It is MUNICIPAL / LOCAL (Swachhata App, local municipal corporation).
-   - For financial scams, UPI fraud -> It is CYBERCRIME (National Cyber Crime Reporting Portal, Helpline 1930).
-   - For e-commerce, defective products, refund disputes -> It is CONSUMER AFFAIRS (NCH, Helpline 1915).
-   - For official document downloads (Marksheet, DL, RC, Aadhaar) -> DIGILOCKER (digilocker.gov.in).
-6. Target Language: Respond in ${language === 'hi' ? 'Hindi (हिन्दी)' : language === 'te' ? 'Telugu (తెలుగు)' : 'English'}.
+   - Potholes, streetlights, garbage, waterlogging -> MUNICIPAL / LOCAL (Swachhata App, local municipal corporation).
+   - Financial scams, UPI fraud, cyber blackmail -> CYBERCRIME (National Cyber Crime Reporting Portal, Helpline 1930).
+   - E-commerce disputes, defective goods, refund fraud -> CONSUMER AFFAIRS (National Consumer Helpline, Helpline 1915).
+   - Official document downloads (Marksheet, DL, RC, Aadhaar) -> DIGILOCKER (digilocker.gov.in).
+   - Passport application -> PASSPORT SEVA (passportindia.gov.in).
+   - Voter ID / Electoral cards -> VOTER PORTAL (voters.eci.gov.in).
 
 VERIFIED DATABASE CONTEXT:
 ${JSON.stringify(contextData, null, 2)}
@@ -107,9 +135,9 @@ ${JSON.stringify(contextData, null, 2)}
 USER LOCATION:
 State: ${state || 'All India'}, District: ${district || 'Not specified'}
 
-You MUST output your response as valid, parseable JSON conforming to this schema:
+You MUST output your response as valid, parseable JSON conforming to this schema (with all textual fields translated into the target language):
 {
-  "answer": "Direct simple citizen-friendly explanation",
+  "answer": "Direct simple citizen-friendly explanation in the target language",
   "intent": "Brief classification of citizen issue",
   "category": "Category name",
   "jurisdiction": "CENTRAL | STATE | MUNICIPAL | DISTRICT | PANCHAYAT",
@@ -123,34 +151,53 @@ You MUST output your response as valid, parseable JSON conforming to this schema
     "fee": "Verified fee info",
     "last_verified": "Verification date"
   },
-  "documents": ["List of verified documents"],
+  "documents": ["List of verified documents in target language"],
   "steps": [
     {
       "step_number": 1,
-      "title": "Short title",
-      "description": "Clear action instruction"
+      "title": "Short title in target language",
+      "description": "Clear action instruction in target language"
     }
   ],
-  "important_notes": ["Critical citizen tips"],
+  "important_notes": ["Critical citizen tips in target language"],
   "needs_clarification": false,
   "clarifying_question": null,
   "confidence": "high"
 }
-Only return the raw JSON object, without markdown code fences if possible.
+Only return the raw JSON object, without markdown code fences.
 `;
 
   try {
-    const chat = model.startChat({
-      history: history.slice(-6).map(h => ({
-        role: h.role === 'assistant' ? 'model' : 'user',
-        parts: [{ text: h.content }]
-      }))
+    // Sanitize chat history so it strictly starts with 'user' and alternates 'user' -> 'model'
+    let validHistory = [];
+    let expecting = 'user';
+
+    for (const h of history.slice(-10)) {
+      const role = h.role === 'assistant' ? 'model' : 'user';
+      if (role === expecting) {
+        validHistory.push({
+          role,
+          parts: [{ text: h.content }]
+        });
+        expecting = expecting === 'user' ? 'model' : 'user';
+      }
+    }
+
+    // History must end with 'model' turn so that the upcoming sendMessage is 'user'
+    if (validHistory.length > 0 && validHistory[validHistory.length - 1].role === 'user') {
+      validHistory.pop();
+    }
+
+    const modelWithInstruction = client.getGenerativeModel({
+      model: modelName,
+      systemInstruction: systemPrompt
     });
 
-    const result = await chat.sendMessage([
-      { text: systemPrompt },
-      { text: `CITIZEN QUERY: "${message}"` }
-    ]);
+    const chat = modelWithInstruction.startChat({
+      history: validHistory
+    });
+
+    const result = await chat.sendMessage(`CITIZEN QUERY: "${message}"`);
 
     const rawText = result.response.text().trim();
     const cleanJson = rawText.replace(/^```json\s*/, '').replace(/```\s*$/, '').trim();
@@ -194,17 +241,48 @@ Only return the raw JSON object, without markdown code fences if possible.
     }
   } catch (error) {
     console.error('[AI Saathi] Gemini API error:', error);
-    return generateDeterministicFallback(message, relevantServices, language);
+    return generateDeterministicFallback(message, relevantServices, langKey);
   }
 }
 
-function generateDeterministicFallback(message, relevantServices, language) {
+function generateDeterministicFallback(message, relevantServices, language = 'en') {
+  const isHi = language === 'hi';
+  const isTe = language === 'te';
+  const isKn = language === 'kn';
+  const isTa = language === 'ta';
+
   if (relevantServices.length > 0) {
     const s = relevantServices[0];
+    
+    let answer = `For "${message}", the verified official authority is ${s.name} under ${s.department}. You can use this service ${s.application_mode.toLowerCase()} to resolve your requirement.`;
+    let docs = s.documents?.map(d => d.document_name) || ['Official photo ID (Aadhaar / Voter ID)'];
+    let notes = [
+      'Gov Saathi is an official guidance platform. Never share your passwords or OTP with anyone.',
+      'Always verify that the website URL ends in .gov.in or .nic.in.'
+    ];
+
+    if (isHi) {
+      answer = `"${message}" के लिए, आधिकारिक और सत्यापित प्राधिकरण ${s.department} के अंतर्गत ${s.name} है। आप इस सेवा का उपयोग अपनी आवश्यकता पूरी करने के लिए कर सकते हैं।`;
+      docs = ['पहचान प्रमाण (आधार कार्ड / वोटर आईडी)', 'सत्यापन के लिए मोबाइल नंबर'];
+      notes = ['सरकार साथी एक मार्गदर्शक मंच है। अपना पासवर्ड या ओटीपी कभी किसी से साझा न करें।', 'हमेशा जांचें कि वेबसाइट का यूआरएल .gov.in या .nic.in से समाप्त होता है।'];
+    } else if (isTe) {
+      answer = `"${message}" కోసం, ధృవీకరించబడిన అధికారిక విభాగం ${s.department} క్రింద ${s.name} ఉంది. మీరు మీ సమస్యను పరిష్కరించడానికి ఈ సేవను ఉపయోగించవచ్చు.`;
+      docs = ['గుర్తింపు కార్డు (ఆధార్ కార్డు / ఓటరు ఐడి)', 'మొబైల్ నంబర్'];
+      notes = ['గవ్ సాథి మార్గదర్శక వేదిక మాత్రమే. మీ పాస్‌వర్డ్ లేదా ఓటీపీని ఎవరితోనూ పంచుకోవద్దు.', 'వెబ్‌సైట్ చిరునామా .gov.in లేదా .nic.in తో ముగుస్తుందో లేదో ఎల్లప్పుడూ ధృవీకరించుకోండి.'];
+    } else if (isKn) {
+      answer = `"${message}" ಗಾಗಿ, ಪರಿಶೀಲಿಸಲಾದ ಅಧಿಕೃತ ಪ್ರಾಧಿಕಾರವು ${s.department} ಅಡಿಯಲ್ಲಿ ${s.name} ಆಗಿದೆ. ನಿಮ್ಮ ಸಮಸ್ಯೆಯನ್ನು ಪರಿಹರಿಸಲು ನೀವು ಈ ಸೇವೆಯನ್ನು ಬಳಸಬಹುದು.`;
+      docs = ['ಗುರುತಿನ ಚೀಟಿ (ಆಧಾರ್ ಕಾರ್ಡ್ / ಮತದಾರರ ಗುರುತಿನ ಚೀಟಿ)', 'ಮೊಬೈಲ್ ಸಂಖ್ಯೆ'];
+      notes = ['ಗವ್ ಸಾಥಿ ಮಾರ್ಗದರ್ಶಿ ವೇದಿಕೆಯಾಗಿದೆ. ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ಅಥವಾ OTP ಅನ್ನು ಯಾರೊಂದಿಗೂ ಹಂಚಿಕೊಳ್ಳಬೇಡಿ.', 'ವೆಬ್‌ಸೈಟ್ ವಿಳಾಸವು .gov.in ಅಥವಾ .nic.in ನೊಂದಿಗೆ ಕೊನೆಗೊಳ್ಳುತ್ತದೆಯೇ ಎಂದು ಯಾವಾಗಲೂ ಪರಿಶೀಲಿಸಿ.'];
+    } else if (isTa) {
+      answer = `"${message}" க்கு, சரிபார்க்கப்பட்ட அதிகாரப்பூர்வ அதிகாரம் ${s.department} கீழ் உள்ள ${s.name} ஆகும். உங்கள் தேவையை பூர்த்தி செய்ய இந்த சேவையைப் பயன்படுத்தலாம்.`;
+      docs = ['அடையாள அட்டை (ஆதார் அட்டை / வாக்காளர் அட்டை)', 'மொபைல் எண்'];
+      notes = ['கவ் சாத்தி ஒரு வழிகாட்டும் தளமாகும். உங்கள் கடவுச்சொல் அல்லது OTP ஐ யாருடனும் பகிர வேண்டாம்.', 'இணையதள முகவரி .gov.in அல்லது .nic.in உடன் முடிகிறதா என்பதை எப்போதும் சரிபார்க்கவும்.'];
+    }
+
     return {
       success: true,
       data: {
-        answer: `For "${message}", the verified official authority is ${s.name} under ${s.department}. You can use this service ${s.application_mode.toLowerCase()} to resolve your requirement.`,
+        answer,
         intent: s.category_name,
         category: s.category_name,
         jurisdiction: s.jurisdiction_level,
@@ -218,15 +296,12 @@ function generateDeterministicFallback(message, relevantServices, language) {
           fee: s.fee,
           last_verified: s.last_verified_at
         },
-        documents: s.documents?.map(d => d.document_name) || ['Official photo ID (Aadhaar / Voter ID)'],
+        documents: docs,
         steps: s.steps || [
           { step_number: 1, title: 'Visit Official Portal', description: `Open ${s.official_website} in your web browser.` },
           { step_number: 2, title: 'Follow Official Steps', description: s.processing_information }
         ],
-        important_notes: [
-          'Gov Saathi is an official guidance platform. Never share your passwords or OTP with anyone.',
-          'Always verify that the website URL ends in .gov.in or .nic.in.'
-        ],
+        important_notes: notes,
         needs_clarification: false,
         confidence: 'high'
       },
@@ -234,10 +309,21 @@ function generateDeterministicFallback(message, relevantServices, language) {
     };
   }
 
+  let defaultAnswer = `I could not locate an exact verified government service for "${message}". In India, public services are administered across Central, State, and Municipal levels. Please specify your state or choose a category below.`;
+  if (isHi) {
+    defaultAnswer = `मुझे "${message}" के लिए सटीक सरकारी सेवा नहीं मिली। भारत में सार्वजनिक सेवाएं केंद्र, राज्य और नगर निगम स्तरों पर प्रबंधित होती हैं। कृपया अपना राज्य बताएं या श्रेणी चुनें।`;
+  } else if (isTe) {
+    defaultAnswer = `"${message}" కోసం ఖచ్చితమైన ధృవీకరించబడిన ప్రభుత్వ సేవ కనుగొనబడలేదు. దయచేసి మీ రాష్ట్రాన్ని పేర్కొనండి లేదా వర్గాన్ని ఎంచుకోండి.`;
+  } else if (isKn) {
+    defaultAnswer = `"${message}" ಗಾಗಿ ನಿಖರವಾದ ಪರಿಶೀಲಿಸಲಾದ ಸರ್ಕಾರಿ ಸೇವೆಯನ್ನು ಹುಡುಕಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ರಾಜ್ಯವನ್ನು ನಿರ್ದಿಷ್ಟಪಡಿಸಿ ಅಥವಾ ಕೆಳಗಿನ ವರ್ಗವನ್ನು ಆಯ್ಕೆಮಾಡಿ.`;
+  } else if (isTa) {
+    defaultAnswer = `"${message}" க்கான சரியான சரிபார்க்கப்பட்ட அரசு சேவையை கண்டுபிடிக்க முடியவில்லை. தயவுசெய்து உங்கள் மாநிலத்தைக் குறிப்பிடவும் அல்லது பிரிவைத் தேர்ந்தெடுக்கவும்.`;
+  }
+
   return {
     success: true,
     data: {
-      answer: `I could not locate an exact verified government service for "${message}". In India, public services are administered across Central, State, and Municipal levels. Please specify your state or choose a category below.`,
+      answer: defaultAnswer,
       intent: 'General inquiry',
       category: 'Other Government Services',
       jurisdiction: 'CENTRAL',

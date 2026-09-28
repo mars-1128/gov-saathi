@@ -12,43 +12,104 @@ import {
   AlertCircle,
   RefreshCw,
   MapPin,
+  Globe,
+  Mic,
+  MicOff,
+  Volume2,
+  VolumeX,
   ChevronRight
 } from 'lucide-react';
 import { sendAIChatMessage } from '../lib/api';
 import { ChatMessage, AISaathiResponse } from '../types';
 import { useLocation } from '../context/LocationContext';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage, SUPPORTED_LANGUAGES, LanguageCode } from '../context/LanguageContext';
 
 interface AIChatInterfaceProps {
   initialMessage?: string;
   isSidePanel?: boolean;
 }
 
-const SUGGESTED_QUERIES = [
-  'There is a pothole near my house',
-  'Someone scammed me online through UPI',
-  'I need to download my 10th & 12th marksheets',
-  'How do I apply for a new passport?',
-  'I have an unfair bill from an e-commerce company',
-  'How do I update address in Aadhaar?'
-];
+const WELCOME_MESSAGES: Record<LanguageCode, string> = {
+  en: 'Namaste! I am AI Saathi, your official guide to Indian Government Services. Describe any requirement or problem in normal language (you can also speak via microphone in English, Hindi, Telugu, Kannada, Tamil, or any language), and I will identify the correct government authority, explain the steps, and provide official verified links.',
+  hi: 'नमस्ते! मैं एआई साथी हूँ, भारतीय सरकारी सेवाओं के लिए आपका आधिकारिक मार्गदर्शक। अपनी समस्या सामान्य भाषा में बताएं (या माइक से हिंदी, अंग्रेजी, तेलुगु, कन्नड़, तमिल आदि में बोलें), मैं सही सरकारी विभाग और आधिकारिक .gov.in पोर्टल की जानकारी दूंगा।',
+  te: 'నమస్కారం! నేను ఏఐ సాథిని, భారత ప్రభుత్వ సేవల కోసం మీ అధికారిక మార్గదర్శిని. మీ సమస్యను సాధారణ భాషలో చెప్పండి (లేదా మైక్రోఫోన్ ఉపయోగించి మాట్లాడండి), సరైన ప్రభుత్వ పోర్టల్ మరియు అధికారిక దశలను నేను వివరిస్తాను.',
+  kn: 'ನಮಸ್ಕಾರ! ನಾನು ಎಐ ಸಾಥಿ, ಭಾರತೀಯ ಸರ್ಕಾರಿ ಸೇವೆಗಳಿಗೆ ನಿಮ್ಮ ಅಧಿಕೃತ ಮಾರ್ಗದರ್ಶಿ. ನಿಮ್ಮ ಸಮಸ್ಯೆಯನ್ನು ಸಾಮಾನ್ಯ ಭಾಷೆಯಲ್ಲಿ ತಿಳಿಸಿ (ಅಥವಾ ಮೈಕ್ರೋಫೋನ್ ಮೂಲಕ ಮಾತನಾಡಿ), ನಾನು ಸರಿಯಾದ ಸರ್ಕಾರಿ ಪ್ರಾಧಿಕಾರ ಮತ್ತು ಅಧಿಕೃತ ಲಿಂಕ್‌ಗಳನ್ನು ಒದಗಿಸುತ್ತೇನೆ.',
+  ta: 'வணக்கம்! நான் ஏஐ சாத்தி, இந்திய அரசு சேவைகளுக்கான உங்கள் அதிகாரப்பூர்வ வழிகாட்டி. உங்கள் தேவையை எளிய மொழியில் கூறுங்கள் (அல்லது மைக் மூலம் பேசுங்கள்), சரியான அரசு போர்டல் மற்றும் வழிகாட்டுதல்களை நான் வழங்குகிறேன்.'
+};
+
+const SUGGESTED_QUERIES_BY_LANG: Record<LanguageCode, string[]> = {
+  en: [
+    'There is a pothole near my house',
+    'Someone scammed me online through UPI',
+    'I need to download my 10th & 12th marksheets',
+    'How do I apply for a new passport?',
+    'How do I update address in Aadhaar?'
+  ],
+  hi: [
+    'सड़क पर गड्ढे की शिकायत कैसे करें?',
+    'यूपीआई से ऑनलाइन फ्रॉड हो गया',
+    '10वीं-12वीं की मार्कशीट डिजीलॉकर से कैसे निकालें?',
+    'नया पासपोर्ट कैसे बनवाएं?',
+    'आधार कार्ड में पता कैसे बदलें?'
+  ],
+  te: [
+    'రోడ్డుపై గుంత గురించి ఫిర్యాదు ఎలా చేయాలి?',
+    'యూపీఐ ఆన్‌లైన్ మోసం జరిగింది (1930)',
+    '10వ తరగతి మార్కుల జాబితా డౌన్‌లోడ్ చేసుకోవాలి',
+    'కొత్త పాస్‌పోర్ట్ ఎలా దరఖాస్తు చేయాలి?',
+    'ఆధార్‌లో చిరునామా ఎలా మార్చాలి?'
+  ],
+  kn: [
+    'ರಸ್ತೆಯಲ್ಲಿ ಗುಂಡಿ ಬಿದ್ದಿರುವ ಬಗ್ಗೆ ದೂರು ನೀಡುವುದು ಹೇಗೆ?',
+    'ಯುಪಿಐ ಆನ್‌ಲೈನ್ ವಂಚನೆ ನಡೆದಿದೆ (1930)',
+    '10 ಮತ್ತು 12 ನೇ ತರಗತಿ ಅಂಕಪಟ್ಟಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಬೇಕು',
+    'ಹೊಸ ಪಾಸ್‌ಪೋರ್ಟ್‌ಗೆ ಹೇಗೆ ಅರ್ಜಿ ಸಲ್ಲಿಸುವುದು?',
+    'ಆಧಾರ್ ಕಾರ್ಡ್‌ನಲ್ಲಿ ವಿಳಾಸ ಬದಲಾಯಿಸುವುದು ಹೇಗೆ?'
+  ],
+  ta: [
+    'சாலையில் குழி உள்ளதை புகார் செய்வது எப்படி?',
+    'யுபிஐ மூலம் இணையதள பண மோசடி நடந்தது (1930)',
+    '10 மற்றும் 12 ஆம் வகுப்பு மதிப்பெண் சான்றிதழ் பெற வேண்டும்',
+    'புதிய பாஸ்போர்ட்டுக்கு விண்ணப்பிப்பது எப்படி?',
+    'ஆதார் அட்டையில் முகவரி மாற்றுவது எப்படி?'
+  ]
+};
 
 export const AIChatInterface: React.FC<AIChatInterfaceProps> = ({ initialMessage = '', isSidePanel = false }) => {
   const { state: userState, district: userDistrict } = useLocation();
-  const { language } = useLanguage();
+  const { language, setLanguage } = useLanguage();
 
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',
       role: 'assistant',
-      content: 'Namaste! I am AI Saathi, your official guide to Indian Government Services. Describe any requirement or problem in normal language (e.g., "pothole on my road", "scammed online", "lost documents"), and I will identify the correct government authority, explain the steps, and provide official verified links.',
+      content: WELCOME_MESSAGES[language] || WELCOME_MESSAGES.en,
       created_at: new Date().toISOString()
     }
   ]);
 
   const [input, setInput] = useState(initialMessage);
   const [loading, setLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [speechError, setSpeechError] = useState<string | null>(null);
+  const [speakingId, setSpeakingId] = useState<string | null>(null);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const recognitionRef = useRef<any>(null);
+
+  // Update welcome message if user changes language and no conversation started yet
+  useEffect(() => {
+    if (messages.length === 1 && messages[0].id === 'welcome') {
+      setMessages([
+        {
+          id: 'welcome',
+          role: 'assistant',
+          content: WELCOME_MESSAGES[language] || WELCOME_MESSAGES.en,
+          created_at: new Date().toISOString()
+        }
+      ]);
+    }
+  }, [language]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -58,9 +119,144 @@ export const AIChatInterface: React.FC<AIChatInterfaceProps> = ({ initialMessage
     scrollToBottom();
   }, [messages, loading]);
 
+  // Clean up speech recognition on unmount
+  useEffect(() => {
+    return () => {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.abort();
+        } catch (e) {
+          // ignore
+        }
+      }
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
+
+  // Voice Input (Speech-to-Text)
+  const toggleVoiceInput = () => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      setSpeechError('Speech recognition is not supported in this browser. Please use Chrome, Edge, or Safari.');
+      setTimeout(() => setSpeechError(null), 6000);
+      return;
+    }
+
+    if (isListening) {
+      try {
+        recognitionRef.current?.stop();
+      } catch (e) {
+        // ignore
+      }
+      setIsListening(false);
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognitionRef.current = recognition;
+
+      const localeMap: Record<LanguageCode, string> = {
+        en: 'en-IN',
+        hi: 'hi-IN',
+        te: 'te-IN',
+        kn: 'kn-IN',
+        ta: 'ta-IN'
+      };
+
+      recognition.lang = localeMap[language] || 'en-IN';
+      recognition.continuous = false;
+      recognition.interimResults = true;
+
+      recognition.onstart = () => {
+        setIsListening(true);
+        setSpeechError(null);
+      };
+
+      recognition.onresult = (event: any) => {
+        let transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript;
+        }
+        setInput(transcript);
+      };
+
+      recognition.onerror = (event: any) => {
+        console.warn('Voice input error:', event.error);
+        if (event.error === 'not-allowed') {
+          setSpeechError('Microphone permission blocked. Please allow microphone access in browser settings.');
+        } else if (event.error === 'no-speech') {
+          setSpeechError('No speech detected. Please try speaking into your microphone.');
+        } else {
+          setSpeechError(`Voice error: ${event.error}`);
+        }
+        setIsListening(false);
+        setTimeout(() => setSpeechError(null), 5000);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.start();
+    } catch (err) {
+      console.error('Failed to start speech recognition:', err);
+      setIsListening(false);
+      setSpeechError('Could not start microphone. Please check browser permissions.');
+      setTimeout(() => setSpeechError(null), 5000);
+    }
+  };
+
+  // Text-to-Speech (Read Aloud)
+  const handleToggleSpeak = (text: string, msgId: string) => {
+    if (!('speechSynthesis' in window)) {
+      alert('Speech synthesis audio is not supported in your current browser.');
+      return;
+    }
+
+    if (speakingId === msgId) {
+      window.speechSynthesis.cancel();
+      setSpeakingId(null);
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    const localeMap: Record<LanguageCode, string> = {
+      en: 'en-IN',
+      hi: 'hi-IN',
+      te: 'te-IN',
+      kn: 'kn-IN',
+      ta: 'ta-IN'
+    };
+
+    utterance.lang = localeMap[language] || 'en-IN';
+    utterance.rate = 0.95;
+
+    utterance.onend = () => setSpeakingId(null);
+    utterance.onerror = () => setSpeakingId(null);
+
+    setSpeakingId(msgId);
+    window.speechSynthesis.speak(utterance);
+  };
+
   const handleSend = async (messageText?: string) => {
     const textToSend = messageText || input;
     if (!textToSend.trim() || loading) return;
+
+    // Stop listening if user was talking
+    if (isListening) {
+      try {
+        recognitionRef.current?.stop();
+      } catch (e) {
+        // ignore
+      }
+      setIsListening(false);
+    }
 
     const userMsg: ChatMessage = {
       id: `msg-${Date.now()}`,
@@ -109,6 +305,9 @@ export const AIChatInterface: React.FC<AIChatInterfaceProps> = ({ initialMessage
     }
   };
 
+  const activeLangMeta = SUPPORTED_LANGUAGES.find(l => l.code === language) || SUPPORTED_LANGUAGES[0];
+  const suggestedQueries = SUGGESTED_QUERIES_BY_LANG[language] || SUGGESTED_QUERIES_BY_LANG.en;
+
   return (
     <div className={`flex flex-col h-full bg-slate-50 dark:bg-slate-950 ${isSidePanel ? 'text-xs' : 'text-sm'}`}>
       
@@ -122,6 +321,60 @@ export const AIChatInterface: React.FC<AIChatInterfaceProps> = ({ initialMessage
           Strictly Fact Grounded
         </span>
       </div>
+
+      {/* Multilingual Quick Selector Bar */}
+      <div className="px-4 py-2 bg-white/80 dark:bg-slate-900/80 border-b border-slate-200/80 dark:border-slate-800 flex items-center justify-between gap-2 overflow-x-auto text-xs">
+        <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-semibold flex-shrink-0">
+          <Globe className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+          <span className="hidden sm:inline">AI Language:</span>
+        </div>
+
+        <div className="flex items-center gap-1.5 overflow-x-auto">
+          {SUPPORTED_LANGUAGES.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => setLanguage(lang.code)}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
+                language === lang.code
+                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+              }`}
+            >
+              {lang.nativeName}
+            </button>
+          ))}
+        </div>
+
+        <span className="hidden md:inline-block text-[11px] text-slate-400 dark:text-slate-500 italic whitespace-nowrap">
+          (Responds in any language)
+        </span>
+      </div>
+
+      {/* Speech Error Banner */}
+      {speechError && (
+        <div className="px-4 py-2 bg-amber-50 dark:bg-amber-950/50 border-b border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200 text-xs flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 flex-shrink-0 text-amber-600" />
+          <span>{speechError}</span>
+        </div>
+      )}
+
+      {/* Voice Listening Active Banner */}
+      {isListening && (
+        <div className="px-4 py-2 bg-rose-50 dark:bg-rose-950/60 border-b border-rose-200 dark:border-rose-900 text-rose-800 dark:text-rose-200 text-xs flex items-center justify-between animate-pulse">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-600 animate-ping"></span>
+            <span className="font-semibold">
+              Listening in {activeLangMeta.nativeName} ({activeLangMeta.label})... Speak your question now
+            </span>
+          </div>
+          <button
+            onClick={toggleVoiceInput}
+            className="text-[11px] font-bold px-2 py-0.5 rounded bg-rose-200 dark:bg-rose-800 text-rose-900 dark:text-rose-100"
+          >
+            Stop
+          </button>
+        </div>
+      )}
 
       {/* Messages Scroll Area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -142,9 +395,30 @@ export const AIChatInterface: React.FC<AIChatInterfaceProps> = ({ initialMessage
                 : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 rounded-2xl rounded-tl-sm p-4 border border-slate-200/80 dark:border-slate-800 shadow-sm'
             }`}>
               
-              <p className="leading-relaxed whitespace-pre-line font-normal">
-                {msg.content}
-              </p>
+              <div className="flex items-start justify-between gap-2">
+                <p className="leading-relaxed whitespace-pre-line font-normal flex-1">
+                  {msg.content}
+                </p>
+
+                {/* Read Aloud Audio Button for Assistant Messages */}
+                {msg.role === 'assistant' && (
+                  <button
+                    onClick={() => handleToggleSpeak(msg.content, msg.id)}
+                    className={`p-1.5 rounded-lg border transition-all flex-shrink-0 ml-1 ${
+                      speakingId === msg.id
+                        ? 'bg-blue-100 dark:bg-blue-900 border-blue-400 text-blue-700 dark:text-blue-300 animate-pulse'
+                        : 'border-slate-200 dark:border-slate-700 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'
+                    }`}
+                    title={speakingId === msg.id ? 'Stop listening' : 'Listen to answer (Read Aloud)'}
+                  >
+                    {speakingId === msg.id ? (
+                      <VolumeX className="w-4 h-4 text-rose-500" />
+                    ) : (
+                      <Volume2 className="w-4 h-4" />
+                    )}
+                  </button>
+                )}
+              </div>
 
               {/* Structured AI Guidance Card */}
               {msg.structured_data?.service && (
@@ -252,7 +526,7 @@ export const AIChatInterface: React.FC<AIChatInterfaceProps> = ({ initialMessage
             </div>
             <div className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 shadow-sm">
               <RefreshCw className="w-3.5 h-3.5 animate-spin text-blue-600" />
-              <span>Analyzing citizen query against verified government database...</span>
+              <span>Analyzing citizen query against verified government database ({activeLangMeta.nativeName})...</span>
             </div>
           </div>
         )}
@@ -264,10 +538,10 @@ export const AIChatInterface: React.FC<AIChatInterfaceProps> = ({ initialMessage
       {messages.length <= 2 && (
         <div className="px-4 py-2 border-t border-slate-200/80 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50">
           <div className="text-[11px] font-semibold text-slate-500 mb-1.5 flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-amber-500" /> Suggested Questions:
+            <Sparkles className="w-3 h-3 text-amber-500" /> Suggested in {activeLangMeta.nativeName}:
           </div>
           <div className="flex flex-wrap gap-1.5">
-            {SUGGESTED_QUERIES.map((q) => (
+            {suggestedQueries.map((q) => (
               <button
                 key={q}
                 onClick={() => handleSend(q)}
@@ -280,7 +554,7 @@ export const AIChatInterface: React.FC<AIChatInterfaceProps> = ({ initialMessage
         </div>
       )}
 
-      {/* Input Form */}
+      {/* Input Form with Voice Button */}
       <div className="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
         <form
           onSubmit={(e) => {
@@ -289,18 +563,42 @@ export const AIChatInterface: React.FC<AIChatInterfaceProps> = ({ initialMessage
           }}
           className="flex items-center gap-2"
         >
+          {/* Voice Input Button */}
+          <button
+            type="button"
+            onClick={toggleVoiceInput}
+            title={isListening ? 'Stop listening' : `Speak in ${activeLangMeta.nativeName} (${activeLangMeta.label})`}
+            className={`p-2.5 rounded-xl border transition-all flex items-center justify-center ${
+              isListening
+                ? 'bg-rose-600 text-white border-rose-700 ring-4 ring-rose-500/20 animate-pulse'
+                : 'bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/40 text-slate-600 dark:text-slate-300 hover:text-blue-600 border-slate-200 dark:border-slate-700'
+            }`}
+          >
+            {isListening ? (
+              <MicOff className="w-4 h-4 animate-bounce" />
+            ) : (
+              <Mic className="w-4 h-4" />
+            )}
+          </button>
+
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Describe your issue (e.g. pothole on my street, online financial fraud)..."
+            placeholder={
+              isListening
+                ? `Listening in ${activeLangMeta.nativeName}... speak now`
+                : `Type in ANY language (English, हिन्दी, తెలుగు, ಕನ್ನಡ, தமிழ்)...`
+            }
             disabled={loading}
             className="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-500"
           />
+
           <button
             type="submit"
             disabled={loading || !input.trim()}
             className="p-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white shadow-md transition-colors"
+            title="Send message"
           >
             <Send className="w-4 h-4" />
           </button>

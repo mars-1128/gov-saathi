@@ -138,24 +138,41 @@ export const Navbar: React.FC = () => {
               </button>
 
               {langDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-32 rounded-xl bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 py-1 z-50 text-xs">
+                <div className="absolute right-0 mt-2 w-36 rounded-xl bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 py-1 z-50 text-xs">
                   <button
                     onClick={() => { setLanguage('en'); setLangDropdownOpen(false); }}
-                    className={`w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 ${language === 'en' ? 'font-bold text-blue-600' : ''}`}
+                    className={`w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between ${language === 'en' ? 'font-bold text-blue-600' : ''}`}
                   >
-                    English
+                    <span>English</span>
+                    <span className="text-[10px] text-slate-400">EN</span>
                   </button>
                   <button
                     onClick={() => { setLanguage('hi'); setLangDropdownOpen(false); }}
-                    className={`w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 ${language === 'hi' ? 'font-bold text-blue-600' : ''}`}
+                    className={`w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between ${language === 'hi' ? 'font-bold text-blue-600' : ''}`}
                   >
-                    हिन्दी (Hindi)
+                    <span>हिन्दी</span>
+                    <span className="text-[10px] text-slate-400">HI</span>
                   </button>
                   <button
                     onClick={() => { setLanguage('te'); setLangDropdownOpen(false); }}
-                    className={`w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 ${language === 'te' ? 'font-bold text-blue-600' : ''}`}
+                    className={`w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between ${language === 'te' ? 'font-bold text-blue-600' : ''}`}
                   >
-                    తెలుగు (Telugu)
+                    <span>తెలుగు</span>
+                    <span className="text-[10px] text-slate-400">TE</span>
+                  </button>
+                  <button
+                    onClick={() => { setLanguage('kn'); setLangDropdownOpen(false); }}
+                    className={`w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between ${language === 'kn' ? 'font-bold text-blue-600' : ''}`}
+                  >
+                    <span>ಕನ್ನಡ</span>
+                    <span className="text-[10px] text-slate-400">KN</span>
+                  </button>
+                  <button
+                    onClick={() => { setLanguage('ta'); setLangDropdownOpen(false); }}
+                    className={`w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between ${language === 'ta' ? 'font-bold text-blue-600' : ''}`}
+                  >
+                    <span>தமிழ்</span>
+                    <span className="text-[10px] text-slate-400">TA</span>
                   </button>
                 </div>
               )}
@@ -296,9 +313,11 @@ export const Navbar: React.FC = () => {
               onChange={(e) => setLanguage(e.target.value as LanguageCode)}
               className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 uppercase"
             >
-              <option value="en">EN</option>
-              <option value="hi">हिन्दी</option>
-              <option value="te">తెలుగు</option>
+              <option value="en">EN (English)</option>
+              <option value="hi">हिन्दी (Hindi)</option>
+              <option value="te">తెలుగు (Telugu)</option>
+              <option value="kn">ಕನ್ನಡ (Kannada)</option>
+              <option value="ta">தமிழ் (Tamil)</option>
             </select>
 
             <button
