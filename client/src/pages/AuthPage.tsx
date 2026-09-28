@@ -245,21 +245,23 @@ export const AuthPage: React.FC = () => {
           
           {/* Top Brand Header */}
           <div className="text-center space-y-2">
-            <Link to="/" className="inline-flex items-center gap-2 group mb-1">
-              <div className="w-11 h-11 rounded-2xl bg-[#2563EB] flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-                <Shield className="w-6 h-6 fill-white/20 stroke-[2.2]" />
+            <Link to="/" className="inline-flex items-center gap-2.5 group mb-1">
+              <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-amber-500 p-0.5 shadow-md shadow-blue-500/10 group-hover:scale-105 transition-transform flex-shrink-0">
+                <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center">
+                  <Shield className="w-6 h-6 text-blue-700 dark:text-blue-400 group-hover:scale-110 transition-transform" />
+                </div>
               </div>
               <div className="text-left">
                 <div className="flex items-center gap-1.5">
-                  <span className="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">
-                    MyGovSaathi
+                  <span className="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">
+                    GOV SAATHI
                   </span>
-                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-[#2563EB] dark:text-blue-400">
-                    AI
+                  <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30">
+                    Citizen Guide
                   </span>
                 </div>
-                <p className="text-[8px] font-bold tracking-wider text-slate-400 uppercase">
-                  Citizen Portal
+                <p className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+                  भारत सरकार सेवा साथी
                 </p>
               </div>
             </Link>

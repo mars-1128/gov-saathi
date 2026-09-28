@@ -37,11 +37,9 @@ export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  const [servicesMenuOpen, setServicesMenuOpen] = useState(false);
 
   const langRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
-  const servicesRef = useRef<HTMLDivElement>(null);
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -51,9 +49,6 @@ export const Navbar: React.FC = () => {
       }
       if (userRef.current && !userRef.current.contains(event.target as Node)) {
         setUserDropdownOpen(false);
-      }
-      if (servicesRef.current && !servicesRef.current.contains(event.target as Node)) {
-        setServicesMenuOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -65,13 +60,15 @@ export const Navbar: React.FC = () => {
   const isActive = (path: string) => routerLocation.pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 transition-colors shadow-2xs">
+    <header className="sticky top-0 z-50 w-full shadow-sm transition-colors">
       
-      {/* 1. TOP NATIONAL UTILITY STRIP */}
-      <div className="border-b border-slate-100 dark:border-slate-800/80 bg-slate-50/90 dark:bg-slate-950/80 text-[11px] py-1 px-4 sm:px-6 lg:px-8">
+      {/* ========================================================
+          1. TOP NATIONAL UTILITY STRIP
+          ======================================================== */}
+      <div className="border-b border-slate-200/70 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-[11px] py-1.5 px-4 sm:px-6 lg:px-8 transition-colors">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           
-          {/* Left: National Portal Indicator */}
+          {/* Left: Official Initiative Identification */}
           <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium">
             <span className="flex items-center gap-1">
               <span className="inline-block w-2.5 h-1.5 bg-[#FF9933] rounded-xs"></span>
@@ -91,9 +88,9 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center gap-2 sm:gap-3 text-slate-700 dark:text-slate-300">
             
             {/* Jurisdiction State Selector */}
-            <div className="flex items-center gap-1 bg-white dark:bg-slate-900 px-2 py-0.5 rounded-lg border border-slate-200/80 dark:border-slate-800">
+            <div className="flex items-center gap-1 bg-white dark:bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-800 shadow-2xs">
               <MapPin className="w-3 h-3 text-[#2563EB]" />
-              <label htmlFor="user-state-select" className="sr-only">Select State</label>
+              <label htmlFor="user-state-select" className="sr-only">Select Jurisdiction State</label>
               <select
                 id="user-state-select"
                 value={userState}
@@ -113,7 +110,7 @@ export const Navbar: React.FC = () => {
             <div className="relative" ref={langRef}>
               <button
                 onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                className="flex items-center gap-1 bg-white dark:bg-slate-900 px-2 py-0.5 rounded-lg border border-slate-200/80 dark:border-slate-800 text-[11px] font-semibold hover:bg-slate-50 text-slate-700 dark:text-slate-200"
+                className="flex items-center gap-1.5 bg-white dark:bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-800 text-[11px] font-semibold hover:bg-slate-50 text-slate-700 dark:text-slate-200 shadow-2xs"
                 title="Select Language"
               >
                 <Globe className="w-3 h-3 text-indigo-600" />
@@ -122,7 +119,7 @@ export const Navbar: React.FC = () => {
               </button>
 
               {langDropdownOpen && (
-                <div className="absolute right-0 mt-1 w-44 rounded-xl bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 py-1 z-50 animate-in fade-in duration-100">
+                <div className="absolute right-0 mt-1.5 w-44 rounded-xl bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 py-1 z-50 animate-in fade-in duration-100">
                   <div className="px-3 py-1 text-[9px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 dark:border-slate-800">
                     Select Language
                   </div>
@@ -148,7 +145,7 @@ export const Navbar: React.FC = () => {
             {/* Light / Dark Mode Toggle */}
             <button
               onClick={() => setTheme(isDark ? 'light' : 'dark')}
-              className="p-1 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 transition-colors"
+              className="p-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 transition-colors shadow-2xs"
               title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
               aria-label="Toggle Theme"
             >
@@ -160,254 +157,272 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. MAIN NAVIGATION BAR */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18">
+      {/* ========================================================
+          2. MAIN BRANDING & ACCOUNT BAR
+          ======================================================== */}
+      <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/70 dark:border-slate-800 px-4 sm:px-6 lg:px-8 transition-colors">
+        <div className="max-w-7xl mx-auto flex items-center justify-between h-20">
           
-          {/* Brand & Logo */}
-          <Link to="/" className="flex items-center gap-3 group flex-shrink-0">
-            <div className="w-10 h-10 rounded-2xl bg-[#2563EB] flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-              <Shield className="w-5 h-5 fill-white/20 stroke-[2.2]" />
+          {/* Authentic Original Logo */}
+          <Link to="/" className="flex items-center gap-3 group">
+            {/* Original gradient squircle with Shield */}
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-amber-500 p-0.5 shadow-md shadow-blue-500/10 group-hover:scale-105 transition-transform flex-shrink-0">
+              <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center">
+                <Shield className="w-6 h-6 text-blue-700 dark:text-blue-400 group-hover:scale-110 transition-transform" />
+              </div>
             </div>
 
+            {/* Original typography & badges */}
             <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">
-                  MyGovSaathi
+              <div className="flex items-center gap-2">
+                <span className="font-extrabold text-2xl tracking-tight bg-gradient-to-r from-blue-900 via-indigo-800 to-blue-700 dark:from-white dark:to-slate-200 bg-clip-text text-transparent">
+                  GOV SAATHI
                 </span>
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-950/80 text-[#2563EB] dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60">
-                  AI
+                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30">
+                  Citizen Guide
                 </span>
               </div>
-              <p className="text-[8px] font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase mt-0.5">
-                CITIZEN DOCUMENT & SERVICE NAVIGATOR
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium tracking-wide mt-0.5">
+                भारत सरकार सेवा साथी • CITIZEN SERVICE NAVIGATOR
               </p>
             </div>
           </Link>
 
-          {/* Center Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-1 text-[13px] font-semibold text-slate-600 dark:text-slate-300">
+          {/* Right Action Tools: Ask AI Saathi & Citizen Account */}
+          <div className="flex items-center gap-3">
             
-            {/* Home */}
-            <Link
-              to="/"
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-xl transition-colors ${
-                isActive('/')
-                  ? 'text-[#2563EB] dark:text-blue-400 bg-blue-50/70 dark:bg-blue-950/40 font-bold'
-                  : 'hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/60'
-              }`}
-            >
-              <Home className="w-3.5 h-3.5" />
-              <span>Home</span>
-            </Link>
-
-            {/* Services with Dropdown (All Services & Categories) */}
-            <div className="relative" ref={servicesRef}>
-              <button
-                onClick={() => setServicesMenuOpen(!servicesMenuOpen)}
-                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl transition-colors ${
-                  isActive('/services') || isActive('/categories') || servicesMenuOpen
-                    ? 'text-[#2563EB] dark:text-blue-400 bg-blue-50/70 dark:bg-blue-950/40 font-bold'
-                    : 'hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/60'
-                }`}
-              >
-                <span>Services</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${servicesMenuOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              {servicesMenuOpen && (
-                <div className="absolute left-0 mt-1 w-56 rounded-2xl bg-white dark:bg-slate-900 shadow-xl border border-slate-200/80 dark:border-slate-800 py-1.5 z-50 animate-in fade-in duration-100">
-                  <Link
-                    to="/services"
-                    onClick={() => setServicesMenuOpen(false)}
-                    className="px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-start gap-2.5 text-xs text-slate-800 dark:text-slate-200"
-                  >
-                    <Layers className="w-4 h-4 text-[#2563EB] mt-0.5" />
-                    <div>
-                      <div className="font-bold">All Verified Services</div>
-                      <div className="text-[10px] text-slate-500">Aadhaar, Passport, Ration, PAN</div>
-                    </div>
-                  </Link>
-
-                  <Link
-                    to="/categories"
-                    onClick={() => setServicesMenuOpen(false)}
-                    className="px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-start gap-2.5 text-xs text-slate-800 dark:text-slate-200 border-t border-slate-100 dark:border-slate-800"
-                  >
-                    <Award className="w-4 h-4 text-emerald-600 mt-0.5" />
-                    <div>
-                      <div className="font-bold">18 Citizen Categories</div>
-                      <div className="text-[10px] text-slate-500">Identity, Health, Transport, Police</div>
-                    </div>
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Schemes */}
-            <Link
-              to="/schemes"
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-xl transition-colors ${
-                isActive('/schemes')
-                  ? 'text-[#2563EB] dark:text-blue-400 bg-blue-50/70 dark:bg-blue-950/40 font-bold'
-                  : 'hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/60'
-              }`}
-            >
-              <Gift className="w-3.5 h-3.5 text-amber-500" />
-              <span>Schemes</span>
-            </Link>
-
-            {/* Official Apps */}
-            <Link
-              to="/apps"
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-xl transition-colors ${
-                isActive('/apps')
-                  ? 'text-[#2563EB] dark:text-blue-400 bg-blue-50/70 dark:bg-blue-950/40 font-bold'
-                  : 'hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/60'
-              }`}
-            >
-              <Smartphone className="w-3.5 h-3.5 text-purple-500" />
-              <span>Official Apps</span>
-            </Link>
-
-            {/* Documents Hub */}
-            <Link
-              to="/documents"
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-xl transition-colors ${
-                isActive('/documents')
-                  ? 'text-[#2563EB] dark:text-blue-400 bg-blue-50/70 dark:bg-blue-950/40 font-bold'
-                  : 'hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/60'
-              }`}
-            >
-              <FileText className="w-3.5 h-3.5 text-blue-500" />
-              <span>Documents Hub</span>
-            </Link>
-
-            {/* Solve a Problem */}
-            <Link
-              to="/problem-solver"
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-xl transition-colors ${
-                isActive('/problem-solver')
-                  ? 'text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 font-bold border border-amber-200/80 dark:border-amber-800/60'
-                  : 'text-amber-800 dark:text-amber-400 hover:bg-amber-50/60 dark:hover:bg-amber-950/30'
-              }`}
-            >
-              <HelpCircle className="w-3.5 h-3.5 text-amber-600" />
-              <span>Solve a Problem</span>
-            </Link>
-
-            {/* AI Saathi Assistant */}
+            {/* Ask AI Saathi Highlighted Button */}
             <Link
               to="/ai-saathi"
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl transition-all ${
-                isActive('/ai-saathi')
-                  ? 'bg-[#2563EB] text-white font-bold shadow-xs'
-                  : 'bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-300 hover:bg-blue-100 font-bold border border-blue-200/60 dark:border-blue-900'
-              }`}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 hover:shadow-lg transition-all"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>AI Assistant</span>
+              <Sparkles className="w-4 h-4 text-amber-300" />
+              <span className="hidden sm:inline">Ask AI Saathi</span>
+              <span className="sm:hidden">AI</span>
             </Link>
 
-          </nav>
-
-          {/* Right Action: Auth / Profile Controls */}
-          <div className="hidden md:flex items-center gap-3">
+            {/* Citizen Auth Controls */}
             {user ? (
               <div className="relative" ref={userRef}>
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                   className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 text-xs font-semibold text-slate-800 dark:text-slate-200"
                 >
-                  <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold">
+                  <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
                     {user.email?.[0].toUpperCase()}
                   </div>
-                  <span className="max-w-[110px] truncate">{user.user_metadata?.full_name || user.email?.split('@')[0]}</span>
-                  <ChevronDown className="w-3 h-3 text-slate-400" />
+                  <span className="max-w-[120px] truncate hidden md:inline">
+                    {user.user_metadata?.full_name || user.email?.split('@')[0]}
+                  </span>
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
                 </button>
 
                 {userDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 rounded-2xl bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 py-1.5 z-50 text-xs">
+                  <div className="absolute right-0 mt-2 w-52 rounded-2xl bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 py-1.5 z-50 text-xs animate-in fade-in duration-100">
+                    <div className="px-4 py-2 border-b border-slate-100 dark:border-slate-800">
+                      <p className="font-bold text-slate-900 dark:text-white truncate">
+                        {user.user_metadata?.full_name || 'Citizen User'}
+                      </p>
+                      <p className="text-[11px] text-slate-400 truncate">{user.email}</p>
+                    </div>
+
                     <Link
                       to="/profile"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2 text-slate-700 dark:text-slate-300 font-medium"
+                      className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5 text-slate-700 dark:text-slate-300 font-medium"
                     >
-                      <UserIcon className="w-3.5 h-3.5 text-slate-400" />
+                      <UserIcon className="w-4 h-4 text-slate-400" />
                       <span>Citizen Profile</span>
                     </Link>
+
                     <Link
                       to="/profile#saved"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2 text-slate-700 dark:text-slate-300 font-medium"
+                      className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5 text-slate-700 dark:text-slate-300 font-medium"
                     >
-                      <Bookmark className="w-3.5 h-3.5 text-slate-400" />
-                      <span>Saved Services</span>
+                      <Bookmark className="w-4 h-4 text-amber-500" />
+                      <span>Saved Bookmarks</span>
                     </Link>
+
                     <button
                       onClick={() => {
                         signOut();
                         setUserDropdownOpen(false);
                       }}
-                      className="w-full text-left px-4 py-2 hover:bg-rose-50 text-rose-600 flex items-center gap-2 border-t border-slate-100 dark:border-slate-800 font-medium"
+                      className="w-full text-left px-4 py-2.5 hover:bg-rose-50 text-rose-600 flex items-center gap-2.5 border-t border-slate-100 dark:border-slate-800 font-medium"
                     >
-                      <LogOut className="w-3.5 h-3.5" />
+                      <LogOut className="w-4 h-4" />
                       <span>Sign Out</span>
                     </button>
                   </div>
                 )}
               </div>
             ) : (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <Link
                   to="/auth"
-                  className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+                  className="text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white px-2.5 py-1.5 transition-colors"
                 >
                   Login
                 </Link>
 
                 <Link
                   to="/auth?mode=signup"
-                  className="px-3.5 py-2 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold shadow-sm shadow-blue-500/20 hover:shadow-md transition-all"
+                  className="px-4 py-2 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold shadow-xs hover:shadow-md transition-all"
                 >
                   Sign Up
                 </Link>
               </div>
             )}
-          </div>
 
-          {/* Mobile Hamburger & AI Button */}
-          <div className="flex items-center gap-2 xl:hidden">
-            <Link
-              to="/ai-saathi"
-              className="p-2 rounded-xl bg-blue-50 text-[#2563EB] text-xs font-bold flex items-center gap-1"
-              title="AI Assistant"
-            >
-              <Sparkles className="w-4 h-4 text-amber-500" />
-            </Link>
-
+            {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300"
+              className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 lg:hidden ml-1"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
+
           </div>
 
         </div>
       </div>
 
-      {/* 3. MOBILE DRAWER MENU */}
+      {/* ========================================================
+          3. DEDICATED HORIZONTAL MENU BAR (DESKTOP)
+          ======================================================== */}
+      <div className="hidden lg:block bg-[#1B365D] dark:bg-[#0A1628] text-white border-b border-[#142947] dark:border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className="flex items-center justify-between text-xs font-semibold tracking-wide">
+            
+            <div className="flex items-center space-x-1 py-1">
+              
+              {/* Home */}
+              <Link
+                to="/"
+                className={`flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg transition-all whitespace-nowrap ${
+                  isActive('/')
+                    ? 'bg-white/20 text-white font-bold shadow-xs'
+                    : 'text-blue-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <Home className="w-3.5 h-3.5" />
+                <span>Home</span>
+              </Link>
+
+              {/* All Services */}
+              <Link
+                to="/services"
+                className={`flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg transition-all whitespace-nowrap ${
+                  isActive('/services')
+                    ? 'bg-white/20 text-white font-bold shadow-xs'
+                    : 'text-blue-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <Layers className="w-3.5 h-3.5 text-blue-300" />
+                <span>All Services</span>
+              </Link>
+
+              {/* 18 Categories */}
+              <Link
+                to="/categories"
+                className={`flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg transition-all whitespace-nowrap ${
+                  isActive('/categories')
+                    ? 'bg-white/20 text-white font-bold shadow-xs'
+                    : 'text-blue-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <Award className="w-3.5 h-3.5 text-emerald-300" />
+                <span>18 Categories</span>
+              </Link>
+
+              {/* Welfare Schemes */}
+              <Link
+                to="/schemes"
+                className={`flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg transition-all whitespace-nowrap ${
+                  isActive('/schemes')
+                    ? 'bg-white/20 text-white font-bold shadow-xs'
+                    : 'text-blue-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <Gift className="w-3.5 h-3.5 text-amber-300" />
+                <span>Welfare Schemes</span>
+              </Link>
+
+              {/* Official Apps */}
+              <Link
+                to="/apps"
+                className={`flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg transition-all whitespace-nowrap ${
+                  isActive('/apps')
+                    ? 'bg-white/20 text-white font-bold shadow-xs'
+                    : 'text-blue-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <Smartphone className="w-3.5 h-3.5 text-purple-300" />
+                <span>Official Apps</span>
+              </Link>
+
+              {/* Documents Hub */}
+              <Link
+                to="/documents"
+                className={`flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg transition-all whitespace-nowrap ${
+                  isActive('/documents')
+                    ? 'bg-white/20 text-white font-bold shadow-xs'
+                    : 'text-blue-100 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <FileText className="w-3.5 h-3.5 text-cyan-300" />
+                <span>Documents Hub</span>
+              </Link>
+            </div>
+
+            {/* Right Side of Menu Bar: Problem Solver & AI Assistant */}
+            <div className="flex items-center space-x-2 py-1">
+              
+              {/* Solve a Problem (Highlighted with Gold Badge) */}
+              <Link
+                to="/problem-solver"
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all whitespace-nowrap ${
+                  isActive('/problem-solver')
+                    ? 'bg-amber-400 text-slate-900 font-bold shadow-xs'
+                    : 'bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-400/30 font-bold'
+                }`}
+              >
+                <HelpCircle className="w-3.5 h-3.5 text-amber-300" />
+                <span>Solve a Problem</span>
+              </Link>
+
+              {/* AI Saathi Menu Link */}
+              <Link
+                to="/ai-saathi"
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all whitespace-nowrap ${
+                  isActive('/ai-saathi')
+                    ? 'bg-blue-600 text-white font-bold shadow-xs'
+                    : 'text-blue-200 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <span>AI Guide</span>
+              </Link>
+
+            </div>
+
+          </nav>
+        </div>
+      </div>
+
+      {/* ========================================================
+          4. MOBILE DRAWER MENU
+          ======================================================== */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-4 space-y-4 shadow-xl max-h-[85vh] overflow-y-auto">
+        <div className="lg:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-4 space-y-4 shadow-xl max-h-[85vh] overflow-y-auto">
           
-          {/* Navigation Links */}
           <nav className="flex flex-col gap-1 text-sm font-semibold text-slate-800 dark:text-slate-200">
             <Link
               to="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
+              className="px-3 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
             >
               <Home className="w-4 h-4 text-slate-400" />
               <span>Home</span>
@@ -416,55 +431,55 @@ export const Navbar: React.FC = () => {
             <Link
               to="/services"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
+              className="px-3 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
             >
               <Layers className="w-4 h-4 text-[#2563EB]" />
               <span>All Verified Services</span>
             </Link>
 
             <Link
+              to="/categories"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
+            >
+              <Award className="w-4 h-4 text-emerald-600" />
+              <span>18 Government Categories</span>
+            </Link>
+
+            <Link
               to="/schemes"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
+              className="px-3 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
             >
               <Gift className="w-4 h-4 text-amber-500" />
-              <span>Government Schemes (Welfare & DBT)</span>
+              <span>Welfare Schemes (PM-JAY, PM-Kisan)</span>
             </Link>
 
             <Link
               to="/apps"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
+              className="px-3 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
             >
               <Smartphone className="w-4 h-4 text-purple-500" />
-              <span>Official Mobile Apps (UMANG, DigiLocker, mAadhaar)</span>
+              <span>Official Mobile Apps (UMANG, DigiLocker)</span>
             </Link>
 
             <Link
               to="/documents"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
+              className="px-3 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
             >
-              <FileText className="w-4 h-4 text-blue-500" />
+              <FileText className="w-4 h-4 text-cyan-600" />
               <span>Documents Hub (DigiLocker Records)</span>
             </Link>
 
             <Link
               to="/problem-solver"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 font-bold flex items-center gap-2.5 border border-amber-200/60"
+              className="px-3 py-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 font-bold flex items-center gap-2.5 border border-amber-200/60"
             >
               <HelpCircle className="w-4 h-4 text-amber-600" />
               <span>Solve a Citizen Problem</span>
-            </Link>
-
-            <Link
-              to="/categories"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
-            >
-              <Award className="w-4 h-4 text-emerald-600" />
-              <span>18 Government Categories</span>
             </Link>
 
             <Link
@@ -480,7 +495,6 @@ export const Navbar: React.FC = () => {
           {/* Mobile Preferences & Auth */}
           <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-3">
             
-            {/* Mobile State Picker */}
             <div className="flex items-center justify-between text-xs">
               <span className="font-semibold text-slate-500">Jurisdiction State:</span>
               <select
@@ -492,7 +506,6 @@ export const Navbar: React.FC = () => {
               </select>
             </div>
 
-            {/* Mobile Language Picker */}
             <div className="flex items-center justify-between text-xs">
               <span className="font-semibold text-slate-500">Language:</span>
               <select
@@ -506,7 +519,6 @@ export const Navbar: React.FC = () => {
               </select>
             </div>
 
-            {/* Mobile Auth Actions */}
             {user ? (
               <div className="pt-2 flex items-center justify-between text-xs">
                 <Link

@@ -22,17 +22,22 @@ export const Footer: React.FC = () => {
           
           {/* Brand & Purpose */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-xs shadow">
-                <Shield className="w-4 h-4 fill-white/20 stroke-[2.2]" />
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-amber-500 p-0.5 shadow-sm">
+                <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[9px] flex items-center justify-center">
+                  <Shield className="w-4 h-4 text-blue-700 dark:text-blue-400" />
+                </div>
               </div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-base text-slate-900 dark:text-white tracking-tight">
-                  MyGovSaathi
-                </span>
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">
-                  AI
-                </span>
+              <div>
+                <div className="flex items-center gap-1.5">
+                  <span className="font-extrabold text-base text-slate-900 dark:text-white tracking-tight">
+                    GOV SAATHI
+                  </span>
+                  <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
+                    Citizen Guide
+                  </span>
+                </div>
+                <p className="text-[9px] text-slate-500 font-medium">भारत सरकार सेवा साथी</p>
               </div>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
