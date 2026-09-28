@@ -11,7 +11,9 @@ import {
   ShieldCheck,
   ExternalLink,
   Trash2,
-  RefreshCw
+  RefreshCw,
+  Mail,
+  Phone
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -20,7 +22,7 @@ import { useLocation, INDIAN_STATES } from '../context/LocationContext';
 import { getSavedServices, removeSavedService } from '../lib/api';
 
 export const ProfilePage: React.FC = () => {
-  const { user, signOut, isAdmin } = useAuth();
+  const { user, profile, loading: authLoading, signOut, isAdmin } = useAuth();
   const { theme, setTheme } = useTheme();
   const { language, setLanguage } = useLanguage();
   const { state: userState, setState: setUserState } = useLocation();
@@ -55,6 +57,26 @@ export const ProfilePage: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
       
+      {/* Guest Notice if Not Logged In */}
+      {!user && !authLoading && (
+        <div className="p-4 sm:p-5 rounded-2xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-0.5">
+            <h4 className="font-bold text-sm text-[#1E3A8A] dark:text-blue-300">
+              You are currently browsing as a guest
+            </h4>
+            <p className="text-xs text-slate-600 dark:text-slate-300">
+              Sign in with your email and password to securely save services, track roadmap progress, and sync across devices.
+            </p>
+          </div>
+          <Link
+            to="/auth"
+            className="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold shadow-xs whitespace-nowrap"
+          >
+            Sign In / Create Account
+          </Link>
+        </div>
+      )}
+
       {/* Profile Header */}
       <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
@@ -64,7 +86,7 @@ export const ProfilePage: React.FC = () => {
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                {user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Citizen User'}
+                {profile?.full_name || user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Citizen User'}
               </h1>
               {isAdmin && (
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300 border border-red-200 dark:border-red-900">
@@ -72,9 +94,21 @@ export const ProfilePage: React.FC = () => {
                 </span>
               )}
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              {user?.email || 'Guest Citizen Session'}
-            </p>
+            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mt-1">
+              <span className="flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-slate-400" />
+                <span>{user?.email || 'Guest Citizen Session'}</span>
+              </span>
+              {(profile?.phone || user?.user_metadata?.phone) && (
+                <>
+                  <span>•</span>
+                  <span className="flex items-center gap-1.5">
+                    <Phone className="w-3.5 h-3.5 text-slate-400" />
+                    <span>{profile?.phone || user?.user_metadata?.phone}</span>
+                  </span>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
