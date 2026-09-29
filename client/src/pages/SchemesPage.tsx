@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Gift, ExternalLink, ShieldCheck, CheckCircle2, FileText, ArrowRight, RefreshCw } from 'lucide-react';
 import { getSchemes } from '../lib/api';
 import { GovernmentScheme } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 export const SchemesPage: React.FC = () => {
+  const { t } = useLanguage();
   const [schemes, setSchemes] = useState<GovernmentScheme[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,10 +22,10 @@ export const SchemesPage: React.FC = () => {
       <div>
         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">
           <Gift className="w-4 h-4" />
-          <span>Direct Benefit Transfers & Welfare</span>
+          <span>{t('schemes')}</span>
         </div>
         <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#1B365D] dark:text-white mt-1">
-          Verified Government Welfare Schemes
+          {t('schemes_page_title')}
         </h1>
         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
           Central and State government welfare schemes with audited eligibility rules, benefits, and direct application links.

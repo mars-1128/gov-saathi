@@ -53,6 +53,10 @@ export interface GovernmentService {
   steps?: ServiceStep[];
   documents?: ServiceDocument[];
   requirements?: string[];
+  tips?: string[];
+  preparation?: string[];
+  tracking_url?: string;
+  faqs?: { question: string; answer: string }[];
 }
 
 export interface GovernmentScheme {

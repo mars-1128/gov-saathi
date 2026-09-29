@@ -18,6 +18,7 @@ import {
   Check
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { AshokaChakra } from '../components/AshokaChakra';
 import {
   validateFullName,
   validateEmail,
@@ -246,9 +247,9 @@ export const AuthPage: React.FC = () => {
           {/* Top Brand Header */}
           <div className="text-center space-y-2">
             <Link to="/" className="inline-flex items-center gap-2.5 group mb-1">
-              <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-amber-500 p-0.5 shadow-md shadow-blue-500/10 group-hover:scale-105 transition-transform flex-shrink-0">
-                <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center">
-                  <Shield className="w-6 h-6 text-blue-700 dark:text-blue-400 group-hover:scale-110 transition-transform" />
+              <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-950 via-indigo-900 to-blue-900 p-0.5 shadow-md shadow-blue-900/15 border border-blue-400/40 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center overflow-hidden">
+                  <AshokaChakra spinning={true} className="w-7 h-7 text-[#000080] dark:text-blue-400" />
                 </div>
               </div>
               <div className="text-left">
@@ -261,7 +262,7 @@ export const AuthPage: React.FC = () => {
                   </span>
                 </div>
                 <p className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
-                  भारत सरकार सेवा साथी
+                  नागरिक सेवा साथी • Citizen Guide
                 </p>
               </div>
             </Link>

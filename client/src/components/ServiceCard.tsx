@@ -11,12 +11,26 @@ import {
 } from 'lucide-react';
 import { GovernmentService } from '../types';
 import { SaveButton } from './SaveButton';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ServiceCardProps {
   service: GovernmentService;
 }
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
+  const { t } = useLanguage();
+
+  const getJurisdictionLabel = (jurisdiction?: string) => {
+    if (!jurisdiction) return t('jurisdiction_central');
+    const jur = jurisdiction.toUpperCase();
+    if (jur.includes('CENTRAL')) return t('jurisdiction_central');
+    if (jur.includes('STATE')) return t('jurisdiction_state');
+    if (jur.includes('MUNICIPAL') || jur.includes('LOCAL')) return t('jurisdiction_municipal');
+    if (jur.includes('DISTRICT')) return t('jurisdiction_district');
+    if (jur.includes('PANCHAYAT')) return t('jurisdiction_panchayat');
+    return jurisdiction;
+  };
+
   const getJurisdictionBadge = (level: string) => {
     switch (level) {
       case 'MUNICIPAL':
@@ -39,11 +53,11 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex flex-wrap items-center gap-1.5">
             <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${getJurisdictionBadge(service.jurisdiction_level)}`}>
-              {service.jurisdiction_level}
+              {getJurisdictionLabel(service.jurisdiction_level)}
             </span>
             <span className="gov-verified-badge inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-              Verified .gov.in
+              {t('verified_gov')}
             </span>
           </div>
           <SaveButton serviceId={service.slug} />
@@ -71,7 +85,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
         <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
           <div className="flex items-center gap-1">
             <Banknote className="w-3.5 h-3.5 text-emerald-600" />
-            <span className="font-medium text-slate-700 dark:text-slate-300">{service.fee || 'Free of Cost'}</span>
+            <span className="font-medium text-slate-700 dark:text-slate-300">{service.fee || t('free_of_cost')}</span>
           </div>
 
           {service.official_helpline && (
@@ -96,7 +110,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
           to={`/services/${service.slug}`}
           className="text-xs font-semibold text-[#1B365D] dark:text-blue-400 hover:underline flex items-center gap-1"
         >
-          View Steps & Requirements
+          {t('view_steps_requirements')}
           <ArrowRight className="w-3.5 h-3.5" />
         </Link>
 
@@ -106,7 +120,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#1B365D] hover:bg-[#0A2540] text-white dark:bg-blue-600 dark:hover:bg-blue-700 text-xs font-semibold shadow-sm transition-all"
         >
-          <span>Open Portal</span>
+          <span>{t('open_portal')}</span>
           <ExternalLink className="w-3 h-3" />
         </a>
       </div>

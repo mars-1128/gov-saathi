@@ -25,10 +25,11 @@ import { useTheme } from '../context/ThemeContext';
 import { useLanguage, SUPPORTED_LANGUAGES, LanguageCode } from '../context/LanguageContext';
 import { useLocation, INDIAN_STATES } from '../context/LocationContext';
 import { useAuth } from '../context/AuthContext';
+import { AshokaChakra } from './AshokaChakra';
 
 export const Navbar: React.FC = () => {
   const { theme, setTheme, isDark } = useTheme();
-  const { language, setLanguage, supportedLanguages } = useLanguage();
+  const { language, setLanguage, supportedLanguages, t } = useLanguage();
   const { state: userState, setState: setUserState } = useLocation();
   const { user, signOut } = useAuth();
   const routerLocation = useRouterLocation();
@@ -68,19 +69,19 @@ export const Navbar: React.FC = () => {
       <div className="border-b border-slate-200/70 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-[11px] py-1.5 px-4 sm:px-6 lg:px-8 transition-colors">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           
-          {/* Left: Official Initiative Identification */}
+          {/* Left: Citizen Platform Identification */}
           <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium">
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-0.5" aria-hidden="true">
               <span className="inline-block w-2.5 h-1.5 bg-[#FF9933] rounded-xs"></span>
-              <span className="inline-block w-2.5 h-1.5 bg-white border border-slate-300 rounded-xs"></span>
+              <span className="inline-block w-2.5 h-1.5 bg-white border border-slate-300 dark:border-slate-700 rounded-xs"></span>
               <span className="inline-block w-2.5 h-1.5 bg-[#138808] rounded-xs"></span>
             </span>
             <span className="font-semibold text-slate-800 dark:text-slate-200 hidden sm:inline">
-              GOVERNMENT OF INDIA INITIATIVE
+              {t('national_initiative')}
             </span>
             <span className="text-slate-400 hidden sm:inline">|</span>
             <span className="text-slate-500 dark:text-slate-400">
-              Verified Citizen Discovery & AI Navigator
+              {t('initiative_subtitle')}
             </span>
           </div>
 
@@ -163,27 +164,31 @@ export const Navbar: React.FC = () => {
       <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/70 dark:border-slate-800 px-4 sm:px-6 lg:px-8 transition-colors">
         <div className="max-w-7xl mx-auto flex items-center justify-between h-20">
           
-          {/* Authentic Original Logo */}
+          {/* National Emblem & Rotating Ashoka Chakra Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            {/* Original gradient squircle with Shield */}
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-amber-500 p-0.5 shadow-md shadow-blue-500/10 group-hover:scale-105 transition-transform flex-shrink-0">
-              <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center">
-                <Shield className="w-6 h-6 text-blue-700 dark:text-blue-400 group-hover:scale-110 transition-transform" />
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-950 via-indigo-900 to-blue-900 p-0.5 shadow-md shadow-blue-900/15 border border-blue-400/40 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+              <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center overflow-hidden">
+                {/* Rotating 24-spoke Ashoka Chakra wheel */}
+                <AshokaChakra
+                  spinning={true}
+                  className="w-7 h-7 text-[#000080] dark:text-blue-400"
+                />
               </div>
             </div>
 
-            {/* Original typography & badges */}
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-2xl tracking-tight bg-gradient-to-r from-blue-900 via-indigo-800 to-blue-700 dark:from-white dark:to-slate-200 bg-clip-text text-transparent">
+                <span className="font-extrabold text-2xl tracking-tight bg-gradient-to-r from-blue-950 via-indigo-900 to-blue-800 dark:from-white dark:via-blue-100 dark:to-slate-200 bg-clip-text text-transparent">
                   GOV SAATHI
                 </span>
-                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30">
-                  Citizen Guide
+                <span className="text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shadow-2xs">
+                  {t('citizen_guide_badge')}
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium tracking-wide mt-0.5">
-                भारत सरकार सेवा साथी • CITIZEN SERVICE NAVIGATOR
+              <p className="text-[10px] text-slate-700 dark:text-slate-300 font-semibold tracking-wide flex items-center gap-1 mt-0.5">
+                <span>{t('brand_subtitle_tag')}</span>
+                <span className="text-slate-400 hidden sm:inline">•</span>
+                <span className="text-slate-500 dark:text-slate-400 hidden sm:inline">{t('brand_subtitle_guide')}</span>
               </p>
             </div>
           </Link>
@@ -197,7 +202,7 @@ export const Navbar: React.FC = () => {
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 hover:shadow-lg transition-all"
             >
               <Sparkles className="w-4 h-4 text-amber-300" />
-              <span className="hidden sm:inline">Ask AI Saathi</span>
+              <span className="hidden sm:inline">{t('ask_ai_saathi')}</span>
               <span className="sm:hidden">AI</span>
             </Link>
 
@@ -232,7 +237,7 @@ export const Navbar: React.FC = () => {
                       className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5 text-slate-700 dark:text-slate-300 font-medium"
                     >
                       <UserIcon className="w-4 h-4 text-slate-400" />
-                      <span>Citizen Profile</span>
+                      <span>{t('citizen_profile')}</span>
                     </Link>
 
                     <Link
@@ -241,7 +246,7 @@ export const Navbar: React.FC = () => {
                       className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5 text-slate-700 dark:text-slate-300 font-medium"
                     >
                       <Bookmark className="w-4 h-4 text-amber-500" />
-                      <span>Saved Bookmarks</span>
+                      <span>{t('saved_bookmarks')}</span>
                     </Link>
 
                     <button
@@ -252,7 +257,7 @@ export const Navbar: React.FC = () => {
                       className="w-full text-left px-4 py-2.5 hover:bg-rose-50 text-rose-600 flex items-center gap-2.5 border-t border-slate-100 dark:border-slate-800 font-medium"
                     >
                       <LogOut className="w-4 h-4" />
-                      <span>Sign Out</span>
+                      <span>{t('sign_out')}</span>
                     </button>
                   </div>
                 )}
@@ -263,14 +268,14 @@ export const Navbar: React.FC = () => {
                   to="/auth"
                   className="text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white px-2.5 py-1.5 transition-colors"
                 >
-                  Login
+                  {t('login_btn')}
                 </Link>
 
                 <Link
                   to="/auth?mode=signup"
                   className="px-4 py-2 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold shadow-xs hover:shadow-md transition-all"
                 >
-                  Sign Up
+                  {t('signup_btn')}
                 </Link>
               </div>
             )}
@@ -308,7 +313,7 @@ export const Navbar: React.FC = () => {
                 }`}
               >
                 <Home className="w-3.5 h-3.5" />
-                <span>Home</span>
+                <span>{t('home')}</span>
               </Link>
 
               {/* All Services */}
@@ -321,7 +326,7 @@ export const Navbar: React.FC = () => {
                 }`}
               >
                 <Layers className="w-3.5 h-3.5 text-blue-300" />
-                <span>All Services</span>
+                <span>{t('all_services')}</span>
               </Link>
 
               {/* 18 Categories */}
@@ -334,7 +339,7 @@ export const Navbar: React.FC = () => {
                 }`}
               >
                 <Award className="w-3.5 h-3.5 text-emerald-300" />
-                <span>18 Categories</span>
+                <span>{t('categories_tab')}</span>
               </Link>
 
               {/* Welfare Schemes */}
@@ -347,7 +352,7 @@ export const Navbar: React.FC = () => {
                 }`}
               >
                 <Gift className="w-3.5 h-3.5 text-amber-300" />
-                <span>Welfare Schemes</span>
+                <span>{t('schemes_tab')}</span>
               </Link>
 
               {/* Official Apps */}
@@ -360,7 +365,7 @@ export const Navbar: React.FC = () => {
                 }`}
               >
                 <Smartphone className="w-3.5 h-3.5 text-purple-300" />
-                <span>Official Apps</span>
+                <span>{t('apps_tab')}</span>
               </Link>
 
               {/* Documents Hub */}
@@ -373,7 +378,7 @@ export const Navbar: React.FC = () => {
                 }`}
               >
                 <FileText className="w-3.5 h-3.5 text-cyan-300" />
-                <span>Documents Hub</span>
+                <span>{t('docs_tab')}</span>
               </Link>
             </div>
 
@@ -390,7 +395,7 @@ export const Navbar: React.FC = () => {
                 }`}
               >
                 <HelpCircle className="w-3.5 h-3.5 text-amber-300" />
-                <span>Solve a Problem</span>
+                <span>{t('solve_problem_tab')}</span>
               </Link>
 
               {/* AI Saathi Menu Link */}
@@ -403,7 +408,7 @@ export const Navbar: React.FC = () => {
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                <span>AI Guide</span>
+                <span>{t('ai_guide_tab')}</span>
               </Link>
 
             </div>
@@ -425,7 +430,7 @@ export const Navbar: React.FC = () => {
               className="px-3 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
             >
               <Home className="w-4 h-4 text-slate-400" />
-              <span>Home</span>
+              <span>{t('home')}</span>
             </Link>
 
             <Link
@@ -434,7 +439,7 @@ export const Navbar: React.FC = () => {
               className="px-3 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
             >
               <Layers className="w-4 h-4 text-[#2563EB]" />
-              <span>All Verified Services</span>
+              <span>{t('all_services')}</span>
             </Link>
 
             <Link
@@ -443,7 +448,7 @@ export const Navbar: React.FC = () => {
               className="px-3 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
             >
               <Award className="w-4 h-4 text-emerald-600" />
-              <span>18 Government Categories</span>
+              <span>{t('categories_tab')}</span>
             </Link>
 
             <Link
@@ -452,7 +457,7 @@ export const Navbar: React.FC = () => {
               className="px-3 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
             >
               <Gift className="w-4 h-4 text-amber-500" />
-              <span>Welfare Schemes (PM-JAY, PM-Kisan)</span>
+              <span>{t('schemes_tab')}</span>
             </Link>
 
             <Link
@@ -461,7 +466,7 @@ export const Navbar: React.FC = () => {
               className="px-3 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
             >
               <Smartphone className="w-4 h-4 text-purple-500" />
-              <span>Official Mobile Apps (UMANG, DigiLocker)</span>
+              <span>{t('apps_tab')}</span>
             </Link>
 
             <Link
@@ -470,7 +475,7 @@ export const Navbar: React.FC = () => {
               className="px-3 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2.5"
             >
               <FileText className="w-4 h-4 text-cyan-600" />
-              <span>Documents Hub (DigiLocker Records)</span>
+              <span>{t('docs_tab')}</span>
             </Link>
 
             <Link
@@ -479,7 +484,7 @@ export const Navbar: React.FC = () => {
               className="px-3 py-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 font-bold flex items-center gap-2.5 border border-amber-200/60"
             >
               <HelpCircle className="w-4 h-4 text-amber-600" />
-              <span>Solve a Citizen Problem</span>
+              <span>{t('solve_problem_tab')}</span>
             </Link>
 
             <Link
@@ -488,7 +493,7 @@ export const Navbar: React.FC = () => {
               className="px-3 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold flex items-center gap-2.5 shadow-sm"
             >
               <Sparkles className="w-4 h-4 text-amber-300" />
-              <span>AI Saathi Voice & Multilingual Guide</span>
+              <span>{t('ai_guide_tab')}</span>
             </Link>
           </nav>
 
@@ -496,7 +501,7 @@ export const Navbar: React.FC = () => {
           <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-3">
             
             <div className="flex items-center justify-between text-xs">
-              <span className="font-semibold text-slate-500">Jurisdiction State:</span>
+              <span className="font-semibold text-slate-500">{t('filter_jurisdiction')}</span>
               <select
                 value={userState}
                 onChange={(e) => setUserState(e.target.value)}
@@ -507,7 +512,7 @@ export const Navbar: React.FC = () => {
             </div>
 
             <div className="flex items-center justify-between text-xs">
-              <span className="font-semibold text-slate-500">Language:</span>
+              <span className="font-semibold text-slate-500">{t('language_label') || 'Language'}:</span>
               <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value as LanguageCode)}
@@ -526,13 +531,13 @@ export const Navbar: React.FC = () => {
                   onClick={() => setMobileMenuOpen(false)}
                   className="font-bold text-[#2563EB]"
                 >
-                  Profile ({user.email?.split('@')[0]})
+                  {t('profile')} ({user.email?.split('@')[0]})
                 </Link>
                 <button
                   onClick={() => { signOut(); setMobileMenuOpen(false); }}
                   className="font-bold text-rose-600"
                 >
-                  Logout
+                  {t('logout')}
                 </button>
               </div>
             ) : (
@@ -542,14 +547,14 @@ export const Navbar: React.FC = () => {
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex-1 py-2 rounded-xl text-center border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200"
                 >
-                  Login
+                  {t('login_btn')}
                 </Link>
                 <Link
                   to="/auth?mode=signup"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex-1 py-2 rounded-xl text-center bg-[#2563EB] text-white text-xs font-semibold shadow-xs"
                 >
-                  Sign Up
+                  {t('signup_btn')}
                 </Link>
               </div>
             )}

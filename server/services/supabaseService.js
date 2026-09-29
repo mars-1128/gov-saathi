@@ -52,6 +52,8 @@ export async function fetchCategories() {
 // Fetch services with optional category, jurisdiction, state filter
 export async function fetchServices({ category, jurisdiction, state, search } = {}) {
   const supabase = getSupabase();
+  let dbServices = [];
+
   if (supabase) {
     try {
       let query = supabase.from('government_services').select('*').eq('status', 'ACTIVE');
@@ -61,39 +63,81 @@ export async function fetchServices({ category, jurisdiction, state, search } = 
       if (search) query = query.ilike('name', `%${search}%`);
 
       const { data, error } = await query;
-      if (!error && data && data.length > 0) {
-        return data;
+      if (!error && data) {
+        dbServices = data;
       }
     } catch (e) {
       console.warn('[Supabase] Fetch services fallback:', e.message);
     }
   }
 
-  // Resilient in-memory query
-  let results = [...VERIFIED_SERVICES];
+  // Combine with verified catalog so new services and rich details are always present
+  let combined = [...dbServices];
+
+  // Helper to check if a category filter matches
+  const matchesCategory = (s, catId) => {
+    if (!catId) return true;
+    if (s.category_id === catId) return true;
+    // Map cat-5 to Supabase Identity Services UUID
+    if ((catId === 'cat-5' || catId === 'c5f57728-44a2-4227-88a9-fb62d3d4b9b9') && (s.category_id === 'cat-5' || s.category_id === 'c5f57728-44a2-4227-88a9-fb62d3d4b9b9' || s.category_name === 'Identity Services')) return true;
+    if (s.category_name && s.category_name.toLowerCase().includes(catId.toLowerCase())) return true;
+    return false;
+  };
+
+  for (const s of VERIFIED_SERVICES) {
+    const existingIndex = combined.findIndex(item => item.slug === s.slug);
+    if (existingIndex >= 0) {
+      // Merge rich metadata into existing service if missing
+      combined[existingIndex] = {
+        ...s,
+        ...combined[existingIndex],
+        official_website: combined[existingIndex].official_website?.includes('swachhbharaturban.gov.in') ? s.official_website : (combined[existingIndex].official_website || s.official_website),
+        steps: combined[existingIndex].steps?.length ? combined[existingIndex].steps : s.steps,
+        documents: combined[existingIndex].documents?.length ? combined[existingIndex].documents : s.documents,
+        requirements: combined[existingIndex].requirements?.length ? combined[existingIndex].requirements : s.requirements,
+        tips: s.tips || combined[existingIndex].tips
+      };
+    } else {
+      // If service is in verified list but not yet in DB, include it if filters match
+      if (matchesCategory(s, category)) {
+        if (!jurisdiction || s.jurisdiction_level === jurisdiction) {
+          if (!state || state === 'All India' || s.state === 'All India' || s.state.toLowerCase() === state.toLowerCase()) {
+            if (!search || s.name.toLowerCase().includes(search.toLowerCase()) || (s.keywords && s.keywords.some(k => k.toLowerCase().includes(search.toLowerCase())))) {
+              combined.push(s);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Filter combined if DB wasn't queried or filter applied locally
   if (category) {
-    results = results.filter(s => s.category_id === category || s.category_name.toLowerCase().includes(category.toLowerCase()));
+    combined = combined.filter(s => matchesCategory(s, category));
   }
   if (jurisdiction) {
-    results = results.filter(s => s.jurisdiction_level === jurisdiction);
+    combined = combined.filter(s => s.jurisdiction_level === jurisdiction);
   }
   if (state && state !== 'All India') {
-    results = results.filter(s => s.state === 'All India' || s.state.toLowerCase() === state.toLowerCase());
+    combined = combined.filter(s => s.state === 'All India' || s.state.toLowerCase() === state.toLowerCase());
   }
   if (search) {
     const q = search.toLowerCase();
-    results = results.filter(s =>
+    combined = combined.filter(s =>
       s.name.toLowerCase().includes(q) ||
-      s.simple_description.toLowerCase().includes(q) ||
+      (s.simple_description && s.simple_description.toLowerCase().includes(q)) ||
       (s.keywords && s.keywords.some(k => k.toLowerCase().includes(q)))
     );
   }
-  return results;
+
+  return combined;
 }
 
 // Fetch single service by slug or ID
 export async function fetchServiceBySlug(slug) {
+  let service = null;
   const supabase = getSupabase();
+
   if (supabase) {
     try {
       const { data, error } = await supabase
@@ -108,14 +152,47 @@ export async function fetchServiceBySlug(slug) {
         .single();
 
       if (!error && data) {
-        return data;
+        service = data;
       }
     } catch (e) {
       console.warn('[Supabase] Fetch service by slug fallback:', e.message);
     }
   }
 
-  return VERIFIED_SERVICES.find(s => s.slug === slug || s.id === slug) || null;
+  // Find rich catalog fallback to merge steps, documents, tips, and ensure valid links
+  const fallback = VERIFIED_SERVICES.find(s => s.slug === slug || s.id === slug) || null;
+
+  if (service) {
+    if (fallback) {
+      // Fix broken Swachhata URL if stored in DB
+      if (service.official_website && service.official_website.includes('swachhbharaturban.gov.in')) {
+        service.official_website = fallback.official_website;
+        service.official_source = fallback.official_source;
+      }
+      // Populate missing steps, documents, requirements, tips
+      if (!service.steps || service.steps.length === 0) {
+        service.steps = fallback.steps || [];
+      }
+      if (!service.documents || service.documents.length === 0) {
+        service.documents = fallback.documents || [];
+      }
+      if (!service.requirements || service.requirements.length === 0) {
+        service.requirements = fallback.requirements || [];
+      }
+      if (!service.tips && fallback.tips) {
+        service.tips = fallback.tips;
+      }
+      if (!service.simple_description && fallback.simple_description) {
+        service.simple_description = fallback.simple_description;
+      }
+      if (!service.official_helpline && fallback.official_helpline) {
+        service.official_helpline = fallback.official_helpline;
+      }
+    }
+    return service;
+  }
+
+  return fallback;
 }
 
 // Fetch government schemes

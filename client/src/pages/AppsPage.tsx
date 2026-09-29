@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Smartphone, ExternalLink, ShieldCheck, Download, RefreshCw } from 'lucide-react';
 import { getApps } from '../lib/api';
 import { GovernmentApp } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 export const AppsPage: React.FC = () => {
+  const { t } = useLanguage();
   const [apps, setApps] = useState<GovernmentApp[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,10 +22,10 @@ export const AppsPage: React.FC = () => {
       <div>
         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1B365D] dark:text-blue-400">
           <Smartphone className="w-4 h-4 text-purple-600" />
-          <span>Mobile Governance</span>
+          <span>{t('apps')}</span>
         </div>
         <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#1B365D] dark:text-white mt-1">
-          Official Government Mobile Apps
+          {t('apps_page_title')}
         </h1>
         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
           Verified, genuine mobile applications developed by Central and State ministries. Carry legally valid documents, book gas cylinders, check PF passbooks, and lodge municipal civic grievances.

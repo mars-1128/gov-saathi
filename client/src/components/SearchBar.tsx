@@ -46,7 +46,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, initialValue = '
   const [query, setQuery] = useState(initialValue);
   const [isListening, setIsListening] = useState(false);
   const navigate = useNavigate();
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const recognitionRef = useRef<any>(null);
 
   useEffect(() => {
@@ -153,8 +153,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, initialValue = '
             onChange={(e) => setQuery(e.target.value)}
             placeholder={
               isListening
-                ? 'Listening... speak your request now'
-                : "e.g. 'update mobile number in aadhaar', 'fetch 12th marksheet'"
+                ? t('listening_hint')
+                : t('search_placeholder')
             }
             className="w-full bg-transparent border-none outline-none text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm sm:text-[15px] font-normal"
           />
@@ -177,13 +177,12 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, initialValue = '
             )}
           </button>
 
-          {/* Ask AI Saathi Blue Button (matches screenshot 2-line layout) */}
+          {/* Ask AI Saathi Blue Button */}
           <button
             type="submit"
-            className="flex-shrink-0 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold leading-tight shadow-sm hover:shadow transition-all text-center flex flex-col items-center justify-center min-w-[80px]"
+            className="flex-shrink-0 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold leading-tight shadow-sm hover:shadow transition-all text-center flex items-center justify-center min-w-[80px]"
           >
-            <span>Ask AI</span>
-            <span>Saathi</span>
+            <span>{t('ask_ai_saathi')}</span>
           </button>
         </div>
       </form>
@@ -192,7 +191,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, initialValue = '
       {large && (
         <div className="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-slate-400 dark:text-slate-400">
           <span className="font-normal text-slate-400">
-            Try searching:
+            {t('try_searching')}
           </span>
           {sampleChips.map((chip) => (
             <button

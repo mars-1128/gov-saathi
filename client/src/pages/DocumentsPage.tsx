@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { FileText, ExternalLink, ShieldCheck, Download, CheckCircle2, RefreshCw } from 'lucide-react';
 import { getDigitalDocuments } from '../lib/api';
 import { DigitalDocument } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 export const DocumentsPage: React.FC = () => {
+  const { t } = useLanguage();
   const [documents, setDocuments] = useState<DigitalDocument[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,10 +22,10 @@ export const DocumentsPage: React.FC = () => {
       <div>
         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1B365D] dark:text-blue-400">
           <FileText className="w-4 h-4 text-blue-600" />
-          <span>Legally Valid Digital Records</span>
+          <span>{t('documents')}</span>
         </div>
         <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#1B365D] dark:text-white mt-1">
-          DigiLocker & Official Document Services
+          {t('docs_page_title')}
         </h1>
         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
           Access authentic, digitally signed government documents issued directly from CBSE, state education boards, MoRTH, and Income Tax Department. Legally valid under Rule 9A of IT Rules 2016.
@@ -53,7 +55,7 @@ export const DocumentsPage: React.FC = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white text-[#1B365D] font-bold text-xs shadow-xs hover:bg-slate-100 transition-colors"
           >
-            <span>Open DigiLocker Web Portal</span>
+            <span>{t('open_digilocker')}</span>
             <ExternalLink className="w-4 h-4 text-[#1B365D]" />
           </a>
         </div>

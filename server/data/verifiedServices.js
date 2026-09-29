@@ -38,27 +38,31 @@ export const VERIFIED_SERVICES = [
     fee: '100% Free of Cost',
     processing_information: 'Assigned within 12-48 hours. Photo resolution evidence provided by civic staff.',
     application_mode: 'MOBILE_APP',
-    official_website: 'https://swachhbharaturban.gov.in/',
+    official_website: 'https://sbmurban.org/',
     official_app: 'Swachhata - MoHUA (Android & iOS)',
     official_helpline: '1969',
-    official_email: 'swachhbharat@gov.in',
-    official_source: 'https://swachhbharaturban.gov.in/',
+    official_email: 'support@sbmurban.org',
+    official_source: 'https://sbmurban.org/',
     source_type: 'GOVERNMENT_PORTAL',
     verification_status: 'VERIFIED',
     last_verified_at: '2026-09-28T00:00:00Z',
-    keywords: ['pothole', 'road damage', 'garbage', 'drainage', 'broken road', 'streetlight', 'dead animal', 'civic complaint', 'sanitation', 'municipality', 'corporation', 'road repair'],
+    keywords: ['pothole', 'road damage', 'garbage', 'drainage', 'broken road', 'streetlight', 'dead animal', 'civic complaint', 'sanitation', 'municipality', 'corporation', 'road repair', 'swachhbharat', 'swachhata'],
     steps: [
-      { step_number: 1, title: 'Download Official Swachhata App', description: 'Download Swachhata - MoHUA from Google Play Store or Apple App Store, or access through the UMANG app.', action_url: 'https://swachhbharaturban.gov.in/', estimated_time: '2 mins' },
-      { step_number: 2, title: 'Capture Geo-Tagged Photo of Pothole / Waste', description: 'Select category "Pothole on Road" or "Garbage Vulnerable Point". Take a clear photo; the app automatically tags GPS location.', action_url: null, estimated_time: '1 min' },
-      { step_number: 3, title: 'Submit & Track Resolution with Photo Proof', description: 'Get a Ticket ID. The municipal junior engineer / sanitary inspector resolves the defect and uploads a proof photo to close the ticket.', action_url: null, estimated_time: '12-48 hours' }
+      { step_number: 1, title: 'Download Official Swachhata App or Open Portal', description: 'Download Swachhata - MoHUA from Google Play Store or Apple App Store, or visit official portal https://sbmurban.org/ or use the UMANG app.', action_url: 'https://sbmurban.org/', estimated_time: '2 mins' },
+      { step_number: 2, title: 'Capture Geo-Tagged Photo of Pothole / Waste', description: 'Select complaint category (e.g., "Pothole on Road", "Garbage Dump", or "Broken Streetlight"). Take a clear photograph; the app automatically records accurate GPS coordinates.', action_url: null, estimated_time: '1 min' },
+      { step_number: 3, title: 'Submit & Track Resolution with Photo Proof', description: 'Receive an instant Ticket ID. The local municipal engineer / sanitary inspector is assigned to resolve the defect and must upload a verified "after-repair" photograph to close the ticket.', action_url: 'https://sbmurban.org/', estimated_time: '12-48 hours' }
     ],
     documents: [
-      { document_name: 'Photograph of the pothole or civic defect', is_mandatory: true, description: 'Taken directly through the camera in the app' },
-      { document_name: 'Location access (GPS)', is_mandatory: true, description: 'To route ticket to local municipal ward' }
+      { document_name: 'Live photograph of the civic defect (Pothole / Garbage)', is_mandatory: true, description: 'Taken directly through camera inside the app' },
+      { document_name: 'Device GPS Location Permission', is_mandatory: true, description: 'Enables automatic routing to the relevant municipal ward junior engineer' }
     ],
     requirements: [
-      'Active mobile number for OTP',
-      'Location within an Urban Local Body (ULB) jurisdiction'
+      'Active Indian mobile number for OTP sign-in',
+      'Location within an Urban Local Body (ULB / Municipal Corporation / Municipality) jurisdiction'
+    ],
+    tips: [
+      'Take photos in daylight showing surrounding landmarks or street names for faster municipal identification.',
+      'If the complaint is not resolved within 48 hours, you can reopen the ticket or escalate via toll-free helpline 1969.'
     ]
   },
   {
@@ -171,6 +175,11 @@ export const VERIFIED_SERVICES = [
     requirements: [
       'Cannot be used for sub-judice court matters or RTI applications',
       'Must contain specific facts and dates'
+    ],
+    tips: [
+      'Do not lodge RTI queries, court/sub-judice matters, or commercial contract disputes on CPGRAMS — these are rejected automatically.',
+      'Always mention specific reference numbers, previous application dates, and officer names to get faster resolution within the mandated 30-day window.',
+      'If you are dissatisfied with the resolution provided by the department, you have 30 days to file a free First Appeal to an Appellate Officer.'
     ]
   },
   {
@@ -466,6 +475,222 @@ export const VERIFIED_SERVICES = [
     ],
     documents: [],
     requirements: ['Mobile phone with internet connection']
+  },
+  {
+    id: 'srv-instant-epan',
+    name: 'Instant e-PAN via Aadhaar (Income Tax Department)',
+    slug: 'instant-epan-income-tax',
+    category_id: 'cat-5',
+    category_name: 'Identity Services',
+    department: 'Directorate of Income Tax (Systems), Ministry of Finance',
+    jurisdiction_level: 'CENTRAL',
+    state: 'All India',
+    simple_description: 'Get an official, legally valid digital PAN card in PDF format within 10 minutes completely free using your Aadhaar e-KYC.',
+    description: 'Instant e-PAN is a 100% paperless and completely free facility provided by the Income Tax Department on the e-Filing 2.0 portal. Allotment of PAN is instantaneous using Aadhaar e-KYC. The generated e-PAN contains an authentic digitally signed QR code and holds identical legal validity to a physical plastic laminated PAN card under Section 139A of the Income Tax Act.',
+    eligibility: 'Any individual Indian citizen who has a valid Aadhaar number linked to an active mobile phone, has never been allotted a PAN previously, and is not a minor.',
+    fee: '100% Free of Cost (Rs. 0)',
+    processing_information: 'Instant generation within 5-10 minutes. Downloadable immediately upon Aadhaar OTP verification.',
+    application_mode: 'ONLINE',
+    official_website: 'https://www.incometax.gov.in/iec/fposervices/#/pre-login/instant-e-pan',
+    official_app: 'e-Filing Portal / UMANG App',
+    official_helpline: '1800-180-1961',
+    official_email: 'pan-helpdesk@incometax.gov.in',
+    official_source: 'https://www.incometax.gov.in/',
+    source_type: 'GOVERNMENT_PORTAL',
+    verification_status: 'VERIFIED',
+    last_verified_at: '2026-09-28T00:00:00Z',
+    keywords: ['pan card', 'instant pan', 'epan', 'income tax pan', 'free pan card', 'aadhaar pan', 'apply pan online', 'pan download', '10 minute pan', 'financial identity', 'pan-aadhaar'],
+    steps: [
+      { step_number: 1, title: 'Open Income Tax e-Filing Instant e-PAN Page', description: 'Visit https://www.incometax.gov.in/iec/fposervices/#/pre-login/instant-e-pan and click the "Get New e-PAN" button.', action_url: 'https://www.incometax.gov.in/iec/fposervices/#/pre-login/instant-e-pan', estimated_time: '1 min' },
+      { step_number: 2, title: 'Enter 12-Digit Aadhaar & Validate OTP', description: 'Type your 12-digit Aadhaar number, agree to the declaration, and enter the 6-digit OTP received on your Aadhaar-linked mobile phone.', action_url: null, estimated_time: '2 mins' },
+      { step_number: 3, title: 'Validate Demographics & Optional Email', description: 'Review your personal details (Name, Date of Birth, Gender, Address) pulled automatically from UIDAI. Validate your email ID if you wish it linked to your PAN.', action_url: null, estimated_time: '2 mins' },
+      { step_number: 4, title: 'Download Digitally Signed e-PAN PDF', description: 'Return to the Instant e-PAN page, click "Check Status / Download PAN", enter Aadhaar and OTP. Download the password-protected PDF (Password is your Date of Birth in DDMMYYYY format).', action_url: 'https://www.incometax.gov.in/iec/fposervices/#/pre-login/instant-e-pan', estimated_time: '5 mins' }
+    ],
+    documents: [
+      { document_name: 'Aadhaar Card Number', is_mandatory: true, description: 'Must have active mobile number registered with UIDAI for OTP authentication' }
+    ],
+    requirements: [
+      'Must NOT already have an allotted PAN card (Holding two PAN cards attracts a penalty of Rs. 10,000 under Section 272B)',
+      'Applicant must be a major (18 years or older on date of application)',
+      'Demographic details in Aadhaar (Name, DOB, Gender) must be completely accurate'
+    ],
+    tips: [
+      'Ensure your mobile number linked with Aadhaar is active to receive the 6-digit OTP.',
+      'PDF password is your date of birth without slashes, e.g., 01051998 for 1st May 1998.',
+      'Instant e-PAN is 100% legal for all banking, demat account opening, and tax filing.'
+    ]
+  },
+  {
+    id: 'srv-pan-card',
+    name: 'Physical PAN Card Application & Correction (Protean / UTIITSL)',
+    slug: 'pan-card-nsdl-utiitsl',
+    category_id: 'cat-5',
+    category_name: 'Identity Services',
+    department: 'Central Board of Direct Taxes (CBDT), Ministry of Finance',
+    jurisdiction_level: 'CENTRAL',
+    state: 'All India',
+    simple_description: 'Apply for a laminated physical PVC PAN card (Form 49A), change name/address/photo, reprint lost cards, or link PAN with Aadhaar.',
+    description: 'Official portal for issuance of physical plastic PAN cards managed by authorized processing agencies Protean eGov Technologies (formerly NSDL) and UTI Infrastructure Technology And Services Ltd (UTIITSL). Offers paperless Aadhaar e-KYC or physical document submission for new PAN, reprints of lost or damaged cards, name/father name changes, and photograph/signature updates.',
+    eligibility: 'All Indian citizens, minors, NRIs, companies, and trusts requiring a permanent financial identification number.',
+    fee: 'Rs. 107 (Physical card delivered in India); Rs. 1,017 (Foreign dispatch); Rs. 50 (Reprint only)',
+    processing_information: 'Printed and dispatched via India Post Speed Post within 10 to 15 working days following verification.',
+    application_mode: 'ONLINE',
+    official_website: 'https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html',
+    official_app: 'Official Protean / UTIITSL Portals',
+    official_helpline: '020-27218080 (Protean) / 022-67931300 (UTIITSL)',
+    official_email: 'tininfo@proteantech.in',
+    official_source: 'https://incometaxindia.gov.in/',
+    source_type: 'GOVERNMENT_PORTAL',
+    verification_status: 'VERIFIED',
+    last_verified_at: '2026-09-28T00:00:00Z',
+    keywords: ['pan card', 'physical pan card', 'nsdl pan', 'utiitsl pan', 'pan correction', 'reprint pan card', 'form 49a', 'link pan aadhaar', 'protean pan', 'pvc pan card'],
+    steps: [
+      { step_number: 1, title: 'Choose Application Type on Protean / UTIITSL', description: 'Open https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html. Select "Form 49A (New PAN - Indian Citizen)" or "Changes/Correction in PAN Data".', action_url: 'https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html', estimated_time: '2 mins' },
+      { step_number: 2, title: 'Fill Personal Details & Choose Paperless e-KYC', description: 'Enter applicant full name, date of birth, mobile number, and email. Select "Submit digitally through e-KYC & e-Sign (Paperless)" to use Aadhaar without physical courier.', action_url: null, estimated_time: '10 mins' },
+      { step_number: 3, title: 'Pay Government Fee Online', description: 'Pay the official government application fee of Rs. 107 using UPI, Debit Card, or Net Banking. Save the 15-digit Token / Acknowledgement Number.', action_url: null, estimated_time: '2 mins' },
+      { step_number: 4, title: 'Authenticate with Aadhaar e-Sign & Track Speed Post', description: 'Complete NSDL Aadhaar OTP authentication to digitally sign the application. Track postal dispatch using your 15-digit Acknowledgement Number.', action_url: 'https://tin.tin.nsdl.com/pantan/StatusTrack.html', estimated_time: '7-12 days delivery' }
+    ],
+    documents: [
+      { document_name: 'Proof of Identity (POI)', is_mandatory: true, description: 'Aadhaar Card, Voter ID, Passport, or Driving Licence' },
+      { document_name: 'Proof of Address (POA)', is_mandatory: true, description: 'Aadhaar Card, Electricity Bill (< 3 months old), Bank Passbook, or Rent Agreement' },
+      { document_name: 'Proof of Date of Birth (DOB)', is_mandatory: true, description: 'Aadhaar Card, Birth Certificate, Matriculation Class 10 Marksheet, or Passport' },
+      { document_name: 'Copy of Existing PAN / FIR Copy (For reprint/correction)', is_mandatory: false, description: 'Required only when requesting correction or replacement of a lost card' }
+    ],
+    requirements: [
+      'Father\'s name is mandatory on PAN card (even for married women)',
+      'For e-KYC mode, mobile number registered with UIDAI must be active to receive OTP',
+      'For physical photo/signature upload mode, photo must be 200 DPI JPEG under 50 KB'
+    ],
+    tips: [
+      'Opting for "e-KYC & e-Sign" eliminates the need to courier physical documents to the Pune / Mumbai processing centers.',
+      'Ensure the spelling of your name in Form 49A exactly matches your Aadhaar card to avoid rejected applications.'
+    ]
+  },
+  {
+    id: 'srv-abha-health-id',
+    name: 'ABHA Card (Ayushman Bharat Health Account) - 14-Digit Health ID',
+    slug: 'ayushman-bharat-abha-health-id',
+    category_id: 'cat-5',
+    category_name: 'Identity Services',
+    department: 'National Health Authority (NHA), Ministry of Health & Family Welfare',
+    jurisdiction_level: 'CENTRAL',
+    state: 'All India',
+    simple_description: 'Create your official 14-digit ABHA Health ID card instantly to store and share hospital prescriptions, lab reports, and medical history digitally.',
+    description: 'ABHA (Ayushman Bharat Health Account) is the foundational digital health identity established under the Ayushman Bharat Digital Mission (ABDM). It gives every citizen a unique 14-digit health identification number and a personal ABHA address (like name@abdm). Enables seamless, paperless OPD registrations via QR scan at government and private hospitals, and maintains lifetime digital records.',
+    eligibility: 'All Indian citizens of any age. Minors can be enrolled by parents.',
+    fee: '100% Free of Cost (Rs. 0)',
+    processing_information: 'Instant generation in under 2 minutes. Downloadable as a laminated digital card immediately.',
+    application_mode: 'ONLINE',
+    official_website: 'https://abha.abdm.gov.in/',
+    official_app: 'ABHA App (Android & iOS) / Aarogya Setu',
+    official_helpline: '14477 / 1800-11-4477',
+    official_email: 'abdm@nha.gov.in',
+    official_source: 'https://abdm.gov.in/',
+    source_type: 'GOVERNMENT_PORTAL',
+    verification_status: 'VERIFIED',
+    last_verified_at: '2026-09-28T00:00:00Z',
+    keywords: ['abha card', 'health id', 'ayushman bharat id', 'digital health record', 'abha download', 'abha registration', 'health identity', '14 digit health id', 'abdm'],
+    steps: [
+      { step_number: 1, title: 'Visit Official ABHA Portal', description: 'Open https://abha.abdm.gov.in/ and click "Create ABHA Number".', action_url: 'https://abha.abdm.gov.in/', estimated_time: '1 min' },
+      { step_number: 2, title: 'Authenticate using Aadhaar or Driving Licence', description: 'Enter your 12-digit Aadhaar number and verify using the 6-digit OTP sent to your linked mobile number.', action_url: null, estimated_time: '1 min' },
+      { step_number: 3, title: 'Create Unique ABHA Address & Download Card', description: 'Choose your unique PHR address (e.g. rahul.kumar@abdm). Download your high-resolution laminated-style ABHA Card containing your 14-digit number and QR code.', action_url: 'https://abha.abdm.gov.in/', estimated_time: '1 min' }
+    ],
+    documents: [
+      { document_name: 'Aadhaar Number (or Driving Licence)', is_mandatory: true, description: 'With mobile number linked for OTP verification' }
+    ],
+    requirements: [
+      'Active mobile phone to receive verification OTP',
+      'Citizens of all ages eligible'
+    ],
+    tips: [
+      'Scan your ABHA QR code at AIIMS, district hospitals, and CGHS wellness centers for queue-less OPD slip generation in 10 seconds.',
+      'Health records can only be viewed by doctors with your explicit consent via the ABHA App.'
+    ]
+  },
+  {
+    id: 'srv-ration-card',
+    name: 'Ration Card Services & One Nation One Ration Card (NFSA / RCMS)',
+    slug: 'ration-card-onorc-nfsa',
+    category_id: 'cat-5',
+    category_name: 'Identity Services',
+    department: 'Department of Food & Public Distribution, Ministry of Consumer Affairs',
+    jurisdiction_level: 'STATE',
+    state: 'All India',
+    simple_description: 'Apply for family Ration Card, add family members, check NFSA food grain quota, and avail ration portability anywhere in India.',
+    description: 'National Food Security Act (NFSA) portal and state Food & Civil Supplies online systems (RCMS). Under the landmark "One Nation One Ration Card" (ONORC) initiative, migrant workers and eligible families can collect their entitled subsidized wheat, rice, and coarse grains from any of the 5.4 lakh Fair Price Shops (FPS) across India using biometric Aadhaar authentication.',
+    eligibility: 'Households categorized under Antyodaya Anna Yojana (AAY) or Priority Household (PHH) based on state income criteria.',
+    fee: 'Free of Cost or nominal state fee (Rs. 5 - Rs. 45 depending on card category)',
+    processing_information: 'Online application followed by verification by local Food Inspector / Tahsildar within 15 to 30 days.',
+    application_mode: 'HYBRID',
+    official_website: 'https://nfsa.gov.in/',
+    official_app: 'Mera Ration App (Android)',
+    official_helpline: '1967 (National NFSA Helpline)',
+    official_email: 'dir-food@nic.in',
+    official_source: 'https://nfsa.gov.in/',
+    source_type: 'GOVERNMENT_PORTAL',
+    verification_status: 'VERIFIED',
+    last_verified_at: '2026-09-28T00:00:00Z',
+    keywords: ['ration card', 'onorc', 'mera ration', 'food security', 'nfsa', 'rashan card', 'ration card apply', 'fair price shop', 'family identity', 'subsidized food'],
+    steps: [
+      { step_number: 1, title: 'Visit NFSA Portal or State Civil Supplies Portal', description: 'Visit https://nfsa.gov.in/ and navigate to "Citizen Corner" -> "Know Your Ration Card Status" or "Apply for New Ration Card".', action_url: 'https://nfsa.gov.in/', estimated_time: '2 mins' },
+      { step_number: 2, title: 'Submit Family Details & Aadhaar Numbers', description: 'Enter Head of Household (female head prioritized) details, address, and upload Aadhaar numbers of all family members.', action_url: null, estimated_time: '15 mins' },
+      { step_number: 3, title: 'Field Verification & Digital RC Generation', description: 'Local municipal food supply inspector or Village Revenue Officer verifies residential status and income. Digital Ration Card is approved and dispatched.', action_url: 'https://nfsa.gov.in/', estimated_time: '15-30 days' }
+    ],
+    documents: [
+      { document_name: 'Aadhaar Cards of all family members', is_mandatory: true, description: 'Mandatory for seeding into the electronic Point of Sale (ePoS) database' },
+      { document_name: 'Proof of Residence (Electricity Bill / Rent Agreement)', is_mandatory: true, description: 'Confirms family living within local fair price shop catchment' },
+      { document_name: 'Family Income Certificate', is_mandatory: true, description: 'Issued by Tahsildar / Revenue Authority to determine eligibility tier (AAY/PHH)' },
+      { document_name: 'Bank Passbook of Female Head of Household', is_mandatory: false, description: 'For direct cash transfer subsidies in lieu of food grains where applicable' }
+    ],
+    requirements: [
+      'Cannot hold duplicate ration cards across multiple states',
+      'All members must have Aadhaar seeded to avail nationwide ONORC portability'
+    ],
+    tips: [
+      'Download the official "Mera Ration" app on Android to locate nearest Fair Price Shops anywhere in India and check monthly grain entitlements.'
+    ]
+  },
+  {
+    id: 'srv-apaar-student-id',
+    name: 'APAAR ID - Automated Permanent Academic Account Registry (One Nation One Student ID)',
+    slug: 'apaar-student-id-abc',
+    category_id: 'cat-5',
+    category_name: 'Identity Services',
+    department: 'Ministry of Education, Government of India',
+    jurisdiction_level: 'CENTRAL',
+    state: 'All India',
+    simple_description: 'Generate your 12-digit unique lifelong student identity card to store all degrees, board marksheets, credits, and achievements digitally.',
+    description: 'APAAR (Automated Permanent Academic Account Registry) is introduced under the National Education Policy (NEP 2020) by the Ministry of Education. It acts as an EduLocker and unique 12-digit lifelong academic identification for students starting from Pre-Primary school through College and Ph.D. Seamlessly linked with DigiLocker and the Academic Bank of Credits (ABC) to enable hassle-free credit transfers between universities.',
+    eligibility: 'All students enrolled in recognized schools, junior colleges, universities, and professional institutions in India.',
+    fee: '100% Free of Cost (Rs. 0)',
+    processing_information: 'Instant digital generation through student self-consent on DigiLocker or school UDISE+ portal.',
+    application_mode: 'ONLINE',
+    official_website: 'https://apaar.education.gov.in/',
+    official_app: 'DigiLocker App / UMANG',
+    official_helpline: '011-20862365',
+    official_email: 'contact@abc.gov.in',
+    official_source: 'https://apaar.education.gov.in/',
+    source_type: 'GOVERNMENT_PORTAL',
+    verification_status: 'VERIFIED',
+    last_verified_at: '2026-09-28T00:00:00Z',
+    keywords: ['apaar id', 'student id', 'abc id', 'academic bank of credits', 'one nation one student id', 'student card', 'digilocker student', 'marksheet storage', 'education identity'],
+    steps: [
+      { step_number: 1, title: 'Open Official APAAR Portal', description: 'Visit https://apaar.education.gov.in/ or open DigiLocker and search for "Academic Bank of Credits / APAAR ID".', action_url: 'https://apaar.education.gov.in/', estimated_time: '1 min' },
+      { step_number: 2, title: 'Sign In via DigiLocker / Aadhaar OTP', description: 'Authenticate using your Aadhaar number or MeriPehchan login. For school students under 18, parental consent is authenticated via parent Aadhaar OTP.', action_url: null, estimated_time: '2 mins' },
+      { step_number: 3, title: 'Select College / School & Generate 12-Digit APAAR', description: 'Select your Institution name (School/College/University) and admission year. Your unique 12-digit APAAR Card is issued immediately with a QR code.', action_url: 'https://apaar.education.gov.in/', estimated_time: '1 min' }
+    ],
+    documents: [
+      { document_name: 'Aadhaar Number (Student / Parent)', is_mandatory: true, description: 'For e-KYC demographic verification' },
+      { document_name: 'School / College Admission Number or Roll Number', is_mandatory: true, description: 'Links APAAR to academic transcript database' }
+    ],
+    requirements: [
+      'Enrolled in a recognized educational institution',
+      'For minors (under 18), parental/guardian consent is required'
+    ],
+    tips: [
+      'Your APAAR ID stays identical even if you transfer between different schools, colleges, or states.',
+      'All your board marksheets (CBSE, ICSE, State Boards) and university degrees automatically sync to your APAAR account.'
+    ]
   }
 ];
 
@@ -540,8 +765,8 @@ export const VERIFIED_APPS = [
     purpose: 'Photo-based civic grievance reporting for potholes, garbage dumps, and streetlights to local municipalities',
     department: 'Ministry of Housing and Urban Affairs (MoHUA)',
     platform: 'Android & iOS',
-    official_source: 'https://swachhbharaturban.gov.in/',
-    website: 'https://swachhbharaturban.gov.in/',
+    official_source: 'https://sbmurban.org/',
+    website: 'https://sbmurban.org/',
     description: 'Geo-tagged civic problem solver for urban residents.'
   }
 ];

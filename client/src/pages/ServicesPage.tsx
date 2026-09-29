@@ -5,10 +5,12 @@ import { ServiceCard } from '../components/ServiceCard';
 import { getServices, getCategories } from '../lib/api';
 import { GovernmentService, Category } from '../types';
 import { useLocation, INDIAN_STATES } from '../context/LocationContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export const ServicesPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { state: userState } = useLocation();
+  const { t } = useLanguage();
 
   const [services, setServices] = useState<GovernmentService[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -68,10 +70,10 @@ export const ServicesPage: React.FC = () => {
       {/* Header */}
       <div>
         <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#1B365D] dark:text-white">
-          Verified Government Services Directory
+          {t('all_services_title')}
         </h1>
         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
-          Search and filter verified Central, State, and Municipal government portals across India.
+          {t('all_services_subtitle')}
         </p>
       </div>
 
@@ -86,7 +88,7 @@ export const ServicesPage: React.FC = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by keyword, certificate name, problem, or department..."
+              placeholder={t('search_placeholder')}
               className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-[#F8F9FA] dark:bg-slate-950 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none focus:border-[#1B365D]"
             />
           </div>
@@ -94,7 +96,7 @@ export const ServicesPage: React.FC = () => {
             type="submit"
             className="px-5 py-2.5 rounded-xl bg-[#1B365D] hover:bg-[#0A2540] text-white font-semibold text-xs transition-colors"
           >
-            Search
+            {t('search')}
           </button>
         </form>
 
@@ -103,29 +105,29 @@ export const ServicesPage: React.FC = () => {
           
           {/* Jurisdiction */}
           <div className="flex items-center gap-1.5">
-            <span className="text-slate-500 font-medium">Jurisdiction:</span>
+            <span className="text-slate-500 font-medium">{t('filter_jurisdiction')}</span>
             <select
               value={selectedJurisdiction}
               onChange={(e) => setSelectedJurisdiction(e.target.value)}
               className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-medium"
             >
-              <option value="">All Levels</option>
-              <option value="CENTRAL">Central Government</option>
-              <option value="STATE">State Government</option>
-              <option value="MUNICIPAL">Municipal / Local Body</option>
-              <option value="DISTRICT">District Administration</option>
+              <option value="">{t('all_levels')}</option>
+              <option value="CENTRAL">{t('central_government')}</option>
+              <option value="STATE">{t('state_government')}</option>
+              <option value="MUNICIPAL">{t('municipal_local_body')}</option>
+              <option value="DISTRICT">{t('district_administration')}</option>
             </select>
           </div>
 
           {/* Category */}
           <div className="flex items-center gap-1.5">
-            <span className="text-slate-500 font-medium">Category:</span>
+            <span className="text-slate-500 font-medium">{t('filter_category')}</span>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-medium max-w-[200px] truncate"
             >
-              <option value="">All Categories</option>
+              <option value="">{t('all_categories')}</option>
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name}
@@ -136,7 +138,7 @@ export const ServicesPage: React.FC = () => {
 
           {/* State */}
           <div className="flex items-center gap-1.5">
-            <span className="text-slate-500 font-medium">State:</span>
+            <span className="text-slate-500 font-medium">{t('filter_state')}</span>
             <select
               value={selectedState}
               onChange={(e) => setSelectedState(e.target.value)}
@@ -155,7 +157,7 @@ export const ServicesPage: React.FC = () => {
               onClick={clearFilters}
               className="text-xs text-blue-600 dark:text-blue-400 font-semibold hover:underline ml-auto"
             >
-              Clear Filters
+              {t('clear_filters')}
             </button>
           )}
 
@@ -167,28 +169,28 @@ export const ServicesPage: React.FC = () => {
       {loading ? (
         <div className="p-16 text-center">
           <RefreshCw className="w-8 h-8 text-blue-600 animate-spin mx-auto mb-3" />
-          <p className="text-xs text-slate-500">Loading verified services...</p>
+          <p className="text-xs text-slate-500">{t('loading_services')}</p>
         </div>
       ) : services.length === 0 ? (
         <div className="p-16 text-center rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
           <AlertCircle className="w-10 h-10 text-amber-500 mx-auto" />
           <h3 className="font-bold text-base text-slate-900 dark:text-white">
-            No verified services found matching criteria
+            {t('no_services_found')}
           </h3>
           <p className="text-xs text-slate-500 max-w-md mx-auto">
-            Try adjusting your search query, selecting "All Levels", or resetting your state filter.
+            {t('no_services_sub')}
           </p>
           <button
             onClick={clearFilters}
             className="px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-semibold"
           >
-            Reset Filters
+            {t('reset_filters')}
           </button>
         </div>
       ) : (
         <div className="space-y-4">
           <div className="text-xs text-slate-500 font-medium">
-            Showing {services.length} verified government services
+            {services.length} {t('showing_verified_count')}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service) => (

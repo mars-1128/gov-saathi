@@ -3,8 +3,10 @@ import { Layers, RefreshCw } from 'lucide-react';
 import { CategoryCard } from '../components/CategoryCard';
 import { getCategories } from '../lib/api';
 import { Category } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 export const CategoriesPage: React.FC = () => {
+  const { t } = useLanguage();
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -19,10 +21,10 @@ export const CategoriesPage: React.FC = () => {
       <div>
         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
           <Layers className="w-4 h-4" />
-          <span>Government Taxonomy</span>
+          <span>{t('categories')}</span>
         </div>
         <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1">
-          Government Service Categories
+          {t('categories_page_title')}
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
           Explore all 18 database-driven citizen categories, from grievances and cybercrime to certificates, transport, and welfare schemes.

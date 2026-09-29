@@ -90,3 +90,18 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
+
+/* Continuous Majestic Rotation for Ashoka Chakra */
+@keyframes chakra-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-chakra-spin {
+  animation: chakra-spin 12s linear infinite;
+  transform-origin: center;
+}

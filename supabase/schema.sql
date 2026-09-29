@@ -665,6 +665,151 @@ INSERT INTO public.government_services (
     ARRAY['aadhaar', 'myaadhaar', 'uidai', 'address change', 'pvc card', 'biometric lock', 'eaadhaar']
 ) ON CONFLICT (slug) DO NOTHING;
 
+-- 6b. Instant e-PAN via Aadhaar (Income Tax Department)
+INSERT INTO public.government_services (
+    name, slug, description, simple_description, category_id, department, jurisdiction_level, state,
+    eligibility, fee, processing_information, application_mode,
+    official_website, official_app, official_helpline, official_email,
+    official_source, source_type, last_verified_at, verification_status, keywords
+) VALUES (
+    'Instant e-PAN via Aadhaar (Income Tax Department)',
+    'instant-epan-income-tax',
+    'Paperless, instant allotment of Permanent Account Number (PAN) directly by the Income Tax Department under the e-Filing 2.0 portal using Aadhaar e-KYC. Contains a digitally signed QR code and holds identical legal validity to a physical plastic PAN card under Section 139A of the Income Tax Act.',
+    'Get an official, legally valid digital PAN card in PDF format within 10 minutes completely free using your Aadhaar e-KYC.',
+    (SELECT id FROM public.categories WHERE slug = 'identity-services'),
+    'Directorate of Income Tax (Systems), Ministry of Finance',
+    'CENTRAL', 'All India',
+    'Indian resident citizens with valid Aadhaar linked to mobile, who have never been allotted a PAN and are 18+ years.',
+    '100% Free of Cost (Rs. 0)',
+    'Instant generation in 5-10 minutes with Aadhaar OTP.',
+    'ONLINE',
+    'https://www.incometax.gov.in/iec/fposervices/#/pre-login/instant-e-pan',
+    'e-Filing Portal / UMANG',
+    '1800-180-1961',
+    'pan-helpdesk@incometax.gov.in',
+    'https://www.incometax.gov.in/',
+    'GOVERNMENT_PORTAL',
+    now(),
+    'VERIFIED',
+    ARRAY['pan card', 'instant pan', 'epan', 'income tax pan', 'free pan card', 'aadhaar pan', 'apply pan online', 'pan download']
+) ON CONFLICT (slug) DO NOTHING;
+
+-- 6c. Physical PAN Card Application & Correction (Protean / UTIITSL)
+INSERT INTO public.government_services (
+    name, slug, description, simple_description, category_id, department, jurisdiction_level, state,
+    eligibility, fee, processing_information, application_mode,
+    official_website, official_app, official_helpline, official_email,
+    official_source, source_type, last_verified_at, verification_status, keywords
+) VALUES (
+    'Physical PAN Card Application & Correction (Protean / UTIITSL)',
+    'pan-card-nsdl-utiitsl',
+    'Official portal for issuance of physical plastic PAN cards managed by authorized government processing agencies Protean eGov Technologies (formerly NSDL) and UTI Infrastructure Technology And Services Ltd (UTIITSL). Offers paperless Aadhaar e-KYC or physical document submission for new PAN, reprints of lost cards, and corrections.',
+    'Apply for a laminated physical PVC PAN card (Form 49A), change name/address/photo, reprint lost cards, or link PAN with Aadhaar.',
+    (SELECT id FROM public.categories WHERE slug = 'identity-services'),
+    'Central Board of Direct Taxes (CBDT), Ministry of Finance',
+    'CENTRAL', 'All India',
+    'All Indian citizens, minors, NRIs, and entities requiring physical PAN card.',
+    'Rs. 107 (Physical delivery in India); Rs. 1,017 (Foreign dispatch); Rs. 50 (Reprint only)',
+    'Printed and dispatched via India Post Speed Post within 10-15 working days.',
+    'ONLINE',
+    'https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html',
+    'Official Protean / UTIITSL Portals',
+    '020-27218080',
+    'tininfo@proteantech.in',
+    'https://incometaxindia.gov.in/',
+    'GOVERNMENT_PORTAL',
+    now(),
+    'VERIFIED',
+    ARRAY['pan card', 'physical pan card', 'nsdl pan', 'utiitsl pan', 'pan correction', 'reprint pan card', 'form 49a', 'link pan aadhaar']
+) ON CONFLICT (slug) DO NOTHING;
+
+-- 6d. ABHA Card (Ayushman Bharat Health Account)
+INSERT INTO public.government_services (
+    name, slug, description, simple_description, category_id, department, jurisdiction_level, state,
+    eligibility, fee, processing_information, application_mode,
+    official_website, official_app, official_helpline, official_email,
+    official_source, source_type, last_verified_at, verification_status, keywords
+) VALUES (
+    'ABHA Card (Ayushman Bharat Health Account) - 14-Digit Health ID',
+    'ayushman-bharat-abha-health-id',
+    'Core digital health identity under Ayushman Bharat Digital Mission (ABDM). Provides a unified 14-digit identification number and ABHA address to securely access and share medical records across hospitals and labs.',
+    'Create your official 14-digit ABHA Health ID card instantly to store and share hospital prescriptions, lab reports, and medical history digitally.',
+    (SELECT id FROM public.categories WHERE slug = 'identity-services'),
+    'National Health Authority (NHA), Ministry of Health & Family Welfare',
+    'CENTRAL', 'All India',
+    'All Indian citizens of any age.',
+    '100% Free of Cost (Rs. 0)',
+    'Instant digital card generation in under 2 minutes.',
+    'ONLINE',
+    'https://abha.abdm.gov.in/',
+    'ABHA App (Android & iOS) / Aarogya Setu',
+    '14477 / 1800-11-4477',
+    'abdm@nha.gov.in',
+    'https://abdm.gov.in/',
+    'GOVERNMENT_PORTAL',
+    now(),
+    'VERIFIED',
+    ARRAY['abha card', 'health id', 'ayushman bharat id', 'digital health record', 'abha download', 'abha registration', 'health identity']
+) ON CONFLICT (slug) DO NOTHING;
+
+-- 6e. Ration Card & One Nation One Ration Card (NFSA)
+INSERT INTO public.government_services (
+    name, slug, description, simple_description, category_id, department, jurisdiction_level, state,
+    eligibility, fee, processing_information, application_mode,
+    official_website, official_app, official_helpline, official_email,
+    official_source, source_type, last_verified_at, verification_status, keywords
+) VALUES (
+    'Ration Card Services & One Nation One Ration Card (NFSA / RCMS)',
+    'ration-card-onorc-nfsa',
+    'National Food Security Act portal and state RCMS portals. Under One Nation One Ration Card (ONORC), migratory workers and families can lift subsidized grains from any Fair Price Shop across India using biometric Aadhaar authentication.',
+    'Apply for family Ration Card, add family members, check NFSA food grain quota, and avail ration portability anywhere in India.',
+    (SELECT id FROM public.categories WHERE slug = 'identity-services'),
+    'Department of Food & Public Distribution, Ministry of Consumer Affairs',
+    'STATE', 'All India',
+    'Eligible Antyodaya Anna Yojana (AAY) and Priority Household (PHH) families based on state criteria.',
+    'Free of Cost or nominal state fee (Rs. 5 - Rs. 45 depending on state card type)',
+    'Online application followed by verification by local Food Inspector / Tahsildar within 15 to 30 days.',
+    'HYBRID',
+    'https://nfsa.gov.in/',
+    'Mera Ration App (Android)',
+    '1967',
+    'dir-food@nic.in',
+    'https://nfsa.gov.in/',
+    'GOVERNMENT_PORTAL',
+    now(),
+    'VERIFIED',
+    ARRAY['ration card', 'onorc', 'mera ration', 'food security', 'nfsa', 'rashan card', 'fair price shop', 'family identity']
+) ON CONFLICT (slug) DO NOTHING;
+
+-- 6f. APAAR ID (One Nation One Student ID)
+INSERT INTO public.government_services (
+    name, slug, description, simple_description, category_id, department, jurisdiction_level, state,
+    eligibility, fee, processing_information, application_mode,
+    official_website, official_app, official_helpline, official_email,
+    official_source, source_type, last_verified_at, verification_status, keywords
+) VALUES (
+    'APAAR ID - Automated Permanent Academic Account Registry (One Nation One Student ID)',
+    'apaar-student-id-abc',
+    'Unique 12-digit lifelong academic identification for students from Pre-Primary through Higher Education, linked with DigiLocker and the Academic Bank of Credits (ABC) to facilitate credit transfers and authentic degree verification.',
+    'Generate your 12-digit unique lifelong student identity card to store all degrees, board marksheets, credits, and achievements digitally.',
+    (SELECT id FROM public.categories WHERE slug = 'identity-services'),
+    'Ministry of Education, Government of India',
+    'CENTRAL', 'All India',
+    'All students enrolled in recognized schools, colleges, and higher education universities across India.',
+    '100% Free of Cost (Rs. 0)',
+    'Instant digital generation through student self-consent on DigiLocker or school UDISE+ portal.',
+    'ONLINE',
+    'https://apaar.education.gov.in/',
+    'DigiLocker App / UMANG',
+    '011-20862365',
+    'contact@abc.gov.in',
+    'https://apaar.education.gov.in/',
+    'GOVERNMENT_PORTAL',
+    now(),
+    'VERIFIED',
+    ARRAY['apaar id', 'student id', 'abc id', 'academic bank of credits', 'one nation one student id', 'student card', 'digilocker student', 'education identity']
+) ON CONFLICT (slug) DO NOTHING;
+
 -- 7. Parivahan Sarathi - Driving Licence & Learner Licence
 INSERT INTO public.government_services (
     name, slug, description, simple_description, category_id, department, jurisdiction_level, state,
@@ -712,11 +857,11 @@ INSERT INTO public.government_services (
     'Free of cost',
     'Civic workers are assigned within 12-48 hours and post before/after photo evidence upon resolving the complaint.',
     'MOBILE_APP',
-    'https://swachhbharaturban.gov.in/',
+    'https://sbmurban.org/',
     'Swachhata - MoHUA App (Android & iOS)',
     '1969',
-    'swachhbharat@gov.in',
-    'https://swachhbharaturban.gov.in/',
+    'support@sbmurban.org',
+    'https://sbmurban.org/',
     'GOVERNMENT_PORTAL',
     now(),
     'VERIFIED',
@@ -848,9 +993,9 @@ INSERT INTO public.service_steps (service_id, step_number, title, description, a
 VALUES
 (
     (SELECT id FROM public.government_services WHERE slug = 'swachhata-civic-complaint-app'),
-    1, 'Download Official Swachhata App',
-    'Download the official "Swachhata - MoHUA" app from Google Play Store or Apple App Store, or access through UMANG.',
-    'https://swachhbharaturban.gov.in/', '2 minutes'
+    1, 'Download Official Swachhata App or Open Portal',
+    'Download the official "Swachhata - MoHUA" app from Google Play Store or Apple App Store, or access through UMANG or https://sbmurban.org/.',
+    'https://sbmurban.org/', '2 minutes'
 ),
 (
     (SELECT id FROM public.government_services WHERE slug = 'swachhata-civic-complaint-app'),
@@ -918,7 +1063,7 @@ VALUES
 ('DigiLocker', 'Store, share, and verify official government documents electronically', 'MeitY', 'Android & iOS & Web', 'https://www.digilocker.gov.in/', 'https://www.digilocker.gov.in/', 'Legally recognized electronic document locker.'),
 ('mParivahan', 'Virtual Driving Licence and Vehicle RC display, challan payment, and RTO citizen services', 'MoRTH / NIC', 'Android & iOS', 'https://parivahan.gov.in/', 'https://parivahan.gov.in/', 'Official app for vehicle and driver documentation.'),
 ('mAadhaar', 'Carry your Aadhaar card on mobile, lock biometrics, generate VID, and update address', 'UIDAI', 'Android & iOS', 'https://uidai.gov.in/', 'https://uidai.gov.in/', 'Official Aadhaar application from UIDAI.'),
-('Swachhata - MoHUA', 'Lodge civic complaints on potholes, garbage, streetlights with photo GPS to municipal corporations', 'MoHUA', 'Android & iOS', 'https://swachhbharaturban.gov.in/', 'https://swachhbharaturban.gov.in/', 'Citizen civic grievance reporting app.')
+('Swachhata - MoHUA', 'Lodge civic complaints on potholes, garbage, streetlights with photo GPS to municipal corporations', 'MoHUA', 'Android & iOS', 'https://sbmurban.org/', 'https://sbmurban.org/', 'Citizen civic grievance reporting app.')
 ON CONFLICT DO NOTHING;
 
 -- ====================================================================
