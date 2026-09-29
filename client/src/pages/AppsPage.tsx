@@ -72,16 +72,29 @@ export const AppsPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mt-6 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <div className="mt-6 pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-2">
                 <a
-                  href={app.official_source}
+                  href={app.play_store_url || app.official_source}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-lg bg-[#1B365D] hover:bg-[#0A2540] text-white font-bold text-xs shadow-xs transition-colors"
+                  className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-[#1B365D] hover:bg-[#0A2540] text-white font-bold text-xs shadow-xs transition-colors"
                 >
-                  <span>Open Official App Site</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download App ({app.platform})</span>
+                  <ExternalLink className="w-3 h-3 ml-0.5" />
                 </a>
+
+                {app.website && app.website !== (app.play_store_url || app.official_source) && (
+                  <a
+                    href={app.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs transition-colors"
+                  >
+                    <span>Visit Official Web Portal</span>
+                    <ExternalLink className="w-3 h-3 text-slate-400" />
+                  </a>
+                )}
               </div>
 
             </div>

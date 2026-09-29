@@ -17,10 +17,23 @@ export const ServicesPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   // Filters
-  const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || searchParams.get('q') || '');
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || '');
   const [selectedJurisdiction, setSelectedJurisdiction] = useState(searchParams.get('jurisdiction') || '');
   const [selectedState, setSelectedState] = useState(searchParams.get('state') || userState);
+
+  // Keep state in sync with URL parameters
+  useEffect(() => {
+    const searchFromUrl = searchParams.get('search') || searchParams.get('q') || '';
+    const catFromUrl = searchParams.get('category') || '';
+    const jurFromUrl = searchParams.get('jurisdiction') || '';
+    const stateFromUrl = searchParams.get('state') || userState;
+
+    setSearchQuery(searchFromUrl);
+    setSelectedCategory(catFromUrl);
+    setSelectedJurisdiction(jurFromUrl);
+    setSelectedState(stateFromUrl);
+  }, [searchParams, userState]);
 
   useEffect(() => {
     const loadData = async () => {

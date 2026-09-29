@@ -19,6 +19,7 @@ import { SchemesPage } from './pages/SchemesPage';
 import { AppsPage } from './pages/AppsPage';
 import { DocumentsPage } from './pages/DocumentsPage';
 import { AISaathiPage } from './pages/AISaathiPage';
+import { SearchResultsPage } from './pages/SearchResultsPage';
 import { AuthPage } from './pages/AuthPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { AdminPage } from './pages/AdminPage';
@@ -33,6 +34,7 @@ const AppLayout: React.FC = () => {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/search" element={<SearchResultsPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/services/:slug" element={<ServiceDetailPage />} />
           <Route path="/categories" element={<CategoriesPage />} />

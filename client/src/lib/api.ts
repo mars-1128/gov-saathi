@@ -5,7 +5,8 @@ import {
   GovernmentScheme,
   GovernmentApp,
   DigitalDocument,
-  AISaathiResponse
+  AISaathiResponse,
+  SearchResultResponse
 } from '../types';
 
 const API_BASE = '/api';
@@ -35,14 +36,16 @@ export async function getServiceDetail(slug: string): Promise<GovernmentService 
   return data.data || null;
 }
 
-export async function searchServices(query: string, state?: string): Promise<GovernmentService[]> {
+export async function searchServices(query: string, state?: string): Promise<SearchResultResponse> {
   const res = await fetch(`${API_BASE}/search`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ query, state: state || 'All India' }),
   });
-  const data = await res.json();
-  return data.data || [];
+  if (!res.ok) {
+    throw new Error('Search failed');
+  }
+  return res.json();
 }
 
 export async function sendAIChatMessage(params: {

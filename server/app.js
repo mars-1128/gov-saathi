@@ -16,6 +16,7 @@ import {
   fetchSavedServices,
   addSavedService,
   removeSavedService,
+  searchGovernmentServices,
 } from './services/supabaseService.js';
 import { askAISaathi, findRelevantServices } from './services/geminiService.js';
 
@@ -78,22 +79,16 @@ app.get('/api/services/:slug', async (req, res) => {
   }
 });
 
-// 5. Intelligent Search (Citizen query matching)
-app.post('/api/search', async (req, res) => {
+// 5. Dedicated Government Service Search (Decoupled from AI Saathi chatbot)
+app.all('/api/search', async (req, res) => {
   try {
-    const { query, state = 'All India' } = req.body;
-    if (!query || query.trim() === '') {
-      return res.json({ success: true, data: [] });
-    }
+    const query = req.method === 'POST' ? req.body.query : (req.query.q || req.query.query || req.query.search);
+    const state = req.method === 'POST' ? (req.body.state || 'All India') : (req.query.state || 'All India');
 
-    const matched = findRelevantServices(query, state);
-    res.json({
-      success: true,
-      query,
-      count: matched.length,
-      data: matched
-    });
+    const result = await searchGovernmentServices(query, state);
+    res.json(result);
   } catch (error) {
+    console.error('[API] Search processing error:', error);
     res.status(500).json({ success: false, error: 'Search processing error' });
   }
 });

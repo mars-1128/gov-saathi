@@ -35,20 +35,21 @@ export const VERIFIED_SERVICES = [
     simple_description: 'Report broken roads, potholes, garbage dumps, overflowing drains, or dead animals directly to your local municipality with photo GPS proof.',
     description: 'Swachhata is the official civic grievance platform launched by MoHUA mapped to thousands of Indian municipal corporations and municipalities. Citizens can upload a geo-tagged photo of road damage, garbage, or streetlights. Local municipal sanitary inspectors/engineers are assigned with mandated resolution timeframes and must post resolution photos.',
     eligibility: 'Any resident in an urban municipal corporation, municipality, or town council area in India.',
-    fee: '100% Free of Cost (Rs. 0 - Zero fee for New Registration, Corrections, & EPIC PVC Delivery)',
+    fee: '100% Free of Cost (Rs. 0 - Municipal civic complaints are free)',
     processing_information: 'Assigned within 12-48 hours. Photo resolution evidence provided by civic staff.',
     application_mode: 'MOBILE_APP',
     official_website: 'https://sbmurban.org/',
     official_app: 'Swachhata - MoHUA (Android & iOS)',
+    official_app_url: 'https://play.google.com/store/apps/details?id=com.ichangemycity.swachhbharat',
     official_helpline: '1969',
     official_email: 'support@sbmurban.org',
-    official_source: 'https://sbmurban.org/',
+    official_source: 'https://play.google.com/store/apps/details?id=com.ichangemycity.swachhbharat',
     source_type: 'GOVERNMENT_PORTAL',
     verification_status: 'VERIFIED',
     last_verified_at: '2026-09-28T00:00:00Z',
-    keywords: ['pothole', 'road damage', 'garbage', 'drainage', 'broken road', 'streetlight', 'dead animal', 'civic complaint', 'sanitation', 'municipality', 'corporation', 'road repair', 'swachhbharat', 'swachhata'],
+    keywords: ['pothole', 'road damage', 'garbage', 'drainage', 'broken road', 'streetlight', 'dead animal', 'civic complaint', 'sanitation', 'municipality', 'corporation', 'road repair', 'swachhbharat', 'swachhata', 'swatchhbharath', 'swachh bharat', 'swatch bharat', 'swatchhata', 'swachhta', 'swachata'],
     steps: [
-      { step_number: 1, title: 'Download Official Swachhata App or Open Portal', description: 'Download Swachhata - MoHUA from Google Play Store or Apple App Store, or visit official portal https://sbmurban.org/ or use the UMANG app.', action_url: 'https://sbmurban.org/', estimated_time: '2 mins' },
+      { step_number: 1, title: 'Download Official Swachhata App or Open Portal', description: 'Download Swachhata - MoHUA from Google Play Store or Apple App Store, or visit official portal https://sbmurban.org/ or use the UMANG app.', action_url: 'https://play.google.com/store/apps/details?id=com.ichangemycity.swachhbharat', estimated_time: '2 mins' },
       { step_number: 2, title: 'Capture Geo-Tagged Photo of Pothole / Waste', description: 'Select complaint category (e.g., "Pothole on Road", "Garbage Dump", or "Broken Streetlight"). Take a clear photograph; the app automatically records accurate GPS coordinates.', action_url: null, estimated_time: '1 min' },
       { step_number: 3, title: 'Submit & Track Resolution with Photo Proof', description: 'Receive an instant Ticket ID. The local municipal engineer / sanitary inspector is assigned to resolve the defect and must upload a verified "after-repair" photograph to close the ticket.', action_url: 'https://sbmurban.org/', estimated_time: '12-48 hours' }
     ],
@@ -281,7 +282,122 @@ export const VERIFIED_SERVICES = [
     source_type: 'GOVERNMENT_PORTAL',
     verification_status: 'VERIFIED',
     last_verified_at: '2026-09-28T00:00:00Z',
-    keywords: ['aadhaar', 'myaadhaar', 'uidai', 'eaadhaar', 'pvc card', 'address update', 'biometric lock', '1947', 'aadhaar download'],
+    keywords: [
+      'aadhaar', 'aadhar', 'adhar', 'myaadhaar', 'myaadhar', 'uidai', 'eaadhaar', 'pvc card', 'address update',
+      'biometric lock', '1947', 'aadhaar download', 'aadhar card', 'aadhaar card',
+      'mobile number update', 'phone number update', 'change mobile number in aadhaar', 'how to change mobile number in aadhaar',
+      'how can i change my aadhaar mobile number', 'change phone number in aadhaar', 'aadhaar mobile number change',
+      'aadhar phone number update', 'aadhaar address change', 'update mobile number in aadhaar', 'name update aadhaar',
+      'dob update aadhaar', 'date of birth update aadhaar', 'check aadhaar status', 'aadhaar seva kendra'
+    ],
+    sub_services: [
+      {
+        id: 'sub-aadhaar-mobile',
+        title: 'Update Mobile Number & Email in Aadhaar',
+        description: 'Update or link your active 10-digit mobile phone number and email address with your Aadhaar.',
+        methods: ['OFFLINE'],
+        offline_option: 'Mandatory in-person biometric verification at any Aadhaar Seva Kendra (ASK), Post Office (India Post), or designated Bank branch. Doorstep update is also available via India Post Payments Bank (IPPB) postmen.',
+        documents_required: ['No document required. Only your 12-digit Aadhaar number and your physical presence for biometric scan.'],
+        fee: 'Rs. 50 (Official UIDAI standard government fee)',
+        important_notes: 'Online mobile number change was discontinued by UIDAI for national cybersecurity. In-person biometric authentication (fingerprint/iris) is compulsory. Beware of fraudulent websites claiming to change Aadhaar mobile number online without biometrics.',
+        step_summary: [
+          'Book an appointment online at https://appointments.uidai.gov.in/ to save waiting time, or walk directly into any Aadhaar Seva Kendra or post office.',
+          'Provide your 12-digit Aadhaar number and fill the demographic update slip with your new 10-digit mobile number.',
+          'Perform biometric authentication (fingerprint scan and iris capture) with the UIDAI certified operator.',
+          'Pay the standard Rs. 50 government fee and collect your print receipt with the 28-digit Update Request Number (URN).',
+          'Track status online. Mobile number is updated within 24 to 72 hours and an SMS confirmation is sent.'
+        ],
+        action_url: 'https://appointments.uidai.gov.in/'
+      },
+      {
+        id: 'sub-aadhaar-address',
+        title: 'Update Residential Address in Aadhaar',
+        description: 'Update your house number, street, locality, PIN code, or district in Aadhaar records.',
+        methods: ['ONLINE', 'OFFLINE'],
+        offline_option: 'Available at any Aadhaar Seva Kendra with original address proof.',
+        documents_required: ['Valid Proof of Address (POA) such as Electricity Bill (< 3 months), Rent Agreement, Bank Passbook with photo, Voter ID, or Passport.'],
+        fee: 'Free (Rs. 0) on myAadhaar portal / Rs. 50 at Aadhaar Seva Kendra',
+        important_notes: 'Spelling on your address document must match exactly. Ensure clear color scans (PDF/JPEG under 2 MB) are uploaded.',
+        step_summary: [
+          'Log in to https://myaadhaar.uidai.gov.in/ using your 12-digit Aadhaar and mobile OTP.',
+          'Click on "Address Update" -> "Update Aadhaar Online".',
+          'Enter your new residential address details in English and local language.',
+          'Upload valid scanned Proof of Address (POA) document.',
+          'Submit the application and note your URN tracking number. Verified within 3-7 working days.'
+        ],
+        action_url: 'https://myaadhaar.uidai.gov.in/'
+      },
+      {
+        id: 'sub-aadhaar-name-dob',
+        title: 'Update Name, Date of Birth (DOB) or Gender',
+        description: 'Correct minor spelling in your name, update date of birth, or change gender in Aadhaar.',
+        methods: ['OFFLINE'],
+        offline_option: 'Aadhaar Seva Kendra (ASK) with documentary evidence.',
+        documents_required: ['Proof of Identity (POI) / Birth Certificate / Matriculation 10th Marksheet / Passport.'],
+        fee: 'Rs. 50 (Official UIDAI fee)',
+        important_notes: 'UIDAI enforces strict lifetime limits: Name can be updated only twice; Date of Birth and Gender can be updated only once in a citizen\'s lifetime.',
+        step_summary: [
+          'Book appointment at nearest Aadhaar Seva Kendra at https://appointments.uidai.gov.in/.',
+          'Carry original documentary proof (Birth Certificate or 10th mark sheet for DOB; Passport or PAN for name).',
+          'Operator enters new data and captures live photo & biometric verification.',
+          'Pay Rs. 50 fee and collect acknowledgement URN slip.'
+        ],
+        action_url: 'https://appointments.uidai.gov.in/'
+      },
+      {
+        id: 'sub-aadhaar-download',
+        title: 'Download e-Aadhaar Digital Card (Instant PDF)',
+        description: 'Download a legally valid, digitally signed electronic copy of your Aadhaar card anytime.',
+        methods: ['ONLINE'],
+        offline_option: 'Can be printed at CSC center or Aadhaar center for Rs. 30.',
+        documents_required: ['Aadhaar Number or 28-digit Enrolment ID (EID) with linked mobile for OTP.'],
+        fee: '100% Free of Cost (Rs. 0)',
+        important_notes: 'The downloaded PDF is password-protected. The password is the first 4 letters of your name in CAPITAL letters followed by your 4-digit Year of Birth (e.g. SURE1995 for Suresh born in 1995).',
+        step_summary: [
+          'Visit https://myaadhaar.uidai.gov.in/genricDownloadAadhaar.',
+          'Enter your 12-digit Aadhaar number or 28-digit EID and captcha.',
+          'Click "Send OTP" and enter the 6-digit OTP received on your mobile.',
+          'Choose whether you want a regular or Masked Aadhaar (masks first 8 digits).',
+          'Click "Verify & Download" to get instant authentic PDF.'
+        ],
+        action_url: 'https://myaadhaar.uidai.gov.in/genricDownloadAadhaar'
+      },
+      {
+        id: 'sub-aadhaar-pvc',
+        title: 'Order Official PVC Plastic Aadhaar Card',
+        description: 'Get a durable, waterproof, pocket-sized plastic PVC Aadhaar card delivered to your home by India Post Speed Post.',
+        methods: ['ONLINE'],
+        offline_option: 'Order online; delivered to registered address.',
+        documents_required: ['Aadhaar Number (Any mobile number can be used for OTP during PVC order).'],
+        fee: 'Rs. 50 (Inclusive of Speed Post delivery and GST)',
+        important_notes: 'Features official UIDAI hologram, microtext, ghost image, and verifiable secure QR code.',
+        step_summary: [
+          'Go to https://myaadhaar.uidai.gov.in/genricPVC.',
+          'Enter Aadhaar number. If mobile is not linked, tick "My mobile number is not registered" and enter any alternate number.',
+          'Verify OTP and preview demographic details.',
+          'Pay Rs. 50 online via UPI, Debit Card, or Net Banking.',
+          'Track postal delivery using the Service Request Number (SRN) via India Post.'
+        ],
+        action_url: 'https://myaadhaar.uidai.gov.in/genricPVC'
+      },
+      {
+        id: 'sub-aadhaar-status',
+        title: 'Check Aadhaar Enrolment / Update Status',
+        description: 'Check whether your Aadhaar card generation or update request has been approved and completed.',
+        methods: ['ONLINE'],
+        offline_option: 'Call toll-free helpline 1947.',
+        documents_required: ['28-digit Enrolment ID (EID) or Update Request Number (URN) from acknowledgement slip.'],
+        fee: '100% Free of Cost (Rs. 0)',
+        important_notes: 'Updates normally reflect within 24 to 72 hours, but may take up to 15 days in exceptional cases.',
+        step_summary: [
+          'Visit https://myaadhaar.uidai.gov.in/check-aadhaar-status.',
+          'Enter the 14-digit EID/URN and 14-digit date & time printed on the acknowledgement slip.',
+          'Solve the security captcha and click "Submit".',
+          'View real-time status: "Under Process", "Rejected (with reason)", or "Completed - e-Aadhaar Ready for Download".'
+        ],
+        action_url: 'https://myaadhaar.uidai.gov.in/check-aadhaar-status'
+      }
+    ],
     steps: [
       { step_number: 1, title: 'Login with Aadhaar & Mobile OTP', description: 'Open https://myaadhaar.uidai.gov.in. Click "Login", enter your 12-digit Aadhaar number and captcha, and authenticate via SMS OTP.', action_url: 'https://myaadhaar.uidai.gov.in/', estimated_time: '2 mins' },
       { step_number: 2, title: 'Select Service (Download / Address / PVC)', description: 'Select "Download Aadhaar" for instant password-protected PDF (Password is first 4 letters of name in CAPITAL + year of birth YYYY), or select "Address Update".', action_url: null, estimated_time: '1 min' },
@@ -292,7 +408,8 @@ export const VERIFIED_SERVICES = [
       { document_name: 'Valid Address Proof (for address change only)', is_mandatory: false, description: 'Electricity bill, rent agreement, bank passbook, or voter ID' }
     ],
     requirements: [
-      'Mobile number must be registered with Aadhaar for online OTP authentication'
+      'Mobile number must be registered with Aadhaar for online OTP authentication',
+      'For mobile number update, physical visit to Aadhaar Seva Kendra / Post Office with biometric verification is mandatory'
     ]
   },
   {
@@ -318,7 +435,84 @@ export const VERIFIED_SERVICES = [
     source_type: 'GOVERNMENT_PORTAL',
     verification_status: 'VERIFIED',
     last_verified_at: '2026-09-28T00:00:00Z',
-    keywords: ['driving licence', 'learner licence', 'parivahan', 'sarathi', 'rto', 'dl renewal', 'bike licence', 'car licence', 'challan'],
+    keywords: [
+      'driving licence', 'driving license', 'learner licence', 'learner license', 'parivahan', 'sarathi', 'rto',
+      'dl renewal', 'duplicate dl', 'lost dl', 'bike licence', 'car licence', 'challan', 'driving test',
+      'apply driving licence', 'apply learner licence', 'how to get driving licence', 'driving licence status'
+    ],
+    sub_services: [
+      {
+        id: 'sub-dl-learner',
+        title: 'Apply for Learner\'s Licence (LL Online)',
+        description: 'Take the computerized road-safety knowledge test online from home and download instant Learner Licence.',
+        methods: ['ONLINE'],
+        offline_option: 'Available at local RTO for non-Aadhaar mode applicants.',
+        documents_required: ['Aadhaar Card (for e-KYC paperless mode)', 'Form 1 Self-Declaration of Physical Fitness'],
+        fee: 'Rs. 200 (Learner licence issue & test fee)',
+        important_notes: 'Must watch the mandatory online road-safety tutorial before appearing for the 15-question traffic sign test.',
+        step_summary: [
+          'Visit https://sarathi.parivahan.gov.in/ and select your state.',
+          'Click "Apply for Learner Licence" and choose "Submit via Aadhaar Authentication".',
+          'Watch the 10-minute road safety educational video.',
+          'Complete the computerized multiple-choice test (80% passing score).',
+          'Download and print your verified digital Learner\'s Licence immediately.'
+        ],
+        action_url: 'https://sarathi.parivahan.gov.in/'
+      },
+      {
+        id: 'sub-dl-permanent',
+        title: 'Apply for Permanent Driving Licence (DL)',
+        description: 'Book a practical driving track test slot at your local RTO to obtain your permanent Driving Licence smart card.',
+        methods: ['HYBRID'],
+        offline_option: 'Physical driving test mandatory at RTO automated test track.',
+        documents_required: ['Valid Learner\'s Licence (must be held for at least 30 days)', 'Vehicle with valid RC, Insurance & PUC'],
+        fee: 'Rs. 700 (RTO Driving Test Rs. 300 + Licence Issue Rs. 200 + Smart Card Rs. 200)',
+        important_notes: 'You must apply within 6 months of LL validity. Wear a helmet for 2-wheeler test or seatbelt for 4-wheeler test.',
+        step_summary: [
+          'Go to https://sarathi.parivahan.gov.in/ and select "Apply for Driving Licence".',
+          'Enter your Learner\'s Licence number and Date of Birth.',
+          'Select vehicle class and book appointment date for RTO track test.',
+          'Pay Rs. 700 fee online and print the appointment slip.',
+          'Pass the driving track test. Smart card is printed and dispatched to your home address via India Post.'
+        ],
+        action_url: 'https://sarathi.parivahan.gov.in/'
+      },
+      {
+        id: 'sub-dl-renewal',
+        title: 'Driving Licence Renewal',
+        description: 'Renew your expired driving licence without retaking the driving test.',
+        methods: ['ONLINE'],
+        offline_option: 'Available at RTO with Form 9.',
+        documents_required: ['Original Expired DL', 'Form 1-A Medical Certificate (mandatory for commercial drivers or applicants aged 40+)'],
+        fee: 'Rs. 200 (Within 1 year of expiry; Rs. 300 late fee per year if expired beyond 1 year)',
+        important_notes: 'Can be renewed up to 1 year before expiry date or within 1 year after expiry without penalty.',
+        step_summary: [
+          'Select "Services on DL (Renewal/Duplicate/AEDL)" on https://sarathi.parivahan.gov.in/.',
+          'Enter DL number, Date of Birth, and select "Renewal of DL".',
+          'Upload doctor-signed Form 1-A medical fitness certificate.',
+          'Pay renewal fee online and download digital renewed DL acknowledgement.'
+        ],
+        action_url: 'https://sarathi.parivahan.gov.in/'
+      },
+      {
+        id: 'sub-dl-duplicate',
+        title: 'Duplicate Driving Licence (Lost / Torn DL)',
+        description: 'Get an official replacement smart card if your original driving licence was lost, stolen, or damaged.',
+        methods: ['ONLINE'],
+        offline_option: 'RTO Office submission.',
+        documents_required: ['Police Lost Article Report / LDR (mandatory for lost DL)', 'Affidavit or copy of existing DL / DL number'],
+        fee: 'Rs. 200 + Rs. 200 Smart Card fee',
+        important_notes: 'File an online Police Lost Article Report first before submitting the duplicate application.',
+        step_summary: [
+          'File an online police lost report on your state police portal and download the LDR slip.',
+          'Select "Apply for Duplicate DL" on https://sarathi.parivahan.gov.in/.',
+          'Enter DL number and reason for duplicate (Lost/Torn).',
+          'Upload the Police LDR copy and pay Rs. 400 fee.',
+          'Duplicate DL is issued and dispatched via Speed Post.'
+        ],
+        action_url: 'https://sarathi.parivahan.gov.in/'
+      }
+    ],
     steps: [
       { step_number: 1, title: 'Select State on Sarathi Portal', description: 'Visit https://sarathi.parivahan.gov.in and select your home state from the dropdown.', action_url: 'https://sarathi.parivahan.gov.in/', estimated_time: '1 min' },
       { step_number: 2, title: 'Apply for Learner Licence with Aadhaar', description: 'Choose "Apply for Learner Licence". Use Aadhaar e-KYC to authenticate automatically without visiting RTO for document submission in eligible states.', action_url: null, estimated_time: '10 mins' },
@@ -491,7 +685,7 @@ export const VERIFIED_SERVICES = [
     fee: '100% Free of Cost (Rs. 0)',
     processing_information: 'Instant generation within 5-10 minutes. Downloadable immediately upon Aadhaar OTP verification.',
     application_mode: 'ONLINE',
-    official_website: 'https://www.incometax.gov.in/iec/fposervices/#/pre-login/instant-e-pan',
+    official_website: 'https://eportal.incometax.gov.in/',
     official_app: 'e-Filing Portal / UMANG App',
     official_helpline: '1800-180-1961',
     official_email: 'pan-helpdesk@incometax.gov.in',
@@ -499,12 +693,51 @@ export const VERIFIED_SERVICES = [
     source_type: 'GOVERNMENT_PORTAL',
     verification_status: 'VERIFIED',
     last_verified_at: '2026-09-28T00:00:00Z',
-    keywords: ['pan card', 'instant pan', 'epan', 'income tax pan', 'free pan card', 'aadhaar pan', 'apply pan online', 'pan download', '10 minute pan', 'financial identity', 'pan-aadhaar'],
+    keywords: [
+      'pan card', 'instant pan', 'epan', 'income tax pan', 'free pan card', 'aadhaar pan', 'aadhar pan', 'adhar pan',
+      'aadhaar', 'aadhar', 'adhar', 'apply pan online', 'pan download', '10 minute pan', 'financial identity', 'pan-aadhaar',
+      'instant epan', 'digital pan'
+    ],
+    sub_services: [
+      {
+        id: 'sub-epan-new',
+        title: 'Generate Instant e-PAN (10-Minute Allotment via Aadhaar)',
+        description: 'Get an authentic, digitally signed 10-digit Permanent Account Number (PAN) in PDF format within minutes.',
+        methods: ['ONLINE'],
+        offline_option: 'Online paperless only; physical PAN available via Protean/UTIITSL.',
+        documents_required: ['Valid 12-digit Aadhaar Number linked to active mobile phone for OTP.'],
+        fee: '100% Free of Cost (Rs. 0)',
+        important_notes: 'Eligible only if you have never been allotted a PAN previously and are not a minor. Holds 100% legal validity on par with physical plastic cards under IT Act.',
+        step_summary: [
+          'Visit official Income Tax e-Filing portal https://eportal.incometax.gov.in/.',
+          'Click "Instant e-PAN" under Quick Links, then select "Get New e-PAN".',
+          'Enter your 12-digit Aadhaar number and enter the 6-digit OTP received on your mobile.',
+          'Confirm your personal details (Name, DOB, Gender, Address) fetched from UIDAI.',
+          'Submit the request. Your 10-digit PAN is allotted within 10 minutes.'
+        ],
+        action_url: 'https://eportal.incometax.gov.in/'
+      },
+      {
+        id: 'sub-epan-download',
+        title: 'Check Status / Download e-PAN PDF',
+        description: 'Download your password-protected digitally signed e-PAN card PDF.',
+        methods: ['ONLINE'],
+        documents_required: ['Aadhaar Number and mobile OTP.'],
+        fee: '100% Free of Cost (Rs. 0)',
+        important_notes: 'The PDF password is your Date of Birth in DDMMYYYY format without slashes (e.g. 05081992 for 5th August 1992).',
+        step_summary: [
+          'Visit https://eportal.incometax.gov.in/ and click "Instant e-PAN" -> "Check Status / Download PAN".',
+          'Enter Aadhaar number and submit the 6-digit OTP.',
+          'Download and save the verified e-PAN PDF containing the Income Tax QR code.'
+        ],
+        action_url: 'https://eportal.incometax.gov.in/'
+      }
+    ],
     steps: [
-      { step_number: 1, title: 'Open Income Tax e-Filing Instant e-PAN Page', description: 'Visit https://www.incometax.gov.in/iec/fposervices/#/pre-login/instant-e-pan and click the "Get New e-PAN" button.', action_url: 'https://www.incometax.gov.in/iec/fposervices/#/pre-login/instant-e-pan', estimated_time: '1 min' },
+      { step_number: 1, title: 'Open Income Tax e-Filing Instant e-PAN Page', description: 'Visit the official Income Tax e-Filing portal https://eportal.incometax.gov.in/ and select "Instant e-PAN" under Quick Links.', action_url: 'https://eportal.incometax.gov.in/', estimated_time: '1 min' },
       { step_number: 2, title: 'Enter 12-Digit Aadhaar & Validate OTP', description: 'Type your 12-digit Aadhaar number, agree to the declaration, and enter the 6-digit OTP received on your Aadhaar-linked mobile phone.', action_url: null, estimated_time: '2 mins' },
       { step_number: 3, title: 'Validate Demographics & Optional Email', description: 'Review your personal details (Name, Date of Birth, Gender, Address) pulled automatically from UIDAI. Validate your email ID if you wish it linked to your PAN.', action_url: null, estimated_time: '2 mins' },
-      { step_number: 4, title: 'Download Digitally Signed e-PAN PDF', description: 'Return to the Instant e-PAN page, click "Check Status / Download PAN", enter Aadhaar and OTP. Download the password-protected PDF (Password is your Date of Birth in DDMMYYYY format).', action_url: 'https://www.incometax.gov.in/iec/fposervices/#/pre-login/instant-e-pan', estimated_time: '5 mins' }
+      { step_number: 4, title: 'Download Digitally Signed e-PAN PDF', description: 'Return to the Instant e-PAN section on https://eportal.incometax.gov.in/, click "Check Status / Download PAN", enter Aadhaar and OTP. Download the password-protected PDF (Password is your Date of Birth in DDMMYYYY format).', action_url: 'https://eportal.incometax.gov.in/', estimated_time: '5 mins' }
     ],
     documents: [
       { document_name: 'Aadhaar Card Number', is_mandatory: true, description: 'Must have active mobile number registered with UIDAI for OTP authentication' }
@@ -535,7 +768,7 @@ export const VERIFIED_SERVICES = [
     fee: 'Physical PAN Card (in India): Rs. 107; Foreign Dispatch: Rs. 1,017; Physical Reprint: Rs. 50; e-PAN Download: Rs. 8.26 (Free within 30 days)',
     processing_information: 'Printed and dispatched via India Post Speed Post within 10 to 15 working days following verification.',
     application_mode: 'ONLINE',
-    official_website: 'https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html',
+    official_website: 'https://www.protean-tinpan.com/services/pan/pan-index.html',
     official_app: 'Official Protean / UTIITSL Portals',
     official_helpline: '020-27218080 (Protean) / 022-67931300 (UTIITSL)',
     official_email: 'tininfo@proteantech.in',
@@ -543,12 +776,91 @@ export const VERIFIED_SERVICES = [
     source_type: 'GOVERNMENT_PORTAL',
     verification_status: 'VERIFIED',
     last_verified_at: '2026-09-28T00:00:00Z',
-    keywords: ['pan card', 'physical pan card', 'nsdl pan', 'utiitsl pan', 'pan correction', 'reprint pan card', 'form 49a', 'link pan aadhaar', 'protean pan', 'pvc pan card'],
+    keywords: [
+      'pan card', 'pan', 'physical pan card', 'nsdl pan', 'utiitsl pan', 'pan correction', 'reprint pan card',
+      'form 49a', 'link pan aadhaar', 'link pan aadhar', 'protean pan', 'pvc pan card', 'how to correct pan',
+      'pan correction process', 'change details in pan', 'epan', 'instant pan', 'income tax pan', 'lost pan', 'duplicate pan'
+    ],
+    sub_services: [
+      {
+        id: 'sub-pan-correction',
+        title: 'PAN Card Correction & Data Update (Name, Photo, DOB, Father Name)',
+        description: 'Correct errors, change surname after marriage, update photograph or signature, and request a reprinted card.',
+        methods: ['ONLINE', 'OFFLINE'],
+        offline_option: 'Submit physical Form 49A/Correction at Protean/UTIITSL TIN Facilitation Centers (TIN-FC).',
+        documents_required: [
+          'Copy of Existing PAN Card',
+          'Proof of Identity (Aadhaar / Voter ID / Passport)',
+          'Proof of Date of Birth (Aadhaar / Birth Certificate / 10th Marksheet)',
+          'Supporting document for requested change (e.g. Marriage Certificate / Gazette Notification for name change)'
+        ],
+        fee: 'Rs. 107 (Physical card delivery in India) / Rs. 8.26 (e-PAN download only)',
+        important_notes: 'In paperless e-KYC mode, Aadhaar OTP is used to digitally sign without mailing physical paperwork.',
+        step_summary: [
+          'Open Protean PAN portal https://www.protean-tinpan.com/services/pan/pan-index.html or UTIITSL portal https://www.pan.utiitsl.com/.',
+          'Select "Changes or Correction in existing PAN Data / Reprint of PAN Card".',
+          'Fill in your 10-character PAN number and check the boxes next to the fields you wish to correct.',
+          'Upload supporting documents and choose "Submit digitally through e-KYC & e-Sign".',
+          'Pay Rs. 107 fee online and complete Aadhaar OTP e-Sign. New card is dispatched via Speed Post in 10-15 days.'
+        ],
+        action_url: 'https://www.protean-tinpan.com/services/pan/pan-index.html'
+      },
+      {
+        id: 'sub-pan-new',
+        title: 'Apply for New Physical PAN Card (Form 49A)',
+        description: 'Apply for a new laminated plastic PAN card for Indian citizens, minors, or NRIs.',
+        methods: ['ONLINE', 'OFFLINE'],
+        offline_option: 'Available at all authorised TIN-FC centers across India.',
+        documents_required: ['Aadhaar Card (serves as Proof of Identity, Address, and DOB)'],
+        fee: 'Rs. 107 (Delivered to Indian residential address)',
+        important_notes: 'Father\'s name is mandatory on the PAN card even for married female applicants.',
+        step_summary: [
+          'Visit Protean (NSDL) https://www.protean-tinpan.com/ or UTIITSL https://www.pan.utiitsl.com/.',
+          'Select "Application Type: New PAN - Indian Citizen (Form 49A)".',
+          'Complete personal and contact details, select "e-KYC & e-Sign (Paperless)".',
+          'Pay Rs. 107 via UPI, Net Banking, or Debit Card.',
+          'Authenticate via Aadhaar OTP. Dispatched via India Post Speed Post.'
+        ],
+        action_url: 'https://www.protean-tinpan.com/services/pan/pan-index.html'
+      },
+      {
+        id: 'sub-pan-reprint',
+        title: 'Reprint Lost or Damaged PAN Card (Duplicate PAN)',
+        description: 'Order a replacement physical laminated PAN card with your existing unchanged PAN details.',
+        methods: ['ONLINE'],
+        offline_option: 'Available via TIN-FC centers.',
+        documents_required: ['10-digit PAN Number', 'Aadhaar Number (for individuals)'],
+        fee: 'Rs. 50 (Inclusive of Speed Post dispatch within India)',
+        important_notes: 'Use this service when no details need to be changed and you simply need a replacement for a lost, stolen, or broken card.',
+        step_summary: [
+          'Visit Protean Reprint page https://www.onlineservices.nsdl.com/paam/ReprintEPan.html or UTIITSL reprint portal.',
+          'Enter your PAN number, Aadhaar number, Month and Year of Birth.',
+          'Authenticate using OTP sent to your registered mobile number or email.',
+          'Pay the standard Rs. 50 government fee.',
+          'Track postal delivery using the generated 15-digit acknowledgement number.'
+        ],
+        action_url: 'https://www.onlineservices.nsdl.com/paam/ReprintEPan.html'
+      },
+      {
+        id: 'sub-pan-status',
+        title: 'Track PAN Application Status',
+        description: 'Track the real-time processing and postal dispatch status of your PAN application.',
+        methods: ['ONLINE'],
+        documents_required: ['15-digit Acknowledgement Number (Protean) or 9-digit Application Coupon Number (UTIITSL).'],
+        fee: '100% Free of Cost (Rs. 0)',
+        step_summary: [
+          'Visit UTIITSL PAN tracking portal https://www.trackpan.utiitsl.com/PANONLINE/ or Protean tracking portal.',
+          'Select application type and enter your Acknowledgement / Coupon Number.',
+          'View status: "Under Verification", "Under Printing", or "Dispatched via Speed Post (with India Post Tracking Number)".'
+        ],
+        action_url: 'https://www.trackpan.utiitsl.com/PANONLINE/'
+      }
+    ],
     steps: [
-      { step_number: 1, title: 'Choose Application Type on Protean / UTIITSL', description: 'Open https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html. Select "Form 49A (New PAN - Indian Citizen)" or "Changes/Correction in PAN Data".', action_url: 'https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html', estimated_time: '2 mins' },
+      { step_number: 1, title: 'Choose Application Type on Protean / UTIITSL', description: 'Open Protean PAN portal https://www.protean-tinpan.com/services/pan/pan-index.html or UTIITSL portal https://www.pan.utiitsl.com/. Select "Form 49A (New PAN - Indian Citizen)" or "Changes/Correction in PAN Data".', action_url: 'https://www.protean-tinpan.com/services/pan/pan-index.html', estimated_time: '2 mins' },
       { step_number: 2, title: 'Fill Personal Details & Choose Paperless e-KYC', description: 'Enter applicant full name, date of birth, mobile number, and email. Select "Submit digitally through e-KYC & e-Sign (Paperless)" to use Aadhaar without physical courier.', action_url: null, estimated_time: '10 mins' },
       { step_number: 3, title: 'Pay Government Fee Online', description: 'Pay the official government application fee of Rs. 107 using UPI, Debit Card, or Net Banking. Save the 15-digit Token / Acknowledgement Number.', action_url: null, estimated_time: '2 mins' },
-      { step_number: 4, title: 'Authenticate with Aadhaar e-Sign & Track Speed Post', description: 'Complete NSDL Aadhaar OTP authentication to digitally sign the application. Track postal dispatch using your 15-digit Acknowledgement Number.', action_url: 'https://tin.tin.nsdl.com/pantan/StatusTrack.html', estimated_time: '7-12 days delivery' }
+      { step_number: 4, title: 'Authenticate with Aadhaar e-Sign & Track Speed Post', description: 'Complete Protean / UTIITSL Aadhaar OTP authentication to digitally sign the application. Track postal dispatch using your 15-digit Acknowledgement Number on UTIITSL / Protean tracking portals.', action_url: 'https://www.trackpan.utiitsl.com/PANONLINE/', estimated_time: '7-12 days delivery' }
     ],
     documents: [
       { document_name: 'Proof of Identity (POI)', is_mandatory: true, description: 'Aadhaar Card, Voter ID, Passport, or Driving Licence' },
@@ -630,7 +942,87 @@ export const VERIFIED_SERVICES = [
     source_type: 'GOVERNMENT_PORTAL',
     verification_status: 'VERIFIED',
     last_verified_at: '2026-09-28T00:00:00Z',
-    keywords: ['ration card', 'onorc', 'mera ration', 'food security', 'nfsa', 'rashan card', 'ration card apply', 'fair price shop', 'family identity', 'subsidized food'],
+    keywords: [
+      'ration card', 'ration', 'rashan', 'rashan card', 'onorc', 'mera ration', 'food security', 'nfsa',
+      'ration card apply', 'fair price shop', 'family identity', 'subsidized food', 'apply ration card',
+      'bpl ration card', 'ration card status', 'add member in ration card', 'ration card correction'
+    ],
+    sub_services: [
+      {
+        id: 'sub-rc-apply',
+        title: 'Apply for New Ration Card (NFSA / State RCMS)',
+        description: 'Apply for fresh family food security Ration Card (Antyodaya AAY / Priority Household PHH / BPL).',
+        methods: ['ONLINE', 'OFFLINE'],
+        offline_option: 'Submit physical application at local Tehsil, Block Development Office (BDO), or Common Service Center (CSC).',
+        documents_required: [
+          'Aadhaar cards of all family members',
+          'Proof of Residence (Electricity Bill / Rent Agreement / Gas connection)',
+          'Income Certificate issued by Revenue Authority (Tahsildar)',
+          'Bank Passbook copy of Female Head of Family'
+        ],
+        fee: 'Free of Cost / Nominal State fee (Rs. 5 to Rs. 20 depending on state)',
+        important_notes: 'Under NFSA guidelines, the senior-most adult female member (aged 18+) is designated as the Head of the Household on the card.',
+        step_summary: [
+          'Visit your State Food & Civil Supplies Portal or https://nfsa.gov.in/ -> "Apply for New Ration Card".',
+          'Select your district, tehsil, and gram panchayat / municipal ward.',
+          'Fill family member details and enter 12-digit Aadhaar numbers for every member.',
+          'Upload income proof, residence proof, and family photo.',
+          'Local food inspector conducts field verification within 15-30 days and issues your digital ration card.'
+        ],
+        action_url: 'https://nfsa.gov.in/'
+      },
+      {
+        id: 'sub-rc-member',
+        title: 'Add or Remove Family Member in Ration Card',
+        description: 'Add newborn children or newly married spouse, or remove names due to marriage/relocation.',
+        methods: ['ONLINE', 'OFFLINE'],
+        offline_option: 'Available at local District Supply Office (DSO) or Village Revenue Center.',
+        documents_required: [
+          'For Newborn Child: Birth Certificate and child\'s Aadhaar card (or enrolment ID)',
+          'For Spouse / Marriage: Marriage Certificate, Aadhaar Card, and Surrender/Deletion Certificate from previous card'
+        ],
+        fee: 'Free of Cost (Rs. 0)',
+        step_summary: [
+          'Log in to your State Food Portal / NFSA portal.',
+          'Select "Ration Card Member Addition / Correction".',
+          'Enter Ration Card Number and authenticate via Head of Family Aadhaar OTP.',
+          'Upload Birth Certificate or Marriage Certificate with member Aadhaar.',
+          'Approved by Area Supply Inspector and added to the quota within 7-15 days.'
+        ],
+        action_url: 'https://nfsa.gov.in/'
+      },
+      {
+        id: 'sub-rc-onorc',
+        title: 'One Nation One Ration Card (ONORC Portability)',
+        description: 'Collect your subsidized food grains from any Fair Price Shop (FPS) across India without changing your home state card.',
+        methods: ['OFFLINE'],
+        offline_option: 'Walk into any of the 5.4 lakh Fair Price Shops across India with your Aadhaar.',
+        documents_required: ['Ration Card Number or Aadhaar Number of any enrolled family member'],
+        fee: '100% Free of Cost (Rs. 0 - Food grains distributed free under PMGKAY / NFSA)',
+        important_notes: 'Migrant workers can collect their portion of family food grains in their destination city, while remaining family collects in their home village.',
+        step_summary: [
+          'Locate nearest Fair Price Shop in your current town using "Mera Ration" app or web portal.',
+          'Visit the dealer and state your home state and Ration Card Number or Aadhaar number.',
+          'Place your finger on the biometric electronic Point of Sale (ePoS) machine.',
+          'Collect your entitled monthly quota of wheat, rice, and coarse grains with computer-generated receipt.'
+        ],
+        action_url: 'https://nfsa.gov.in/'
+      },
+      {
+        id: 'sub-rc-status',
+        title: 'Check Ration Card Status & Beneficiary Quota',
+        description: 'Check whether your new ration card application is approved and view monthly food grain allotment.',
+        methods: ['ONLINE'],
+        documents_required: ['Ration Card Number or Application Reference Number / Aadhaar Number.'],
+        fee: '100% Free of Cost (Rs. 0)',
+        step_summary: [
+          'Visit https://nfsa.gov.in/portal/ration_card_status.',
+          'Enter your Ration Card Number or Application Number and captcha.',
+          'View real-time status, enrolled family member list, assigned ration dealer, and transaction history.'
+        ],
+        action_url: 'https://nfsa.gov.in/portal/ration_card_status'
+      }
+    ],
     steps: [
       { step_number: 1, title: 'Visit NFSA Portal or State Civil Supplies Portal', description: 'Visit https://nfsa.gov.in/ and navigate to "Citizen Corner" -> "Know Your Ration Card Status" or "Apply for New Ration Card".', action_url: 'https://nfsa.gov.in/', estimated_time: '2 mins' },
       { step_number: 2, title: 'Submit Family Details & Aadhaar Numbers', description: 'Enter Head of Household (female head prioritized) details, address, and upload Aadhaar numbers of all family members.', action_url: null, estimated_time: '15 mins' },
@@ -691,6 +1083,488 @@ export const VERIFIED_SERVICES = [
       'Your APAAR ID stays identical even if you transfer between different schools, colleges, or states.',
       'All your board marksheets (CBSE, ICSE, State Boards) and university degrees automatically sync to your APAAR account.'
     ]
+  },
+  {
+    id: 'srv-umang-bbps',
+    name: 'Bharat BillPay (BBPS) & UMANG - Electricity, Water & Piped Gas Bill Payments',
+    slug: 'utility-bill-payments-bbps',
+    category_id: 'cat-14',
+    category: 'Utility Services',
+    category_name: 'Utility Services',
+    department: 'National Payments Corporation of India (NPCI) & MeitY (UMANG)',
+    jurisdiction_level: 'CENTRAL',
+    state: 'All India',
+    simple_description: 'Pay your state electricity bill, municipal piped water bill, and piped gas bill securely online with instant digital payment receipts.',
+    description: 'Unified government platform conceptualized by the Reserve Bank of India (RBI) and operated by NPCI in integration with UMANG. Citizens across any Indian state can fetch and pay recurring utility bills including state electricity distribution companies (DISCOMs), municipal water boards, piped gas (PNG), and municipal taxes with official payment acknowledgement.',
+    eligibility: 'All electricity consumers, piped water consumers, and domestic gas connections across all Indian states and Union Territories.',
+    fee: '100% Free of Cost (Rs. 0 platform fee for utility bill payment via UPI and RuPay Debit)',
+    processing_information: 'Instant real-time bill fetch and immediate digital payment confirmation with official BBPS transaction ID.',
+    application_mode: 'ONLINE',
+    official_website: 'https://web.umang.gov.in/landing/department/bharat-bill-payment.html',
+    official_app: 'UMANG App / BHIM UPI (Android & iOS)',
+    official_helpline: '1800-11-5246 (UMANG) / 1800-120-1740 (NPCI BBPS)',
+    official_email: 'customercare@umang.gov.in',
+    official_source: 'https://web.umang.gov.in/landing/department/bharat-bill-payment.html',
+    source_type: 'GOVERNMENT_PORTAL',
+    verification_status: 'VERIFIED',
+    last_verified_at: '2026-09-29T00:00:00Z',
+    keywords: ['utility', 'utility services', 'electricity bill', 'power bill', 'water bill', 'piped water', 'gas bill', 'bijli bill', 'light bill', 'electricity board', 'discom', 'bbps', 'bharat bill pay', 'umang bills', 'water tax', 'eb bill'],
+    steps: [
+      { step_number: 1, title: 'Open UMANG Bharat BillPay Portal', description: 'Visit https://web.umang.gov.in/landing/department/bharat-bill-payment.html or open the UMANG app and select "Bharat BillPay (BBPS)".', action_url: 'https://web.umang.gov.in/landing/department/bharat-bill-payment.html', estimated_time: '1 min' },
+      { step_number: 2, title: 'Select Service & Electricity Board / Water Board', description: 'Select your utility category (Electricity, Water, or Piped Gas) and choose your state service provider (e.g., BESCOM, TANGEDCO, MSEDCL, UPPCL, BSES, Delhi Jal Board).', action_url: null, estimated_time: '1 min' },
+      { step_number: 3, title: 'Enter Consumer ID & Fetch Live Bill', description: 'Enter your Consumer Account Number (CA Number / K Number / RR Number) printed on your physical electricity or water bill to view the live outstanding amount.', action_url: null, estimated_time: '1 min' },
+      { step_number: 4, title: 'Pay Securely Online & Download Official Receipt', description: 'Pay using UPI, Debit Card, or Net Banking. Download the legally valid digital receipt with unique BBPS Reference Number.', action_url: 'https://web.umang.gov.in/landing/department/bharat-bill-payment.html', estimated_time: '2 mins' }
+    ],
+    documents: [
+      { document_name: 'Consumer Account Number (CA / RR / K Number)', is_mandatory: true, description: 'Found on any previous physical or digital electricity/water bill' },
+      { document_name: 'Mobile Number for SMS Receipt', is_mandatory: true, description: 'To receive payment confirmation SMS and transaction reference ID' }
+    ],
+    requirements: [
+      'Active Consumer Number with state utility provider',
+      'UPI, Debit Card, or Internet Banking access for payment'
+    ],
+    tips: [
+      'Always save the BBPS Transaction Reference Number as proof of payment in case of local electricity board reconciliation delays.',
+      'Paying through UMANG BBPS ensures your bill status updates directly in your state power utility system within 2 to 24 hours.'
+    ]
+  },
+  {
+    id: 'srv-mylpg-subsidy',
+    name: 'PAHAL (DBTL) & MyLPG - LPG Gas Subsidy Status, Refill Booking & PM Ujjwala',
+    slug: 'lpg-subsidy-refill-mylpg',
+    category_id: 'cat-14',
+    category: 'Utility Services',
+    category_name: 'Utility Services',
+    department: 'Ministry of Petroleum and Natural Gas (MoPNG)',
+    jurisdiction_level: 'CENTRAL',
+    state: 'All India',
+    simple_description: 'Check your bank account LPG gas subsidy transfer, book refill cylinders for Indane, HP Gas, and Bharat Gas, or apply for new connections.',
+    description: 'Central government digital portal for Bharat Gas, Indane, and HP Gas consumers. Check Direct Benefit Transfer of LPG (DBTL / PAHAL) subsidy status directly credited into your Aadhaar-linked bank account, book gas refill cylinders online, give up subsidy, or apply for PM Ujjwala Yojana (PMUY) free LPG connection.',
+    eligibility: 'All domestic LPG cylinder consumers (Indane, Bharat Gas, HP Gas) and eligible rural/BPL women under PM Ujjwala Yojana.',
+    fee: 'Free Online Portal (Official cylinder refill price per Oil Marketing Company)',
+    processing_information: 'Subsidy credited directly into Aadhaar-seeded bank account within 2-3 banking days after delivery.',
+    application_mode: 'ONLINE',
+    official_website: 'https://www.mylpg.in/',
+    official_app: 'IndianOil ONE / Bharatgas / HP Pay / UMANG App',
+    official_helpline: '1906 (24x7 LPG Emergency Helpline) / 1800-233-3555',
+    official_email: 'feedback@mylpg.in',
+    official_source: 'https://www.mylpg.in/',
+    source_type: 'GOVERNMENT_PORTAL',
+    verification_status: 'VERIFIED',
+    last_verified_at: '2026-09-29T00:00:00Z',
+    keywords: ['lpg', 'gas cylinder', 'gas subsidy', 'pahal', 'dbtl', 'indane', 'bharat gas', 'hp gas', 'cylinder booking', 'ujjwala', 'cooking gas', 'utility', 'gas connection', 'cylinder delivery'],
+    steps: [
+      { step_number: 1, title: 'Visit Official MyLPG Portal', description: 'Open https://www.mylpg.in/ and click on your LPG Cylinder Brand (Bharat Gas, HP Gas, or Indane).', action_url: 'https://www.mylpg.in/', estimated_time: '1 min' },
+      { step_number: 2, title: 'Access Consumer Dashboard via LPG ID or Mobile', description: 'Enter your 17-digit LPG ID (printed on your gas passbook/cash memo) or registered mobile number to log in.', action_url: null, estimated_time: '2 mins' },
+      { step_number: 3, title: 'Check PAHAL (DBTL) Subsidy Credit Status', description: 'Click "View Cylinder Booking History / Subsidy Transferred" to see recent subsidy credit amounts, dates, and bank account UTR numbers.', action_url: null, estimated_time: '1 min' },
+      { step_number: 4, title: 'Book Refill Cylinder Online or Request PMUY', description: 'Book your next cylinder delivery with online payment or submit application for new connection under PM Ujjwala Yojana.', action_url: 'https://www.mylpg.in/', estimated_time: '2 mins' }
+    ],
+    documents: [
+      { document_name: '17-digit LPG Consumer ID', is_mandatory: true, description: 'Found on first page of domestic LPG Blue Book or gas delivery invoice' },
+      { document_name: 'Aadhaar Number Linked to Bank Account', is_mandatory: true, description: 'For direct benefit transfer (DBT) subsidy deposit' }
+    ],
+    requirements: [
+      'Active domestic LPG consumer connection with Indane, Bharat Gas, or HP Gas',
+      'Bank account seeded with Aadhaar on NPCI mapper to receive cash subsidy'
+    ],
+    tips: [
+      'In case of gas leak emergency, immediately call the national toll-free LPG emergency helpline 1906 (available 24x7).',
+      'Verify that your bank account has active DBT / Aadhaar seeding enabled so that gas subsidy is credited without failure.'
+    ]
+  },
+  {
+    id: 'srv-jal-jeevan',
+    name: 'Jal Jeevan Mission (Har Ghar Jal) - Tap Water Supply & Water Quality',
+    slug: 'jal-jeevan-mission-water-connection',
+    category_id: 'cat-14',
+    category: 'Utility Services',
+    category_name: 'Utility Services',
+    department: 'Department of Drinking Water and Sanitation, Ministry of Jal Shakti',
+    jurisdiction_level: 'CENTRAL',
+    state: 'All India',
+    simple_description: 'Check piped tap water supply status, test water quality reports for your village/town, and report pipeline supply issues.',
+    description: 'Flagship mission of the Ministry of Jal Shakti providing functional household tap connections (FHTC) to rural and suburban homes. Citizens can check tap water coverage in their village/gram panchayat, view drinking water quality testing reports from local laboratories (WQMIS), and track piped water infrastructure.',
+    eligibility: 'Residents of rural and suburban areas seeking tap water connections or public drinking water quality transparency.',
+    fee: '100% Free of Cost (Rs. 0)',
+    processing_information: 'Public transparency reports and test results updated weekly.',
+    application_mode: 'ONLINE',
+    official_website: 'https://ejalshakti.gov.in/',
+    official_app: 'JJM Dashboard / WQMIS',
+    official_helpline: '1800-180-1551',
+    official_email: 'jjm-support@gov.in',
+    official_source: 'https://ejalshakti.gov.in/',
+    source_type: 'GOVERNMENT_PORTAL',
+    verification_status: 'VERIFIED',
+    last_verified_at: '2026-09-29T00:00:00Z',
+    keywords: ['water', 'tap water', 'piped water', 'jal jeevan', 'water supply', 'har ghar jal', 'drinking water', 'water quality', 'utility', 'jal shakti', 'water connection', 'drinking water complaint'],
+    steps: [
+      { step_number: 1, title: 'Open Official Jal Jeevan Mission Portal', description: 'Visit https://ejalshakti.gov.in/ to access the national drinking water transparency dashboard.', action_url: 'https://ejalshakti.gov.in/', estimated_time: '1 min' },
+      { step_number: 2, title: 'Select State, District & Village / Ward', description: 'Navigate to your State, District, Block, and Gram Panchayat to view functional household tap water coverage and source type.', action_url: null, estimated_time: '2 mins' },
+      { step_number: 3, title: 'View Drinking Water Quality Lab Reports (WQMIS)', description: 'Check testing reports for chemical, bacteriological, and fluoride parameters performed by accredited water testing laboratories.', action_url: null, estimated_time: '2 mins' },
+      { step_number: 4, title: 'Contact Village Water & Sanitation Committee (VWSC)', description: 'Contact local Gram Panchayat VWSC or call toll-free helpline 1800-180-1551 for piped supply disruptions or contamination issues.', action_url: 'https://ejalshakti.gov.in/', estimated_time: 'Ongoing' }
+    ],
+    documents: [
+      { document_name: 'Location details (State, District, Village/Panchayat)', is_mandatory: true, description: 'To locate drinking water supply network in your area' }
+    ],
+    requirements: [
+      'Residence in India seeking drinking water information or tap connection status'
+    ],
+    tips: [
+      'If your tap water shows unusual color, odor, or taste, you can submit a water sample for free testing at your nearest district water quality lab listed on the portal.'
+    ]
+  },
+  {
+    id: 'srv-birth-certificate',
+    name: 'Birth Certificate Registration & Download (CRS / Municipal Corporation)',
+    slug: 'birth-certificate-registration-crs',
+    category_id: 'cat-4',
+    category_name: 'Documents & Certificates',
+    department: 'Office of the Registrar General of India, Ministry of Home Affairs & Urban Local Bodies',
+    jurisdiction_level: 'MUNICIPAL',
+    state: 'All India',
+    simple_description: 'Register newborn birth, download verified digital birth certificate with QR code, and apply for corrections.',
+    description: 'National official civil registration framework governing birth registration under the Registration of Births and Deaths (RBD) Act. Births reported within 21 days are registered free of cost. Digitally signed birth certificates with QR codes issued via Civil Registration System (CRS) and municipal corporations are legally valid nationwide for school admission, passport issuance, and government identity verification.',
+    eligibility: 'All births occurring in India or to Indian citizen parents. Can be reported by hospital, parent, or designated informant.',
+    fee: 'Registration within 21 days: Free (Rs. 0); Delayed registration (21-30 days): Rs. 2 late fee; 30 days to 1 year: Rs. 5 with SDM permission; Beyond 1 year: Order of First Class Magistrate.',
+    processing_information: 'Digital certificate issued within 3-7 working days following registrar verification.',
+    application_mode: 'HYBRID',
+    official_website: 'https://crsorgi.gov.in/',
+    official_app: 'Civil Registration System Portal / State e-District Apps',
+    official_helpline: '1800-11-0031 / 011-23438284',
+    official_email: 'crsorgi@nic.in',
+    official_source: 'https://crsorgi.gov.in/',
+    source_type: 'GOVERNMENT_PORTAL',
+    verification_status: 'VERIFIED',
+    last_verified_at: '2026-09-29T00:00:00Z',
+    keywords: [
+      'birth certificate', 'birth registration', 'janm praman patra', 'crs', 'crsorgi',
+      'download birth certificate', 'apply birth certificate', 'municipal birth certificate',
+      'birth certificate correction', 'delayed birth registration', 'new born birth certificate',
+      'child birth certificate', 'digital birth certificate', 'birth certificate status'
+    ],
+    sub_services: [
+      {
+        id: 'sub-birth-register',
+        title: 'Register Birth (Within 21 Days of Child Birth)',
+        description: 'Mandatory civil registration of newborn baby within 21 days of birth with zero government fee.',
+        methods: ['ONLINE', 'OFFLINE'],
+        offline_option: 'Hospital institutional report or local Municipal Registrar / Gram Panchayat Secretary.',
+        documents_required: [
+          'Hospital Discharge Summary / Birth Slip / Institutional Form 1',
+          'Parents\' Aadhaar Cards (Mother and Father)',
+          'Parents\' Marriage Certificate (where applicable)',
+          'Proof of Address of parents'
+        ],
+        fee: '100% Free of Cost (Rs. 0 within 21 days)',
+        important_notes: 'Under the RBD Act 1969, hospitals and nursing homes are legally mandated to report births directly to the local registrar.',
+        step_summary: [
+          'For institutional delivery: The hospital directly registers the birth on https://crsorgi.gov.in/ or state civil portal and provides a birth registration number.',
+          'For domiciliary (home) delivery: The head of family or parent visits the municipal health office / gram panchayat within 21 days.',
+          'Submit Form 1 along with parents\' Aadhaar cards and residential proof.',
+          'The Registrar verifies details and approves the birth record.',
+          'Download the digital birth certificate immediately upon approval.'
+        ],
+        action_url: 'https://crsorgi.gov.in/'
+      },
+      {
+        id: 'sub-birth-download',
+        title: 'Download Verified Digital Birth Certificate (Instant PDF with QR Code)',
+        description: 'Download legally authentic electronic birth certificate with verifiable cryptographic QR code.',
+        methods: ['ONLINE'],
+        documents_required: ['Application Reference Number / Registration Number / Child Name & Date of Birth'],
+        fee: '100% Free on CRS / State e-District / DigiLocker (Rs. 0)',
+        important_notes: 'Valid across India for school admissions, Passport applications, and Aadhaar enrolment without attestation.',
+        step_summary: [
+          'Visit https://crsorgi.gov.in/ or your State Municipal Corporation / e-District portal or DigiLocker.',
+          'Enter Child Registration Number, Date of Birth, and Gender.',
+          'Verify OTP sent to the parent\'s registered mobile number.',
+          'Download digitally signed PDF certificate bearing the official registrar stamp and QR code.'
+        ],
+        action_url: 'https://crsorgi.gov.in/'
+      },
+      {
+        id: 'sub-birth-delayed',
+        title: 'Delayed Birth Registration (>21 Days up to 1 Year / Late Order)',
+        description: 'Register a birth that was missed within the mandatory 21-day window.',
+        methods: ['OFFLINE'],
+        offline_option: 'Office of Sub-Divisional Magistrate (SDM) / Executive Magistrate and Local Registrar.',
+        documents_required: [
+          'Affidavit stating date, time, and place of birth and reason for delay',
+          'Non-Availability Certificate (NAC) issued by the registrar',
+          'Parents\' Aadhaar cards and school/vaccination record of child'
+        ],
+        fee: 'Rs. 2 (21-30 days) / Rs. 5 with SDM permission (30 days - 1 year) / Magistrate order (>1 year)',
+        step_summary: [
+          'Obtain Non-Availability Certificate (Form 10) from the local municipal office.',
+          'Prepare notarized affidavit stating reason for non-registration within 21 days.',
+          'Submit file to the Sub-Divisional Magistrate (SDM) or Executive Magistrate office.',
+          'Following police/field verification, Magistrate issues Late Registration Order.',
+          'Registrar enters birth in register and issues official Birth Certificate.'
+        ],
+        action_url: 'https://crsorgi.gov.in/'
+      },
+      {
+        id: 'sub-birth-correction',
+        title: 'Child Name Addition & Spelling Correction in Birth Certificate',
+        description: 'Add child\'s name if initially registered as "Unnamed", or correct spelling mistakes.',
+        methods: ['ONLINE', 'OFFLINE'],
+        offline_option: 'Local Registrar Office / Municipal Health Department.',
+        documents_required: ['School leaving certificate / Aadhaar card / Joint affidavit by parents'],
+        fee: 'Free within 1 year / Nominal Rs. 5 to Rs. 20 after 1 year',
+        step_summary: [
+          'Submit child name addition application on https://crsorgi.gov.in/ or municipal office.',
+          'Provide original birth registration receipt and parents\' signed declaration.',
+          'Registrar updates register and issues updated certificate with the child\'s permanent name.'
+        ],
+        action_url: 'https://crsorgi.gov.in/'
+      }
+    ],
+    steps: [
+      { step_number: 1, title: 'Check Hospital Birth Reporting on CRS', description: 'Visit https://crsorgi.gov.in/ and check whether the birth was registered by the hospital within 21 days.', action_url: 'https://crsorgi.gov.in/', estimated_time: '2 mins' },
+      { step_number: 2, title: 'Submit Parents\' Identity & Address Documents', description: 'Upload father and mother Aadhaar cards and hospital discharge slip on CRS or state e-District portal.', action_url: null, estimated_time: '10 mins' },
+      { step_number: 3, title: 'Download Verified QR Code Certificate', description: 'Once approved by the municipal health registrar, download digitally signed PDF certificate legally valid for all official purposes.', action_url: 'https://crsorgi.gov.in/', estimated_time: '3-7 days' }
+    ],
+    documents: [
+      { document_name: 'Hospital Discharge Summary / Birth Slip (Form 1)', is_mandatory: true, description: 'Shows exact date, time, and medical institution of birth' },
+      { document_name: 'Aadhaar Cards of both parents', is_mandatory: true, description: 'For parentage and identity verification' },
+      { document_name: 'Proof of Residence of Parents', is_mandatory: true, description: 'Electricity bill, Voter ID, or Rent agreement' }
+    ],
+    requirements: [
+      'Birth must be registered within 21 days for free processing without magistrate permission'
+    ]
+  },
+  {
+    id: 'srv-lost-documents',
+    name: 'Lost Government Documents Recovery & Duplicate Issuance (Aadhaar, PAN, DL, Marksheet)',
+    slug: 'lost-documents-recovery-duplicate',
+    category_id: 'cat-4',
+    category_name: 'Documents & Certificates',
+    department: 'Inter-Ministerial Citizen Assistance & Police Citizen Services',
+    jurisdiction_level: 'CENTRAL',
+    state: 'All India',
+    simple_description: 'Official procedure to report, recover, and replace lost, stolen, or misplaced Aadhaar, PAN card, Driving Licence, and Board Marksheets.',
+    description: 'Comprehensive, step-by-step verified recovery protocol for lost Indian government identity documents and educational certificates. Learn how to immediately file a Police Lost Article Report (LDR) online without visiting a police station to protect against identity theft, retrieve lost numbers, download authentic digital duplicates via DigiLocker under IT Act 2000, and order physical plastic reprints directly from official government issuing authorities.',
+    eligibility: 'Any Indian citizen whose official government documents (Aadhaar, PAN, DL, Passport, Marksheets, Voter ID) have been lost, misplaced, or damaged.',
+    fee: 'Police Lost Report: 100% Free (Rs. 0); DigiLocker Digital Duplicate: Free (Rs. 0); Physical Duplicate Reprints: Aadhaar (Rs. 50), PAN (Rs. 50), Driving Licence (Rs. 200-400), Marksheet (Rs. 250-500)',
+    processing_information: 'Digital recovery is instant. Physical plastic duplicate cards delivered via India Post Speed Post within 7 to 15 days.',
+    application_mode: 'ONLINE',
+    official_website: 'https://www.digilocker.gov.in/',
+    official_app: 'DigiLocker / mAadhaar / mParivahan',
+    official_helpline: '1930 (Cyber/Identity misuse) / 1947 (Aadhaar) / 1915 (National Helpline)',
+    official_email: 'support@digilocker.gov.in',
+    official_source: 'https://www.digilocker.gov.in/',
+    source_type: 'GOVERNMENT_PORTAL',
+    verification_status: 'VERIFIED',
+    last_verified_at: '2026-09-29T00:00:00Z',
+    keywords: [
+      'lost documents', 'lost document', 'lost aadhaar', 'lost aadhar', 'lost pan', 'lost pan card',
+      'lost driving licence', 'lost dl', 'lost marksheet', 'duplicate marksheet', 'duplicate pan',
+      'duplicate aadhaar', 'lost wallet', 'misplaced documents', 'police lost report', 'ldr',
+      'lost certificate', 'replace documents', 'how to recover lost documents', 'lost marksheet 10th'
+    ],
+    sub_services: [
+      {
+        id: 'sub-lost-police-ldr',
+        title: 'Step 1: File Online Police Lost Article Report (LDR)',
+        description: 'Lodge an official non-cognizable Lost Property Report online on your State Police portal without visiting a police station.',
+        methods: ['ONLINE'],
+        documents_required: ['Details of lost document (approximate date, place, and document numbers if known)'],
+        fee: '100% Free of Cost (Rs. 0)',
+        important_notes: 'Filing an LDR provides an official digitally signed police acknowledgement. It legally shields you if a lost document is misused by fraudsters, and is mandatory when applying for a duplicate Driving Licence or Passport.',
+        step_summary: [
+          'Open your State Police Citizen Portal (e.g. Delhi Police Lost Report, UP Police Citizen App, TN CCTNS, Maharashtra Police).',
+          'Select "Lost Article Report / General Diary".',
+          'Enter your name, contact details, place of loss, and select items lost (Aadhaar, PAN, DL, Wallet, Marksheet).',
+          'Submit the report. An instant digitally signed Police LDR PDF with unique LR number is generated.',
+          'Save and print this LDR PDF for issuing duplicate cards.'
+        ],
+        action_url: 'https://digitalpolice.gov.in/'
+      },
+      {
+        id: 'sub-lost-aadhaar-recover',
+        title: 'Recover Lost Aadhaar Card Number & Order PVC Reprint',
+        description: 'Retrieve forgotten or lost 12-digit Aadhaar number using your registered mobile number and order duplicate PVC card.',
+        methods: ['ONLINE'],
+        documents_required: ['Registered Mobile Number or Email linked to Aadhaar'],
+        fee: 'Free electronic retrieval & download / Rs. 50 for PVC physical card delivery',
+        step_summary: [
+          'Visit https://myaadhaar.uidai.gov.in/retrieve-eid-uid.',
+          'Select "Aadhaar Number", enter your Full Name as registered, and enter mobile number.',
+          'Enter OTP received on mobile. Your 12-digit Aadhaar number is sent via SMS immediately.',
+          'Go to "Order Aadhaar PVC Card", pay Rs. 50, and receive a new durable plastic card via Speed Post.'
+        ],
+        action_url: 'https://myaadhaar.uidai.gov.in/retrieve-eid-uid'
+      },
+      {
+        id: 'sub-lost-pan-duplicate',
+        title: 'Order Duplicate Replacement PAN Card',
+        description: 'Order an official plastic duplicate reprint of your lost PAN card from Protean or UTIITSL.',
+        methods: ['ONLINE'],
+        documents_required: ['10-character PAN Number and Aadhaar Number'],
+        fee: 'Rs. 50 (Inclusive of Speed Post dispatch to home address)',
+        step_summary: [
+          'Visit Protean PAN reprint portal https://www.onlineservices.nsdl.com/paam/ReprintEPan.html or UTIITSL.',
+          'Enter your PAN, Aadhaar number, and Date of Birth.',
+          'Verify using OTP sent to registered mobile/email.',
+          'Pay Rs. 50 fee online. Duplicate PAN card is printed and delivered within 7-10 working days.'
+        ],
+        action_url: 'https://www.onlineservices.nsdl.com/paam/ReprintEPan.html'
+      },
+      {
+        id: 'sub-lost-dl-duplicate',
+        title: 'Recover Lost Driving Licence (Duplicate DL on Sarathi)',
+        description: 'Apply for a replacement Driving Licence smart card on the national road transport portal.',
+        methods: ['ONLINE'],
+        documents_required: ['Police Lost Article Report (LDR)', 'DL Number or Aadhaar Number'],
+        fee: 'Rs. 200 + Rs. 200 smart card fee',
+        step_summary: [
+          'Visit https://sarathi.parivahan.gov.in/ and select your state.',
+          'Click "Apply for Duplicate DL" under DL Services.',
+          'Enter DL Number or search using Aadhaar / mobile number.',
+          'Upload copy of Police Lost Article Report (LDR).',
+          'Pay fee online. Duplicate smart card is dispatched to your registered address.'
+        ],
+        action_url: 'https://sarathi.parivahan.gov.in/'
+      },
+      {
+        id: 'sub-lost-marksheet-recover',
+        title: 'Recover Lost 10th / 12th Board Marksheet & Certificates',
+        description: 'Download instant legally authentic digital replacement or order physical duplicate from CBSE / State Boards.',
+        methods: ['ONLINE'],
+        documents_required: ['Roll Number, Year of Examination, School Code / Aadhaar Number'],
+        fee: 'Free on DigiLocker / Rs. 250 - Rs. 500 for physical duplicate via CBSE DACS',
+        step_summary: [
+          'For Instant Legal Digital Copy: Open https://www.digilocker.gov.in/, search your Education Board (CBSE/State Board), enter roll number and year. Download authenticated digital certificate valid under Rule 9A.',
+          'For Physical Hard Copy: Visit CBSE Duplicate Academic Document System (DACS) https://cbseit.in/cbse/web/dacs/, submit application, pay fee, and get paper certificate dispatched.'
+        ],
+        action_url: 'https://www.digilocker.gov.in/'
+      }
+    ],
+    steps: [
+      { step_number: 1, title: 'File Police Lost Article Report Online', description: 'Log on to your state police citizen portal to generate an instant Lost Article Report (LDR) to prevent identity fraud.', action_url: 'https://digitalpolice.gov.in/', estimated_time: '5 mins' },
+      { step_number: 2, title: 'Download Instant Digital Copy on DigiLocker', description: 'Open DigiLocker https://www.digilocker.gov.in/ and fetch your verified Aadhaar, PAN, DL, or Marksheets with zero cost.', action_url: 'https://www.digilocker.gov.in/', estimated_time: '2 mins' },
+      { step_number: 3, title: 'Order Physical Plastic Duplicate Card', description: 'Order official reprints for Aadhaar (UIDAI Rs. 50), PAN (Protean Rs. 50), or Driving Licence (Sarathi Rs. 400).', action_url: null, estimated_time: '7-12 days delivery' }
+    ],
+    documents: [
+      { document_name: 'Police Lost Article Report (LDR)', is_mandatory: true, description: 'Generated free online from state police portal' },
+      { document_name: 'Aadhaar Card or Registered Mobile Number', is_mandatory: true, description: 'For identity verification and OTP authentication' }
+    ],
+    requirements: [
+      'File an online police lost report immediately upon noticing lost documents to guard against fraudulent identity misuse'
+    ]
+  },
+  {
+    id: 'srv-board-marksheet-degree',
+    name: 'Class 10th, 12th Marksheets & College Degree Certificates (DigiLocker / CBSE / NAD)',
+    slug: 'board-marksheets-degree-certificates',
+    category_id: 'cat-11',
+    category_name: 'Education',
+    department: 'Ministry of Education, CBSE, CISCE, State Secondary Boards & UGC / NAD',
+    jurisdiction_level: 'CENTRAL',
+    state: 'All India',
+    simple_description: 'Download authentic digital Class 10 and 12 marksheets, passing certificates, and university graduation degrees with verifiable QR code.',
+    description: 'Official national academic records depository established under the National Academic Depository (NAD) and DigiLocker framework. Legally recognized under Rule 9A of Information Technology (Preservation and Retention of Information by Intermediaries Providing Digital Locker Facilities) Rules, 2016 to be on par with original physical paper certificates. Accessible for CBSE (1975 onwards), CISCE, state education boards, and over 1,500 Indian universities and colleges.',
+    eligibility: 'All students who have appeared in Class 10, Class 12, ITI, Diploma, Undergraduate, or Postgraduate examinations in India.',
+    fee: 'Digital Download on DigiLocker: 100% Free of Cost (Rs. 0); Physical duplicate paper certificate from CBSE DACS: Rs. 250 (up to 5 years), Rs. 500 (5-10 years), Rs. 1,000 (10-20 years)',
+    processing_information: 'Digital marksheet download is instant in under 2 minutes. Physical duplicate documents dispatched within 10 to 15 working days.',
+    application_mode: 'ONLINE',
+    official_website: 'https://www.digilocker.gov.in/',
+    official_app: 'DigiLocker App (Android & iOS)',
+    official_helpline: '011-23212603 (CBSE) / support@digilocker.gov.in',
+    official_email: 'support@nad.gov.in',
+    official_source: 'https://www.digilocker.gov.in/',
+    source_type: 'GOVERNMENT_PORTAL',
+    verification_status: 'VERIFIED',
+    last_verified_at: '2026-09-29T00:00:00Z',
+    keywords: [
+      '10th marksheet', 'tenth marksheet', '12th marksheet', 'twelfth marksheet', 'graduation marksheet',
+      'college degree', 'degree certificate', 'cbse marksheet', 'board marksheet', 'marksheet download',
+      'digilocker marksheet', 'cisce marksheet', 'university degree', 'provisional certificate',
+      'migration certificate', 'marksheet', 'academic bank of credits', 'apaar marksheet', 'ssc marksheet',
+      'hsc marksheet', 'marksheet duplicate', 'marksheet download online'
+    ],
+    sub_services: [
+      {
+        id: 'sub-marksheet-10th',
+        title: 'Download Class 10th Marksheet & Passing Certificate (Instant PDF)',
+        description: 'Fetch authentic, digitally signed Class 10th (Secondary School) marksheet and certificate from CBSE or your State Board.',
+        methods: ['ONLINE'],
+        documents_required: ['Class 10 Roll Number', 'Passing Year', 'School Code / Mother\'s Name (as printed on admit card)'],
+        fee: '100% Free of Cost (Rs. 0)',
+        important_notes: 'Under Rule 9A of IT Rules 2016, digital certificates downloaded from DigiLocker are legally authentic and must be accepted for college admissions and government jobs without attestation.',
+        step_summary: [
+          'Log in to https://www.digilocker.gov.in/ using your mobile or Aadhaar.',
+          'Search for your education board (e.g. "CBSE", "UP Board", "Maharashtra State Board", "ICSE").',
+          'Select "Class X Marksheet".',
+          'Enter your Roll Number, Passing Year, and School Code.',
+          'Click "Get Document". Verified PDF with cryptographic QR code is saved to your wallet immediately.'
+        ],
+        action_url: 'https://www.digilocker.gov.in/'
+      },
+      {
+        id: 'sub-marksheet-12th',
+        title: 'Download Class 12th Marksheet & Migration Certificate',
+        description: 'Download verified digital Class 12th (Higher Secondary / Senior School) marksheet and migration certificate.',
+        methods: ['ONLINE'],
+        documents_required: ['Class 12 Roll Number', 'Passing Year', 'School Centre Code'],
+        fee: '100% Free of Cost (Rs. 0)',
+        important_notes: 'Universities, colleges, and passport offices are mandated by UGC and MeitY to accept DigiLocker Class 12 marksheets.',
+        step_summary: [
+          'Open DigiLocker portal https://www.digilocker.gov.in/ or mobile app.',
+          'Search your board and select "Class XII Marksheet" or "Class XII Migration Certificate".',
+          'Provide Class 12 Roll Number and examination year.',
+          'Download authentic PDF with digitally verifiable electronic signature.'
+        ],
+        action_url: 'https://www.digilocker.gov.in/'
+      },
+      {
+        id: 'sub-marksheet-degree',
+        title: 'College Graduation Degree & University Transcripts',
+        description: 'Access undergraduate and postgraduate degrees and transcripts deposited under National Academic Depository (NAD).',
+        methods: ['ONLINE'],
+        documents_required: ['University Registration / Enrolment Number', 'APAAR ID / ABC ID', 'Year of Passing'],
+        fee: '100% Free of Cost (Rs. 0)',
+        important_notes: 'Over 1,500 Central, State, Deemed, and Private universities deposit digital graduation degrees on DigiLocker / NAD.',
+        step_summary: [
+          'Visit https://www.digilocker.gov.in/ or https://www.abc.gov.in/.',
+          'Select "Education" -> Search your University or Institution name.',
+          'Choose "Degree / Diploma Certificate" or "Consolidated Transcript".',
+          'Enter registration number and passing year to fetch verified digital degree.'
+        ],
+        action_url: 'https://www.abc.gov.in/'
+      },
+      {
+        id: 'sub-marksheet-physical-duplicate',
+        title: 'Order Physical Duplicate Marksheet (CBSE / State Boards)',
+        description: 'Order a physical hard-copy paper duplicate marksheet if your original was lost, burnt, or destroyed.',
+        methods: ['ONLINE'],
+        offline_option: 'Available at CBSE Regional Offices or State Board Divisional Offices.',
+        documents_required: [
+          'Roll Number, School Code, Center Number, and Passing Year',
+          'Aadhaar Card copy',
+          'Police Lost Article Report (LDR) or damaged document photo'
+        ],
+        fee: 'Rs. 250 (Within 5 years) / Rs. 500 (5-10 years) / Rs. 1,000 (10-20 years) + Rs. 100 Speed Post fee',
+        step_summary: [
+          'Visit CBSE Duplicate Academic Document System (DACS) https://cbseit.in/cbse/web/dacs/.',
+          'Select "Print Duplicate Academic Documents" and choose Class (10th / 12th).',
+          'Fill candidate details and delivery address.',
+          'Pay fee online. Dispatched via India Post Speed Post directly from the regional board office.'
+        ],
+        action_url: 'https://cbseit.in/cbse/web/dacs/'
+      }
+    ],
+    steps: [
+      { step_number: 1, title: 'Open DigiLocker or ABC Portal', description: 'Log in to https://www.digilocker.gov.in/ with your mobile number or Aadhaar.', action_url: 'https://www.digilocker.gov.in/', estimated_time: '2 mins' },
+      { step_number: 2, title: 'Search Issuer (CBSE, State Board, or University)', description: 'Type the name of your secondary education board or college in the search box.', action_url: null, estimated_time: '1 min' },
+      { step_number: 3, title: 'Enter Roll Number & Download QR-Coded PDF', description: 'Enter roll number and passing year. Download authentic PDF legally valid across all Indian universities and employment authorities.', action_url: 'https://www.digilocker.gov.in/', estimated_time: '1 min' }
+    ],
+    documents: [
+      { document_name: 'Roll Number & Passing Year', is_mandatory: true, description: 'Found on admit card or student registration records' }
+    ],
+    requirements: [
+      'Name and Date of Birth must match board registration records'
+    ]
   }
 ];
 
@@ -704,8 +1578,8 @@ export const VERIFIED_SCHEMES = [
     eligibility: 'Households listed in SECC 2011 deprivation categories or state health insurance databases. Any family member can verify status via Aadhaar.',
     benefits: 'Cashless and paperless treatment up to Rs. 5,00,000 per family per year across over 27,000 empaneled public and private hospitals nationwide.',
     documents: 'Aadhaar Card, Ration Card, or PM-JAY Family Letter.',
-    application_process: 'Check eligibility on https://beneficiary.nha.gov.in/ or visit nearest Ayushman Arogya Mandir / Common Service Center (CSC) to generate Ayushman Card (Golden Card).',
-    official_source: 'https://nha.gov.in/',
+    application_process: 'Check eligibility on https://abdm.gov.in/ or visit nearest Ayushman Arogya Mandir / Common Service Center (CSC) to generate Ayushman Card (Golden Card).',
+    official_source: 'https://abdm.gov.in/',
     verification_status: 'VERIFIED'
   },
   {
@@ -729,7 +1603,8 @@ export const VERIFIED_APPS = [
     purpose: 'Master citizen super-app for 1,500+ Central and State government services (EPFO, LPG, bills, pension)',
     department: 'National e-Governance Division (NeGD), MeitY',
     platform: 'Android & iOS',
-    official_source: 'https://web.umang.gov.in/',
+    official_source: 'https://play.google.com/store/apps/details?id=in.gov.umang.negd.g2c',
+    play_store_url: 'https://play.google.com/store/apps/details?id=in.gov.umang.negd.g2c',
     website: 'https://web.umang.gov.in/',
     description: 'The official all-in-one governance app of Digital India.'
   },
@@ -738,7 +1613,8 @@ export const VERIFIED_APPS = [
     purpose: 'Store, share, and verify official government documents electronically with legal validity under IT Act',
     department: 'Ministry of Electronics & IT (MeitY)',
     platform: 'Android & iOS & Web',
-    official_source: 'https://www.digilocker.gov.in/',
+    official_source: 'https://play.google.com/store/apps/details?id=com.digilocker.android',
+    play_store_url: 'https://play.google.com/store/apps/details?id=com.digilocker.android',
     website: 'https://www.digilocker.gov.in/',
     description: 'Legally recognized electronic document wallet.'
   },
@@ -747,7 +1623,8 @@ export const VERIFIED_APPS = [
     purpose: 'Digital Driving Licence and Vehicle RC display, challan payments, and vehicle ownership verification',
     department: 'Ministry of Road Transport & Highways (MoRTH) & NIC',
     platform: 'Android & iOS',
-    official_source: 'https://parivahan.gov.in/',
+    official_source: 'https://play.google.com/store/apps/details?id=com.nic.mparivahan',
+    play_store_url: 'https://play.google.com/store/apps/details?id=com.nic.mparivahan',
     website: 'https://parivahan.gov.in/',
     description: 'Official app for vehicle and driver documentation.'
   },
@@ -756,7 +1633,8 @@ export const VERIFIED_APPS = [
     purpose: 'Carry digital Aadhaar on phone, lock/unlock biometrics, generate Virtual ID, and update address',
     department: 'Unique Identification Authority of India (UIDAI)',
     platform: 'Android & iOS',
-    official_source: 'https://uidai.gov.in/',
+    official_source: 'https://play.google.com/store/apps/details?id=in.gov.uidai.pehchaan',
+    play_store_url: 'https://play.google.com/store/apps/details?id=in.gov.uidai.pehchaan',
     website: 'https://uidai.gov.in/',
     description: 'Official Aadhaar application from UIDAI.'
   },
@@ -765,7 +1643,8 @@ export const VERIFIED_APPS = [
     purpose: 'Photo-based civic grievance reporting for potholes, garbage dumps, and streetlights to local municipalities',
     department: 'Ministry of Housing and Urban Affairs (MoHUA)',
     platform: 'Android & iOS',
-    official_source: 'https://sbmurban.org/',
+    official_source: 'https://play.google.com/store/apps/details?id=com.ichangemycity.swachhbharat',
+    play_store_url: 'https://play.google.com/store/apps/details?id=com.ichangemycity.swachhbharat',
     website: 'https://sbmurban.org/',
     description: 'Geo-tagged civic problem solver for urban residents.'
   }
@@ -778,5 +1657,5 @@ export const VERIFIED_DIGITAL_DOCUMENTS = [
   { document: 'Class 10 & 12 Marksheets', issuer: 'CBSE, CISCE, and State Secondary Education Boards', format: 'Legally authentic digitally signed marksheets from 1975 onwards', portal: 'https://www.digilocker.gov.in/', fee: '100% Free of Cost (Rs. 0)' },
   { document: 'PAN Verification Record', issuer: 'Income Tax Department', format: 'Authentic digital PAN verification record', portal: 'https://www.digilocker.gov.in/', fee: 'Free on DigiLocker (Physical Card: ₹107)' },
   { document: 'Vehicle Insurance Policy', issuer: 'Insurance Information Bureau (IIB) & General Insurers', format: 'Valid electronic motor insurance certificate', portal: 'https://www.digilocker.gov.in/', fee: '100% Free on DigiLocker (Rs. 0)' },
-  { document: 'COVID-19 Vaccination Certificate', issuer: 'Ministry of Health & Family Welfare (MoHFW)', format: 'WHO-compliant verifiable vaccination pass', portal: 'https://cowin.gov.in/ & DigiLocker', fee: '100% Free of Cost (Rs. 0)' }
+  { document: 'COVID-19 Vaccination Certificate', issuer: 'Ministry of Health & Family Welfare (MoHFW)', format: 'WHO-compliant verifiable vaccination pass', portal: 'https://www.cowin.gov.in/ & DigiLocker', fee: '100% Free of Cost (Rs. 0)' }
 ];

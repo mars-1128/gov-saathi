@@ -25,6 +25,19 @@ export interface ServiceDocument {
   description?: string;
 }
 
+export interface SubService {
+  id: string;
+  title: string;
+  description: string;
+  methods?: string[];
+  offline_option?: string;
+  documents_required?: string[];
+  fee?: string;
+  important_notes?: string;
+  step_summary?: string[];
+  action_url?: string;
+}
+
 export interface GovernmentService {
   id: string;
   name: string;
@@ -43,6 +56,7 @@ export interface GovernmentService {
   application_mode: ApplicationMode;
   official_website: string;
   official_app?: string;
+  official_app_url?: string;
   official_helpline?: string;
   official_email?: string;
   official_source: string;
@@ -50,6 +64,7 @@ export interface GovernmentService {
   verification_status: VerificationStatus;
   last_verified_at: string;
   keywords?: string[];
+  sub_services?: SubService[];
   steps?: ServiceStep[];
   documents?: ServiceDocument[];
   requirements?: string[];
@@ -57,6 +72,18 @@ export interface GovernmentService {
   preparation?: string[];
   tracking_url?: string;
   faqs?: { question: string; answer: string }[];
+}
+
+export interface SearchResultResponse {
+  success: boolean;
+  query: string;
+  normalized_query: string;
+  top_service: GovernmentService | null;
+  matched_sub_service: SubService | null;
+  matched_services: GovernmentService[];
+  total_matches: number;
+  suggested_queries: string[];
+  popular_services: GovernmentService[];
 }
 
 export interface GovernmentScheme {
@@ -80,6 +107,7 @@ export interface GovernmentApp {
   platform: string;
   official_source: string;
   website: string;
+  play_store_url?: string;
   description: string;
 }
 

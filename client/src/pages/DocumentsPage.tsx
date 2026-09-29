@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { FileText, ExternalLink, ShieldCheck, Download, CheckCircle2, RefreshCw } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
+import { FileText, ExternalLink, ShieldCheck, Download, CheckCircle2, RefreshCw, Search } from 'lucide-react';
 import { getDigitalDocuments } from '../lib/api';
 import { DigitalDocument } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 
 export const DocumentsPage: React.FC = () => {
   const { t } = useLanguage();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [documents, setDocuments] = useState<DigitalDocument[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || searchParams.get('q') || '');
 
   useEffect(() => {
     getDigitalDocuments()
       .then(setDocuments)
       .finally(() => setLoading(false));
   }, []);
+
+  const filteredDocuments = documents.filter((doc) => {
+    if (!searchTerm.trim()) return true;
+    const term = searchTerm.toLowerCase().trim();
+    return (
+      doc.document.toLowerCase().includes(term) ||
+      doc.issuer.toLowerCase().includes(term) ||
+      doc.format.toLowerCase().includes(term) ||
+      (term.includes('aadhaar') && doc.document.toLowerCase().includes('aadhaar')) ||
+      (term.includes('aadhar') && doc.document.toLowerCase().includes('aadhaar'))
+    );
+  });
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
@@ -96,18 +111,38 @@ export const DocumentsPage: React.FC = () => {
 
       {/* Supported Documents Table / Grid */}
       <div className="space-y-4">
-        <h3 className="font-bold text-lg text-[#1B365D] dark:text-white">
-          Verified Supported Documents & Issuers
-        </h3>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <h3 className="font-bold text-lg text-[#1B365D] dark:text-white">
+            Verified Supported Documents & Issuers
+          </h3>
+          <div className="relative w-full sm:w-72">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setSearchParams(e.target.value ? { search: e.target.value } : {});
+              }}
+              placeholder="Search Aadhaar, PAN, Marksheets..."
+              className="w-full pl-9 pr-4 py-2 rounded-xl text-xs border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-white focus:outline-none focus:border-blue-500 shadow-2xs"
+            />
+          </div>
+        </div>
 
         {loading ? (
           <div className="p-12 text-center">
             <RefreshCw className="w-8 h-8 text-[#1B365D] animate-spin mx-auto mb-2" />
             <p className="text-xs text-slate-500">Loading document catalog...</p>
           </div>
+        ) : filteredDocuments.length === 0 ? (
+          <div className="p-12 text-center rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">No documents matched "{searchTerm}"</p>
+            <p className="text-xs text-slate-400 mt-1">Try searching for Aadhaar, Driving Licence, or Marksheet.</p>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {documents.map((doc, idx) => (
+            {filteredDocuments.map((doc, idx) => (
               <div
                 key={idx}
                 className="gov-service-card p-5 flex flex-col justify-between"
