@@ -223,13 +223,14 @@ export async function fetchApps() {
   return VERIFIED_APPS;
 }
 
-// Fetch digital documents (DigiLocker supported)
 export async function fetchDigitalDocuments() {
   const supabase = getSupabase();
   if (supabase) {
     try {
       const { data, error } = await supabase.from('digital_document_services').select('*');
-      if (!error && data && data.length > 0) return data;
+      if (!error && data && data.length > 0 && data.some(d => d.document || d.fee)) {
+        return data;
+      }
     } catch (e) {
       console.warn('[Supabase] Fetch digital documents fallback:', e.message);
     }

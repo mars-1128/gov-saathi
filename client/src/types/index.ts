@@ -88,6 +88,7 @@ export interface DigitalDocument {
   issuer: string;
   format: string;
   portal: string;
+  fee?: string;
 }
 
 export interface AISaathiServiceRecommendation {

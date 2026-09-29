@@ -130,16 +130,22 @@ export const DocumentsPage: React.FC = () => {
                   <p className="text-xs text-[#333333] dark:text-slate-400 mt-2 font-normal">
                     {doc.format}
                   </p>
+
+                  {doc.fee && (
+                    <div className="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-[11px] font-semibold text-emerald-800 dark:text-emerald-300 border border-emerald-200/70 dark:border-emerald-900/60">
+                      <span>💰 {doc.fee}</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <a
-                    href="https://www.digilocker.gov.in/"
+                    href={doc.portal?.startsWith('http') ? doc.portal.split(' ')[0] : "https://www.digilocker.gov.in/"}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs font-semibold text-[#1B365D] dark:text-blue-400 hover:underline flex items-center gap-1"
                   >
-                    <span>Download on DigiLocker</span>
+                    <span>{doc.portal && !doc.portal.includes('digilocker') ? 'Access Portal' : 'Download on DigiLocker'}</span>
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>

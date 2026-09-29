@@ -35,7 +35,7 @@ export const VERIFIED_SERVICES = [
     simple_description: 'Report broken roads, potholes, garbage dumps, overflowing drains, or dead animals directly to your local municipality with photo GPS proof.',
     description: 'Swachhata is the official civic grievance platform launched by MoHUA mapped to thousands of Indian municipal corporations and municipalities. Citizens can upload a geo-tagged photo of road damage, garbage, or streetlights. Local municipal sanitary inspectors/engineers are assigned with mandated resolution timeframes and must post resolution photos.',
     eligibility: 'Any resident in an urban municipal corporation, municipality, or town council area in India.',
-    fee: '100% Free of Cost',
+    fee: '100% Free of Cost (Rs. 0 - Zero fee for New Registration, Corrections, & EPIC PVC Delivery)',
     processing_information: 'Assigned within 12-48 hours. Photo resolution evidence provided by civic staff.',
     application_mode: 'MOBILE_APP',
     official_website: 'https://sbmurban.org/',
@@ -231,7 +231,7 @@ export const VERIFIED_SERVICES = [
     simple_description: 'Apply for fresh Indian passport, renewal, address change, or emergency Tatkaal appointment.',
     description: 'Official portal of Ministry of External Affairs for passport applications across 500+ Passport Seva Kendras (PSK) and Post Office Passport Seva Kendras (POPSK). Covers ordinary passports, official/diplomatic passports, Tatkaal expedited processing, and Police Clearance Certificates (PCC).',
     eligibility: 'Indian citizens by birth, descent, registration, or naturalization.',
-    fee: 'Normal (36 pages): Rs. 1,500; Tatkaal (36 pages): Rs. 3,500',
+    fee: 'Normal (36 pages): Rs. 1,500 | 60 pages: Rs. 2,000; Tatkaal: Rs. 3,500 (36 pages) / Rs. 4,000 (60 pages); Police Clearance (PCC): Rs. 500',
     processing_information: 'Appointment booked online. Biometric verification at PSK. Police verification followed by Speed Post delivery.',
     application_mode: 'HYBRID',
     official_website: 'https://www.passportindia.gov.in/',
@@ -270,7 +270,7 @@ export const VERIFIED_SERVICES = [
     simple_description: 'Download e-Aadhaar PDF, change residential address online, order durable plastic PVC card, and lock biometrics.',
     description: 'Official self-service portal provided by UIDAI. Allows citizens to download password-protected digitally signed e-Aadhaar, change address with valid supporting documents, order waterproof pocket-sized PVC Aadhaar cards, lock/unlock biometrics, and verify Aadhaar linkage.',
     eligibility: 'All residents of India who possess an enrolled Aadhaar number or 28-digit Enrolment ID.',
-    fee: 'e-Aadhaar Download: Free; Address Update Online: Rs. 50; PVC Card Delivery: Rs. 50',
+    fee: 'Demographic Update (Address/Name): Rs. 75; Biometric Update: Rs. 125; PVC Card: Rs. 50; e-Aadhaar Download: Free (Rs. 0)',
     processing_information: 'Download is instant with OTP. Address update requests verified within 3-15 working days.',
     application_mode: 'ONLINE',
     official_website: 'https://myaadhaar.uidai.gov.in/',
@@ -285,7 +285,7 @@ export const VERIFIED_SERVICES = [
     steps: [
       { step_number: 1, title: 'Login with Aadhaar & Mobile OTP', description: 'Open https://myaadhaar.uidai.gov.in. Click "Login", enter your 12-digit Aadhaar number and captcha, and authenticate via SMS OTP.', action_url: 'https://myaadhaar.uidai.gov.in/', estimated_time: '2 mins' },
       { step_number: 2, title: 'Select Service (Download / Address / PVC)', description: 'Select "Download Aadhaar" for instant password-protected PDF (Password is first 4 letters of name in CAPITAL + year of birth YYYY), or select "Address Update".', action_url: null, estimated_time: '1 min' },
-      { step_number: 3, title: 'Download or Complete Order', description: 'For PVC card, pay Rs. 50 fee via UPI/card. Speed Post tracking number will be provided upon dispatch.', action_url: null, estimated_time: '2 mins' }
+      { step_number: 3, title: 'Verify Proof & Make Secure Payment', description: 'Upload valid proof document if updating address. Pay the official government fee (Rs. 75 for demographic update / Rs. 50 for PVC card) via UPI or card. Download the URN acknowledgement receipt.', action_url: null, estimated_time: '2 mins' }
     ],
     documents: [
       { document_name: 'Aadhaar Number or Enrolment ID', is_mandatory: true, description: 'With mobile linked for OTP' },
@@ -307,7 +307,7 @@ export const VERIFIED_SERVICES = [
     simple_description: 'Apply for Learner Licence online, book driving test slot for permanent DL, renew licence, and update address.',
     description: 'National unified road transport service portal developed by NIC for MoRTH. Citizens in most states can take the computerized Learner Licence road-safety knowledge test from home via Aadhaar e-KYC without visiting the RTO. Book slots for permanent DL driving track tests and order smart cards.',
     eligibility: '18+ years for gear vehicle / motor car; 16+ years for gearless 2-wheeler up to 50cc with guardian consent.',
-    fee: 'State specific (approx. Rs. 200 for LL application + test fee; Rs. 200-500 for permanent DL slot + smart card fee)',
+    fee: 'Learner Licence (LL): Rs. 200; Permanent DL: Rs. 700 (Test Rs. 300 + Issue Rs. 200 + Smart Card Rs. 200); DL Renewal: Rs. 200',
     processing_information: 'LL generated online upon passing test. Permanent DL issued after passing RTO driving test.',
     application_mode: 'HYBRID',
     official_website: 'https://sarathi.parivahan.gov.in/',
@@ -532,7 +532,7 @@ export const VERIFIED_SERVICES = [
     simple_description: 'Apply for a laminated physical PVC PAN card (Form 49A), change name/address/photo, reprint lost cards, or link PAN with Aadhaar.',
     description: 'Official portal for issuance of physical plastic PAN cards managed by authorized processing agencies Protean eGov Technologies (formerly NSDL) and UTI Infrastructure Technology And Services Ltd (UTIITSL). Offers paperless Aadhaar e-KYC or physical document submission for new PAN, reprints of lost or damaged cards, name/father name changes, and photograph/signature updates.',
     eligibility: 'All Indian citizens, minors, NRIs, companies, and trusts requiring a permanent financial identification number.',
-    fee: 'Rs. 107 (Physical card delivered in India); Rs. 1,017 (Foreign dispatch); Rs. 50 (Reprint only)',
+    fee: 'Physical PAN Card (in India): Rs. 107; Foreign Dispatch: Rs. 1,017; Physical Reprint: Rs. 50; e-PAN Download: Rs. 8.26 (Free within 30 days)',
     processing_information: 'Printed and dispatched via India Post Speed Post within 10 to 15 working days following verification.',
     application_mode: 'ONLINE',
     official_website: 'https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html',
@@ -619,7 +619,7 @@ export const VERIFIED_SERVICES = [
     simple_description: 'Apply for family Ration Card, add family members, check NFSA food grain quota, and avail ration portability anywhere in India.',
     description: 'National Food Security Act (NFSA) portal and state Food & Civil Supplies online systems (RCMS). Under the landmark "One Nation One Ration Card" (ONORC) initiative, migrant workers and eligible families can collect their entitled subsidized wheat, rice, and coarse grains from any of the 5.4 lakh Fair Price Shops (FPS) across India using biometric Aadhaar authentication.',
     eligibility: 'Households categorized under Antyodaya Anna Yojana (AAY) or Priority Household (PHH) based on state income criteria.',
-    fee: 'Free of Cost or nominal state fee (Rs. 5 - Rs. 45 depending on card category)',
+    fee: 'Free of Cost (Central NFSA PMGKAY) or nominal state fee (Rs. 5 - Rs. 50 depending on state)',
     processing_information: 'Online application followed by verification by local Food Inspector / Tahsildar within 15 to 30 days.',
     application_mode: 'HYBRID',
     official_website: 'https://nfsa.gov.in/',
@@ -772,11 +772,11 @@ export const VERIFIED_APPS = [
 ];
 
 export const VERIFIED_DIGITAL_DOCUMENTS = [
-  { document: 'Aadhaar Card', issuer: 'UIDAI', format: 'Digitally signed PDF with verifiable QR code', portal: 'https://myaadhaar.uidai.gov.in/ & DigiLocker' },
-  { document: 'Driving Licence (DL)', issuer: 'Ministry of Road Transport & Highways (MoRTH)', format: 'Digital Smart Card format on DigiLocker / mParivahan', portal: 'https://sarathi.parivahan.gov.in/' },
-  { document: 'Vehicle Registration Certificate (RC)', issuer: 'MoRTH / State Transport Depts', format: 'Verified Digital RC accepted by Traffic Police', portal: 'https://parivahan.gov.in/' },
-  { document: 'Class 10 & 12 Marksheets', issuer: 'CBSE, CISCE, and State Secondary Education Boards', format: 'Legally authentic digitally signed marksheets from 1975 onwards', portal: 'https://www.digilocker.gov.in/' },
-  { document: 'PAN Verification Record', issuer: 'Income Tax Department', format: 'Authentic digital PAN verification record', portal: 'https://www.digilocker.gov.in/' },
-  { document: 'Vehicle Insurance Policy', issuer: 'Insurance Information Bureau (IIB) & General Insurers', format: 'Valid electronic motor insurance certificate', portal: 'https://www.digilocker.gov.in/' },
-  { document: 'COVID-19 Vaccination Certificate', issuer: 'Ministry of Health & Family Welfare (MoHFW)', format: 'WHO-compliant verifiable vaccination pass', portal: 'https://cowin.gov.in/ & DigiLocker' }
+  { document: 'Aadhaar Card', issuer: 'UIDAI', format: 'Digitally signed PDF with verifiable QR code', portal: 'https://myaadhaar.uidai.gov.in/ & DigiLocker', fee: 'Free on DigiLocker (Center update: ₹75 demographic / ₹125 biometric)' },
+  { document: 'Driving Licence (DL)', issuer: 'Ministry of Road Transport & Highways (MoRTH)', format: 'Digital Smart Card format on DigiLocker / mParivahan', portal: 'https://sarathi.parivahan.gov.in/', fee: 'Free on DigiLocker (RTO Smart Card: ₹700)' },
+  { document: 'Vehicle Registration Certificate (RC)', issuer: 'MoRTH / State Transport Depts', format: 'Verified Digital RC accepted by Traffic Police', portal: 'https://parivahan.gov.in/', fee: '100% Free on DigiLocker (Rs. 0)' },
+  { document: 'Class 10 & 12 Marksheets', issuer: 'CBSE, CISCE, and State Secondary Education Boards', format: 'Legally authentic digitally signed marksheets from 1975 onwards', portal: 'https://www.digilocker.gov.in/', fee: '100% Free of Cost (Rs. 0)' },
+  { document: 'PAN Verification Record', issuer: 'Income Tax Department', format: 'Authentic digital PAN verification record', portal: 'https://www.digilocker.gov.in/', fee: 'Free on DigiLocker (Physical Card: ₹107)' },
+  { document: 'Vehicle Insurance Policy', issuer: 'Insurance Information Bureau (IIB) & General Insurers', format: 'Valid electronic motor insurance certificate', portal: 'https://www.digilocker.gov.in/', fee: '100% Free on DigiLocker (Rs. 0)' },
+  { document: 'COVID-19 Vaccination Certificate', issuer: 'Ministry of Health & Family Welfare (MoHFW)', format: 'WHO-compliant verifiable vaccination pass', portal: 'https://cowin.gov.in/ & DigiLocker', fee: '100% Free of Cost (Rs. 0)' }
 ];
